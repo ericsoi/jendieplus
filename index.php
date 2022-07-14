@@ -5,171 +5,54 @@
 	session_start();
 	include "dashboard/db/connect_db.php";
 ?>
-<!DOCTYPE html>
-<!--[if IE 9]><html class="ie ie9"><![endif]-->
-<html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Get your motor Insurance delivered to your Email or Whatsapp in minutes.">
-	<meta name="author" content="JendiePlus Technologies">
-	<title>JendiePlus : Smart INSURANCE Mkononi</title>
-
-	<!-- Favicons-->
-	<link rel="shortcut icon" href="img/icon.png" type="image/x-icon">
-	<link rel="apple-touch-icon" type="image/x-icon" href="img/icon.png">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/icon.png">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/icon.png">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/icon.png">
-
-	<!-- GOOGLE WEB FONT -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Satisfy" rel="stylesheet">
-
-	<!-- BASE CSS -->
-	<link href="css/animate.min.css" rel="stylesheet">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	<link href="css/responsive.css" rel="stylesheet">
-	<link href="css/menu.css" rel="stylesheet">
-	<link href="css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
-
-    <!-- SPECIFIC CSS -->
-    <link href="layerslider/css/layerslider.css" rel="stylesheet">
-
-	<!-- YOUR CUSTOM CSS -->
-	<link href="css/custom.css" rel="stylesheet">
-
-	<!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-      <script src="js/respond.min.js"></script>
-    <![endif]-->
-	<script>
-		function showHint(str) {
-			if (str.length == 0) {
-				document.getElementById("txtHint").innerHTML = "";
-				return;
-			} else {
-				var xmlhttp = new XMLHttpRequest();
-				xmlhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-						document.getElementById("txtHint").innerHTML = this.responseText;
-						var underwriterlist = document.getElementById("underwriterlist");
-						var childs = underwriterlist.childNodes
-						let array = []
-						
-						console.log(array);
-						if(this.responseText == "" || this.responseText == "no suggestion"){
-							document.getElementById('underwriterlistseen').style.display = 'block';
-						}else{
-						let inputSerch = this.responseText.replace(/ /g,'').split(",")
-							document.getElementById('underwriterlistseen').style.display = 'none';
-							for (i = 0; i < childs.length; i++) {
-								// console.log(childs[i].id);
-								if(childs[i].id){
-									array.push(childs[i].id)
-									if(inputSerch.indexOf(childs[i].id) !== -1){
-										document.getElementById(childs[i].id).style.display = 'block';
-									}else{
-										document.getElementById(childs[i].id).style.display = 'none';
-									}
+<script>
+	function showHint(str) {
+		if (str.length == 0) {
+			document.getElementById("txtHint").innerHTML = "";
+			return;
+		} else {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("txtHint").innerHTML = this.responseText;
+					var underwriterlist = document.getElementById("underwriterlist");
+					var childs = underwriterlist.childNodes
+					let array = []
+					
+					console.log(array);
+					if(this.responseText == "" || this.responseText == "no suggestion"){
+						document.getElementById('underwriterlistseen').style.display = 'block';
+					}else{
+					let inputSerch = this.responseText.replace(/ /g,'').split(",")
+						document.getElementById('underwriterlistseen').style.display = 'none';
+						for (i = 0; i < childs.length; i++) {
+							// console.log(childs[i].id);
+							if(childs[i].id){
+								array.push(childs[i].id)
+								if(inputSerch.indexOf(childs[i].id) !== -1){
+									document.getElementById(childs[i].id).style.display = 'block';
+								}else{
+									document.getElementById(childs[i].id).style.display = 'none';
 								}
-								
 							}
-				
+							
 						}
-												
+			
 					}
+											
 				}
-				xmlhttp.open("GET", "results.php?q="+str, true);
-				xmlhttp.send();
 			}
+			xmlhttp.open("GET", "results.php?q="+str, true);
+			xmlhttp.send();
 		}
-		
-	</script>
-	<?php
-   		
-	?>
+	}
+	
+</script>
 
-</head>
 
-<body>
-
-	<!--[if lte IE 8]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
-    <![endif]-->
-
-	<div class="layer"></div>
-	<!-- Mobile menu overlay mask -->
-
-	<!-- Header================================================== -->
-	<div id="header_1" class="layer_slider">
-		<header>
-			<div id="top_line">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-12">
-							<a href="tel:+254723775289" id="phone_top">+254 723 775 289, +254 722 301 062</a>
-						</div>
-						<div class="col-md-6 col-sm-6 hidden-xs">
-									<ul id="top_links">
-								
-					<ul>
-						<li><a href="#"><i class="icon-facebook"></i></a>
-						</li>
-						<li><a href="#"><i class="icon-twitter"></i></a>
-						</li>
-						<li><a href="#"><i class="icon-instagram"></i></a>
-						</li>
-					</ul>
-				
-								
-							</ul>
-						</div>
-					</div>
-					<!-- End row -->
-				</div>
-				<!-- End container-->
-			</div>
-			<!-- End top line-->
-
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-3 col-xs-3">
-						<div id="logo_home">
-							<h1><a href="index.php" title="JendiePlus">JendiePlus</a></h1>
-						</div>
-					</div>
-					<nav class="col-md-9 col-sm-9 col-xs-9">
-						<ul id="tools_top">
-							<li><a href="#" class="search-overlay-menu-btn"><i class="icon-search-6"></i></a>
-							</li>
-						</ul>
-						<a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
-						<div class="main-menu">
-							<div id="header_menu">
-								<img src="../assets/img/favicon.png" alt="JendiePlus" data-retina="true">
-							</div>
-							<a href="#" class="open_close" id="close_in"><i class="icon_set_1_icon-77"></i></a>
-							<ul>
-								<li><a href="index.php">Home</a></li>
-								
-								<li><a href="about.html">About us</a></li>
-								<li><a href="services.html">Services</a></li>
-								<li><a href="contact.html">Contact us</a></li>
-								<li><a href="dashboard/build/pages/sign-in.php">Login/Register</a></li>
-								
-							</ul>
-						</div>
-						<!-- End main-menu -->
-					</nav>
-				</div>
-			</div>
-			<!-- container -->
-		</header>
-		<!-- End Header -->
-	</div>
+	<?php include "nav/header.php";?>
+	
 	<!-- End Header 1-->
 
 	<!-- Slider -->
@@ -412,74 +295,7 @@
 	</section>
 	<!-- End section -->
 
-	<footer>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3 col-sm-3">
-					<h3>Need help?</h3>
-					<a href="tel:+254722301062+254723775289" id="phone">+254723775289,  +254722301062</a>
-					<a href="mailto:info@jendieplus.co.ke" id="email_footer">info@jendieplus.co.ke</a>
-				</div>
-				<div class="col-md-2 col-sm-3">
-					<h3>Quick Links</h3>
-					<ul>
-						<li><a href="about.html">About us</a>
-						</li>
-						<li><a href="faq.html">FAQ</a>
-						</li>
-						<li><a href="login.php">Login</a>
-						</li>
-						
-					</ul>
-				</div>
-				
-				<div class="col-md-7 col-sm-12">
-					<h3>Newsletter</h3>
-					<div id="message-newsletter_2">
-					</div>
-					<form method="post" action="assets/newsletter.php" name="newsletter_2" id="newsletter_2">
-						<div class="form-group">
-							<input name="email_newsletter_2" id="email_newsletter_2" type="email" value="" placeholder="Your email" class="form-control">
-						</div>
-						<input type="submit" value="Subscribe" class="btn_1" id="submit-newsletter_2">
-					</form>
-				</div>
-			</div>
-			<!-- End row -->
-			<hr>
-			<div class="row">
-				<div class="col-sm-8">
-					
-				<span id="copy"><?php echo $footer;?></span>
-				</div>
-				<div class="col-sm-4" id="social_footer">
-					<ul>
-						<li><a href="#"><i class="icon-facebook"></i></a>
-						</li>
-						<li><a href="#"><i class="icon-twitter"></i></a>
-						</li>
-						<li><a href="#"><i class="icon-instagram"></i></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!-- End row -->
-		</div>
-	</footer>
-	<!-- End footer -->
-
-	<div id="toTop"></div>
-	<!-- Back to top button -->
-
-	<!-- Search Menu -->
-	<div class="search-overlay-menu">
-		<span class="search-overlay-close"><i class="icon_close"></i></span>
-		<form role="search" id="searchform" method="get">
-			<input value="" name="q" type="search" placeholder="Search..." />
-			<button type="submit"><i class="icon-search-6"></i>
-			</button>
-		</form>
-	</div>
+	<?php include "nav/footer.php"?>;
 	<!-- End Search Menu -->
 
 	<!-- COMMON SCRIPTS -->
