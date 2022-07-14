@@ -14,7 +14,7 @@
 		header("refresh:0;url=./index.php");
 	}else{
 		include "dashboard/db/connect_db.php";
-		$registration=$_SESSION['client_details']['vehicle_reg'];$make=$_SESSION['client_details']['vehicle_make'];$yom=$_SESSION['client_details']['yom'];
+		// $registration=$_SESSION['client_details']['vehicle_reg'];$make=$_SESSION['client_details']['vehicle_make'];$yom=$_SESSION['client_details']['yom'];
 	}
   ?>
 <!DOCTYPE html>
@@ -169,7 +169,7 @@
 											<h3>Particulars</h3></div>
 							<div class="form-group">
 								<label>Registration</label>
-								<input type="text" class="form-control" name="registration" value="<?php echo $registration?>" id = "registration" placeholder="enter vehicle registration number" onchange="validate_registration()">
+								<input type="text" class="form-control" name="registration" id = "registration" placeholder="enter vehicle registration number" onchange="validate_registration()">
 							</div>
 							<div class="form-group">
 								<label>Chasis/Frame</label>
@@ -177,7 +177,7 @@
 							</div>
 							<div class="form-group">
 								<label>Make</label>
-								<input type="text" class="form-control" name="make" value="<?php echo $make?>" required placeholder="Make">
+								<input type="text" class="form-control" name="make" required placeholder="Make">
 							</div>
 							<div class="form-group">
 								<label>Model</label>
@@ -197,7 +197,7 @@
 							</div>
 							<div class="form-group">
 								<label>Man Year</label>
-								<select name="man_year" value="<?php echo $yom?>" class="form-control py-1"> <?php for ($i = date('Y'); $i >= 1900; $i--){echo "<option>$i</option>"; }?></select>
+								<select name="man_year" class="form-control py-1"> <?php for ($i = date('Y'); $i >= 1900; $i--){echo "<option>$i</option>"; }?></select>
 							</div>
 							<div class="form-group">
 								<label>Rating</label>

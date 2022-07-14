@@ -282,6 +282,8 @@
                       $img=$row["path"];
                       $img="assets/".$img;
                       $id=$row["ID"];
+                      $name=$row["Name"];
+                      $description=$row["description"]
                       ?>
                       
                       
@@ -293,9 +295,9 @@
                       </div>
                       <div class="flex-auto px-1 pt-6 ">
                         <a href="javascript:; ">
-                          <h5>Modern</h5>
+                          <h5><?php echo $name ?></h5>
                         </a>
-                        <p class="mb-6 leading-normal text-size-sm ">As Uber works through a huge amount of internal management turmoil.</p>
+                        <p class="mb-6 leading-normal text-size-sm "><?php echo $description?></p>
                         
                       </div>
                     </div>
