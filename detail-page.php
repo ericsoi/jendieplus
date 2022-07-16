@@ -2,6 +2,23 @@
 	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 	}
+	function vehicleClass($str){
+		$no=explode(".", $str)[0];
+		$vclass=explode(".", $str)[1];
+		switch ($no){
+			case $no <=3:
+				return "Motorcycle " . $vclass;
+				break;
+			case $no >3&& $no <=5:
+				return "Tricycle ".$vclass;
+				break;
+			case $no >5:
+				return "Motorvehicle ".$vclass;
+				break;
+			default:
+				return "";
+		}
+	}
     if(isset($_GET)){
         $copy = $_GET;
         foreach ($copy as $key => $value) {
@@ -62,13 +79,16 @@ function t2($val, $min, $max) {
 
 $select = $pdo->prepare("SELECT * FROM tbl_product where product_code = '$productcode'");
 $select->execute();
+$product=False;$tonnage=0; $suinsured=0; $passengers=0;
 if($select->rowCount()>0){
 	
 	while($row = $select->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
-		
+		// print_r($row);
 		if ($row["product_code"]==$row["uniqueidentifier"] ){
 			if(strlen($row[$copy["coverperiod"]])>1){
+				$product=True;$tonnage=0;$passangers=0;$saminsured=0;
+				// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 				$_SESSION['product'] = $row;
 				$_SESSION['basicpremium']=$row[$copy["coverperiod"]]?$row[$copy["coverperiod"]]:0;
 				$coverperiod=$_GET["coverperiod"];
@@ -76,13 +96,12 @@ if($select->rowCount()>0){
 				grossCalculater();
 			}else{
 				$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
-
 			}
-
 		}else{
 			if(isset($copy['tonnage'])){
-				
 				if(getRange($copy['tonnage'],$row['mintonnage'],$row['maxtonnage']) && strlen($row[$copy["coverperiod"]])>1){
+					$product=True;$tonnage=$copy['tonnage'];$passangers=0;$saminsured=0;
+					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= $copy['tonnage']; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 					$_SESSION['product'] = $row;
 					$_SESSION['basicpremium']=$row[$copy["coverperiod"]]?$row[$copy["coverperiod"]]:0;
 					$coverperiod=$_GET["coverperiod"];
@@ -94,6 +113,9 @@ if($select->rowCount()>0){
 			}
 			if(isset($copy["passangers"])){
 				if(strlen($row[$copy["coverperiod"]])>1){
+					$product=True;$tonnage=0;$passangers=$copy["passangers"];$saminsured=0;
+
+					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= $copy["passangers"];
 					$_SESSION['product'] = $row;
 					$_SESSION['basicpremium']=$row[$copy["coverperiod"]]?$row[$copy["coverperiod"]]:0;
 					$coverperiod=$_GET["coverperiod"];
@@ -101,13 +123,16 @@ if($select->rowCount()>0){
 					grossCalculater();
 				}else{
 					$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;					
-				}
+				}	
 			}
 			if($row["coverage"] == "Comprehensive"){
 				$age=date("Y")-$copy["yom"];
 				echo getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"]);
 				if(getRange($age, $row["minage"], $row["maxage"]) && getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"])){
 					$_SESSION['product'] = $row;
+					$product=True;$tonnage=0;$passangers=0;$saminsured=$copy['sum_insured'];
+					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
+					$suinsured=$copy['sum_insured'];
 					$premium=$copy['sum_insured']*($row[$copy["coverperiod"]]/100);
 					if($premium<=$row["minimumpremium"]){
 						$_SESSION['basicpremium']=$row["minimumpremium"];
@@ -127,6 +152,41 @@ if($select->rowCount()>0){
 	$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
 }
 include "nav/journeyheader.php";
+if($product){
+	// print_r($_SESSION);
+	$details="";$name= $_SESSION['client_details']['name_contact']; $phone=$_SESSION['client_details']['phone_number']; $email=$_SESSION['client_details']['email']; $vehicle_reg=$_SESSION['client_details']['vehicle_reg']; $vehicle_class=vehicleClass($_SESSION['client_details']['vehicleclass']); $coverage=$_SESSION['product']['coverage']; $period=$_SESSION['client_details']['coverperiod']; $underwriter=$_SESSION['underwriter']['Name']; $quatation_date=date("D M d/m/Y"); $premium=$_SESSION['grosspremium']; $agency=$_SESSION['product']['owner']; $agent=$_SESSION['client_details']['referal_code'];$saminsured=$_SESSION['client_details']['coverperiod'];
+	$select = $pdo->prepare("SELECT * FROM tbl_product where product_code = '$productcode'");
+	$select->execute();
+	if($select->rowCount()>0){
+		 $update = $pdo->prepare("UPDATE tbl_quote SET name='$name', phone='$phone', email='$email', vehicle_reg='$vehicle_reg', vehicle_class='$vehicle_class', coverage='$coverage', period='$period', underwriter='$underwriter', quatation_date='$quatation_date', premium='$premium', agency='$agency', agent='$agent', saminsured='$saminsured', tonnage='$tonnage', passengers='$passengers', details='$details' WHERE vehicle_reg='$vehicle_reg'");
+		 if($update->execute()){
+			echo "<script> console.log('added')</script>";
+		  }
+	} else{
+		$insert = $pdo->prepare("INSERT INTO tbl_quote(name,phone,email,vehicle_reg,vehicle_class,coverage,period,underwriter,quatation_date,premium,agency,agent,saminsured,tonnage,passengers,details) VALUES(:name,:phone,:email,:vehicle_reg,:vehicle_class,:coverage,:period,:underwriter,:quatation_date,:premium,:agency,:agent,:saminsured,:tonnage,:passengers,:details)");
+		$insert->bindParam(':name',$name);
+		$insert->bindParam(':phone',$phone);
+		$insert->bindParam(':email',$email);
+		$insert->bindParam(':vehicle_reg',$vehicle_reg);
+		$insert->bindParam(':vehicle_class',$vehicle_class);
+		$insert->bindParam(':coverage',$coverage);
+		$insert->bindParam(':period',$period);
+		$insert->bindParam(':underwriter',$underwriter);
+		$insert->bindParam(':quatation_date',$quatation_date);
+		$insert->bindParam(':premium',$premium);
+		$insert->bindParam(':agency',$agency);
+		$insert->bindParam(':agent',$agent);
+		$insert->bindParam(':saminsured',$saminsured);
+		$insert->bindParam(':tonnage',$tonnage);	
+		$insert->bindParam(':passengers',$passengers);
+		$insert->bindParam(':details',$details);
+	
+		if($insert->execute()){
+		  echo "<script> console.log('added')</script>";
+		}
+	}
+
+}
 ?>
 
 	<!-- End Header 1-->
@@ -173,7 +233,7 @@ include "nav/journeyheader.php";
 									<div class="">
 										
 										<div class="feature-box-info">
-											<h5><?php echo $_SESSION["product"]["vehicleclass"];?></h5>
+											<h5><?php echo vehicleClass($_SESSION["product"]["vehicleclass"]);?></h5>
 											<p><?php echo $coverage;?></p>
 										</div>
 									</div>

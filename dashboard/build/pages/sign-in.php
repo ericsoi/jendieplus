@@ -27,7 +27,8 @@
                 <!-- Navbar -->
                 <nav class="absolute top-0 left-0 right-0 z-30 flex flex-wrap items-center px-4 py-2 mx-6 my-4 shadow-soft-2xl rounded-blur bg-white/80 backdrop-blur-2xl backdrop-saturate-200 lg:flex-nowrap lg:justify-start">
                     <div class="flex items-center justify-between w-full p-0 pl-6 mx-auto flex-wrap-inherit">
-                        <button navbar-trigger class="px-3 py-1 ml-2 leading-none transition-all bg-transparent border border-transparent border-solid rounded-lg shadow-none cursor-pointer text-size-lg ease-soft-in-out lg:hidden" type="button" aria-controls="navigation" aria-expanded="false"
+                    <a class="py-2.375 text-size-sm mr-4 ml-4 whitespace-nowrap font-bold text-slate-700 lg:ml-0" href="../../../../bimaplus/index.php"> Home </a>
+                    <button navbar-trigger class="px-3 py-1 ml-2 leading-none transition-all bg-transparent border border-transparent border-solid rounded-lg shadow-none cursor-pointer text-size-lg ease-soft-in-out lg:hidden" type="button" aria-controls="navigation" aria-expanded="false"
                             aria-label="Toggle navigation">
                 <span class="inline-block mt-2 align-middle bg-center bg-no-repeat bg-cover w-6-em h-6-em bg-none">
                   <span bar1 class="w-5.5 rounded-xs relative my-0 mx-auto block h-px bg-gray-600 transition-all duration-300"></span>
@@ -43,11 +44,7 @@
                                         <i class="mr-1 fas fa-user-circle opacity-60"></i> Sign Up
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="block px-4 py-2 mr-2 font-normal transition-all lg-max:opacity-0 duration-250 ease-soft-in-out text-size-sm text-slate-700 lg:px-2" href="../pages/sign-in.php">
-                                        <i class="mr-1 fas fa-key opacity-60"></i> Sign In
-                                    </a>
-                                </li>
+                                
                             </ul>
                             <!-- online builder btn  -->
                             <!-- <li class="flex items-center">
@@ -77,11 +74,11 @@
                             <div class="relative flex flex-col min-w-0 mt-32 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border">
                                 <div class="p-6 pb-0 mb-0 bg-transparent border-b-0 rounded-t-2xl">
                                     <h3 class="relative z-10 font-bold text-transparent bg-gradient-cyan bg-clip-text">Welcome back</h3>
-                                    <p class="mb-0">Enter your email/phone and password to sign in</p>
+                                    <p class="mb-0">Enter your phone and password to sign in</p>
                                 </div>
                                 <div class="flex-auto p-6">
                                     <form role="form" action="../../processor/handle_login.php" method="POST">
-                                        <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Email</label>
+                                        <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Phone</label>
                                         <div class="mb-4">
                                             <input type="text" id="username", name="username", class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
                                                 placeholder="Email" aria-label="Email" aria-describedby="email-addon" required />
