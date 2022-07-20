@@ -81,7 +81,7 @@ $select = $pdo->prepare("SELECT * FROM tbl_product where product_code = '$produc
 $select->execute();
 $product=False;$tonnage=0; $suinsured=0; $passengers=0;
 if($select->rowCount()>0){
-	
+
 	while($row = $select->fetch(PDO::FETCH_ASSOC)){
 		extract($row);
 		// print_r($row);
@@ -94,12 +94,14 @@ if($select->rowCount()>0){
 				$coverperiod=$_GET["coverperiod"];
 				include_once "premiumcalcuator.php";
 				grossCalculater();
+				break;
 			}else{
 				$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
 			}
 		}else{
 			if(isset($copy['tonnage'])){
 				if(getRange($copy['tonnage'],$row['mintonnage'],$row['maxtonnage']) && strlen($row[$copy["coverperiod"]])>1){
+					
 					$product=True;$tonnage=$copy['tonnage'];$passangers=0;$saminsured=0;
 					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= $copy['tonnage']; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 					$_SESSION['product'] = $row;
@@ -107,6 +109,7 @@ if($select->rowCount()>0){
 					$coverperiod=$_GET["coverperiod"];
 					include_once "premiumcalcuator.php";
 					grossCalculater();
+					break;
 				}else{
 					$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
 				}
@@ -121,6 +124,7 @@ if($select->rowCount()>0){
 					$coverperiod=$_GET["coverperiod"];
 					include_once "premiumcalcuator.php";
 					grossCalculater();
+					break;
 				}else{
 					$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;					
 				}	
@@ -128,8 +132,12 @@ if($select->rowCount()>0){
 			if($row["coverage"] == "Comprehensive"){
 				$age=date("Y")-$copy["yom"];
 				echo getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"]);
+			
+				echo "<br>".$row["minage"];
+				echo  getRange($age, $row["minage"], $row["maxage"]);
 				if(getRange($age, $row["minage"], $row["maxage"]) && getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"])){
 					$_SESSION['product'] = $row;
+					// print_r($row);
 					$product=True;$tonnage=0;$passangers=0;$saminsured=$copy['sum_insured'];
 					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 					$suinsured=$copy['sum_insured'];
@@ -142,6 +150,7 @@ if($select->rowCount()>0){
 					$coverperiod=$_GET["coverperiod"];
 					include_once "premiumcalcuator.php";
 					grossCalculater();
+					break;
 				}else{
 					$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
 				}
@@ -308,7 +317,6 @@ if($product){
 					<!-- End tabs -->
 				</div>
 				<!-- End Col -->
-
 				<aside class="col-md-4">
 					<div class="box_style_1">
 						<div class="price">

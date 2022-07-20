@@ -509,8 +509,16 @@ $pdf->writeHTML($html, true, false, true, false, '');
     // IMAP Port: 993 POP3 Port: 995
     // Outgoing Server:	mail.jendieplus.co.ke
     // SMTP Port: 465
+    // Username:	underwriting@iplus.co.ke
+    // Password:	8^znOPgtC&41
+    // Incoming Server:	host67.registrar-servers.com
+    // IMAP Port: 993 POP3 Port: 995
+    // Outgoing Server:	host67.registrar-servers.com
+    // SMTP Port: 465
+    // IMAP, POP3, and SMTP require authentication.
 
-$fromemail="underwriting@jendieplus.co.ke";
+
+$fromemail="underwriting@iplus.co.ke";
 $frompassword="8^znOPgtC&41";
 #$toemail=$_SESSION["underweiter_email"];
 $toemail = "knyaga@iplus.co.ke";
@@ -542,7 +550,7 @@ try {
     //Server settings
     //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = "mail.jendieplus.co.ke";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
+    $mail->Host = "host67.registrar-servers.com";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
     $mail->Username = $fromemail;              // SMTP username
     $mail->Password = $frompassword;                           // SMTP password

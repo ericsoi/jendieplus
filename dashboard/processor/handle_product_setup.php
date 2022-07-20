@@ -33,6 +33,8 @@
     $uniqueidentifier = $unique; $vehicleclass = $_POST["vehicleclass"]; $underwriter = $linksArray["underwriter"]; $coverage = $_POST["coverage"]; $description = $_POST["description"]; $policylimits = $_POST["policy"]; $mintonnage = $_POST["mintonnage"]; $maxtonnage = $_POST["maxtonnage"]; $weeklyrates = $_POST["weeklyrates"]; $fortnightrates = $_POST["fortnightrates"]; $passangers = $_POST["passangers"]; $monthlyrates = $_POST["monthlyrates"]; $annualrates = $_POST["annualrates"]; $excludedvehicles = $_POST["excludedvehicles"]; $minimumpremium = $_POST["minimumpremium"]; $maxage = $_POST["maxage"]; $minage = $_POST["minage"]; $maxsum = $_POST["maxsum"]; $minsum = $_POST["minsum"];$owner=$_SESSION["agency"];
     $select = $pdo->prepare("SELECT uniqueidentifier FROM tbl_product WHERE uniqueidentifier='$uniqueidentifier'");
     $select->execute();
+    echo "mintonnage". $mintonnage;
+    echo "maxtonnage". $maxtonnage;
     if($select->rowCount() > 0 ){
         print_r("ERROR");
         header("Location: ../build/pages/productsetup.php?q=duplicate");

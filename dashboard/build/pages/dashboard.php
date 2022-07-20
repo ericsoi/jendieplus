@@ -9,8 +9,13 @@
         $user=selectuser("SELECT * FROM tbl_user WHERE phonenumber='$phone'");
         if($user){
             $user_info=$user;
-            if($user_info->role == "agency" && $user_info->is_active==1){
+            if($user_info->role == "admin" && $user_info->is_active==1){
                 $_SESSION["agency"]=$user_info->agency;
+                echo "AAAAAAAAA";
+                include "nav/headeragency.php";
+            }elseif($user_info->role == "agency" && $user_info->is_active==1){
+                $_SESSION["agency"]=$user_info->agency;
+                echo "DDDDDD";
                 include "nav/headeragency.php";
             }elseif($user_info->role == "sub-agent" && $user_info->is_active==1){
                 $_SESSION["sub-agent"]=$user_info->subagent;

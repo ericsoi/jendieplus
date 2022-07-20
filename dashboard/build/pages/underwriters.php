@@ -13,8 +13,9 @@
             if($underwriters){
               $underwriter=$underwriters;
               $keys=array_keys($underwriter);
-            }
-            if($user_info->role == "agency" && $user_info->is_active==1){
+            }if($user_info->role == "admin" && $user_info->is_active==1){
+                include "nav/headeradmin.php";
+            }elseif($user_info->role == "agency" && $user_info->is_active==1){
                 include "nav/headeragency.php";
             }elseif($user_info->role == "sub-agent" && $user_info->is_active==1){
                 include "nav/headersubagent.php";

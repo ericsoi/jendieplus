@@ -220,17 +220,23 @@
 		var text=x.options[x.selectedIndex].text;
 		console.log(text);
 		if ((text == "7. commercial Own goods")||(text == "8. General Cartage Lorries,Trucks and Tankers")) {
+			console.log("TONNAGE");
 			document.getElementById("tonnage").innerHTML ='\
 			<label>Enter Tonnage</label>\
 			<input type="text" class="form-control styled text-center" id="tonnage" name="tonnage" placeholder="Tonnage" required>';
 			document.getElementById("passangers").innerHTML = "";
+			document.getElementById("coveroptional").innerHTML ='';
+
+
+			// document.getElementById("coveroptional").innerHTML ='<select name="coverperiod" id="coverperiod" class="form-control py-1">\
+			// 	<option>1 year</option>\
+			// </select>';
 		}else{
 				document.getElementById("tonnage").innerHTML ="";
 		}
 		if ((text == "15. PSV - Matatu") || (text == "17. PSV - BUS") || (text == "7. commercial Own goods") || (text == "8. General Cartage Lorries,Trucks and Tankers")){
 			if ((text == "7. commercial Own goods") || (text == "8. General Cartage Lorries,Trucks and Tankers")){
 				document.getElementById("coveroptional").innerHTML ='<select name="coverperiod" id="coverperiod" class="form-control py-1">\
-				<option>1 month</option>\
 				<option>1 year</option>\
 			</select>';
 			}else{

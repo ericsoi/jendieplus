@@ -15,7 +15,15 @@
             // $keys=[];
             // $key=[];
             // $agents=[];
-            if($user_info->role == "agency" && $user_info->is_active==1){
+
+            if($user_info->role == "admin" && $user_info->is_active==1){
+                $agents=selectunderwriter("SELECT * FROM tbl_user ORDER BY time_created DESC");
+                if($agents){
+                    $agent=$agents;
+                    $keys=array_keys($agent);
+                }
+                include "nav/headeragency.php";
+            }elseif($user_info->role == "agency" && $user_info->is_active==1){
                 $agents=selectunderwriter("SELECT * FROM tbl_user WHERE  agency='$agency' ORDER BY time_created DESC");
                 if($agents){
                     $agent=$agents;

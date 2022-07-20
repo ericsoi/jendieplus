@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Get your motor Insurance delivered to your Email or Whatsapp in minutes.">
 	<meta name="author" content="Webworks Africa Limited">
-	<title>BimaPlus :: Bima Smart Mkononi</title>
+	<title>JendiePlus :: Smart INSURANCE Mkononi</title>
 
 	<!-- Favicons-->
 	<link rel="shortcut icon" href="../img/icon.png" type="image/x-icon">
@@ -38,7 +38,7 @@
 	<link href="../css/date_time_picker.css" rel="stylesheet">
 	<link href="../css/timeline.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	<title>IPOS | Log in</title>
+	<title>JendiePlus | Log in</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<!-- Bootstrap 3.3.7 -->

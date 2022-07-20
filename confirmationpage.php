@@ -194,7 +194,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label>Premium Applicable</label>
 										<input type="text" class="form-control styled" id="d" value="<?php echo ""?>" name="e" placeholder="Full Name">
 									</div>
@@ -205,7 +205,7 @@
 									<div class="form-group">
 										<label>Premium Applicable</label>
 										<input type="text" class="form-control styled" id="ddd"  value="<?php echo ""?>" name="eee" placeholder="Full Name">
-									</div>
+									</div> -->
 									<p>
 										<input type="submit" value="Submit" class="btn_1" id="submit-contact">
 									</p>

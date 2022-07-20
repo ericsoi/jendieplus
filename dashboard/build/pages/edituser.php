@@ -39,9 +39,9 @@ switch($role){
       $update->bindParam(':is_active', $is_active);
       if($update->rowCount() > 0){
         echo'<script>alert("Failure")</script>';
-        header ("Location: agents.php");
+        header ("Location: users.php");
       }elseif($update->execute()){
         echo'<script>alert("Success")</script>';
-        header ("Location: agents.php");
+        header ("Location: users.php");
       }
 ?>

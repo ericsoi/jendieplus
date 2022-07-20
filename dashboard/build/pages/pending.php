@@ -269,7 +269,6 @@
                                         </div>
                                     </a>
                                 </li>
-
                                 <li class="relative mb-2">
                                     <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 duration-300 lg:transition-colors" href="javascript:;">
                                         <div class="flex py-1">
@@ -558,7 +557,7 @@
             <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border ">
               <div class="p-4 pb-0 mb-0 bg-white rounded-t-2xl ">
                 <h6 class="mb-1 ">Partner Insurance Companies</h6>
-                <p class="leading-normal text-size-sm ">Motor Isurance Underwriters</p>
+                <p class="leading-normal text-size-sm ">Motor Insurance Underwriters</p>
               </div>
               <div class="flex-auto p-4 ">
                 <div class="flex flex-wrap -mx-3 ">
