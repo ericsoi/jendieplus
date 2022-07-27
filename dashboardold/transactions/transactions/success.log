@@ -1,0 +1,52 @@
+{"Result":{"ResultType":0,"ResultCode":0,"ResultDesc":"The service request is processed successfully.","OriginatorConversationID":"13786-3312531-1","ConversationID":"AG_20201117_0000657aead86c59fe7c","TransactionID":"OKH0000000","ResultParameters":{"ResultParameter":[{"Key":"AccountBalance","Value":"Working Account|KES|0.00|0.00|0.00|0.00&Utility Account|KES|313.00|313.00|0.00|0.00&Charges Paid Account|KES|0.00|0.00|0.00|0.00&Organization Settlement Account|KES|0.00|0.00|0.00|0.00"},{"Key":"BOCompletedTime","Value":20201117141732}]},"ReferenceData":{"ReferenceItem":{"Key":"QueueTimeoutURL","Value":"https:\/\/internalapi.safaricom.co.ke\/mpesa\/abresults\/v1\/submit"}}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Result":{"ResultType":0,"ResultCode":0,"ResultDesc":"The service request is processed successfully.","OriginatorConversationID":"13799-3509322-1","ConversationID":"AG_20201117_000076de159b0ff2d17d","TransactionID":"OKH0000000","ResultParameters":{"ResultParameter":[{"Key":"AccountBalance","Value":"Working Account|KES|0.00|0.00|0.00|0.00&Utility Account|KES|313.00|313.00|0.00|0.00&Charges Paid Account|KES|0.00|0.00|0.00|0.00&Organization Settlement Account|KES|0.00|0.00|0.00|0.00"},{"Key":"BOCompletedTime","Value":20201117155651}]},"ReferenceData":{"ReferenceItem":{"Key":"QueueTimeoutURL","Value":"https:\/\/internalapi.safaricom.co.ke\/mpesa\/abresults\/v1\/submit"}}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Result":{"ResultType":0,"ResultCode":2029,"ResultDesc":"Failed due to an unresolved reason type.","OriginatorConversationID":"21626-12972336-1","ConversationID":"AG_20201117_00005582b70a220809a2","TransactionID":"OKH0000000","ReferenceData":{"ReferenceItem":[{"Key":"QueueTimeoutURL","Value":"http:\/\/internalapi.safaricom.co.ke\/mpesa\/b2bresults\/v1\/submit"},{"Key":"Occassion"}]}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Result":{"ResultType":0,"ResultCode":2029,"ResultDesc":"Failed due to an unresolved reason type.","OriginatorConversationID":"21614-12974329-1","ConversationID":"AG_20201117_000044a0ac1abfd257ce","TransactionID":"OKH0000000","ReferenceData":{"ReferenceItem":[{"Key":"QueueTimeoutURL","Value":"http:\/\/internalapi.safaricom.co.ke\/mpesa\/b2bresults\/v1\/submit"},{"Key":"Occassion"}]}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21609-13410532-1","CheckoutRequestID":"ws_CO_17112020174603100956","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21630-13448302-1","CheckoutRequestID":"ws_CO_17112020175243836039","ResultCode":1031,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21607-13450518-1","CheckoutRequestID":"ws_CO_17112020175349193491","ResultCode":1031,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21602-13456504-1","CheckoutRequestID":"ws_CO_17112020175407157782","ResultCode":1031,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21613-13472405-1","CheckoutRequestID":"ws_CO_17112020180005991422","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":5.00},{"Name":"MpesaReceiptNumber","Value":"OKH6LNUVV0"},{"Name":"TransactionDate","Value":20201117175741},{"Name":"PhoneNumber","Value":254722301062}]}}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{
+            "TransactionType": "Pay Bill",
+            "TransID": "OKH6LNUVV0",
+            "TransTime": "20201117175740",
+            "TransAmount": "5.00",
+            "BusinessShortCode": "7290377",
+            "BillRefNumber": "pay",
+            "InvoiceNumber": "",
+            "OrgAccountBalance": "318.00",
+            "ThirdPartyTransID": "",
+            "MSISDN": "254722301062",
+            "FirstName": "KENNEDY",
+            "MiddleName": "OTIENO",
+            "LastName": "NYAGA"
+        }
+        
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"13790-4015937-1","CheckoutRequestID":"ws_CO_17112020175817940620","ResultCode":1037,"ResultDesc":"DS timeout."}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21617-13974275-1","CheckoutRequestID":"ws_CO_17112020191719942054","ResultCode":1031,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"21627-13988168-1","CheckoutRequestID":"ws_CO_17112020191923058827","ResultCode":1031,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Result":{"ResultType":0,"ResultCode":0,"ResultDesc":"The service request is processed successfully.","OriginatorConversationID":"401-7588709-1","ConversationID":"AG_20201123_000040efb1f2c49f44ec","TransactionID":"OKN0000000","ResultParameters":{"ResultParameter":[{"Key":"AccountBalance","Value":"Working Account|KES|0.00|0.00|0.00|0.00&Utility Account|KES|318.00|318.00|0.00|0.00&Charges Paid Account|KES|0.00|0.00|0.00|0.00&Organization Settlement Account|KES|0.00|0.00|0.00|0.00"},{"Key":"BOCompletedTime","Value":20201123113443}]},"ReferenceData":{"ReferenceItem":{"Key":"QueueTimeoutURL","Value":"https:\/\/internalapi.safaricom.co.ke\/mpesa\/abresults\/v1\/submit"}}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Result":{"ResultType":0,"ResultCode":0,"ResultDesc":"The service request is processed successfully.","OriginatorConversationID":"4241-7725427-1","ConversationID":"AG_20201123_000053dceec42bd7ac8e","TransactionID":"OKN0000000","ResultParameters":{"ResultParameter":[{"Key":"AccountBalance","Value":"Working Account|KES|5000.00|5000.00|0.00|0.00&Utility Account|KES|0.00|0.00|0.00|0.00&Charges Paid Account|KES|0.00|0.00|0.00|0.00"},{"Key":"BOCompletedTime","Value":20201123114057}]},"ReferenceData":{"ReferenceItem":{"Key":"QueueTimeoutURL","Value":"https:\/\/internalapi.safaricom.co.ke\/mpesa\/abresults\/v1\/submit"}}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"4244-7765320-1","CheckoutRequestID":"ws_CO_23112020120530072643","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"28981-8009169-1","CheckoutRequestID":"ws_CO_23112020153057961337","ResultCode":1037,"ResultDesc":"DS timeout."}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{
+            "TransactionType": "Pay Bill",
+            "TransID": "OKN4SFS7BU",
+            "TransTime": "20201123153356",
+            "TransAmount": "5.00",
+            "BusinessShortCode": "7290377",
+            "BillRefNumber": "pay",
+            "InvoiceNumber": "",
+            "OrgAccountBalance": "323.00",
+            "ThirdPartyTransID": "",
+            "MSISDN": "254722301062",
+            "FirstName": "KENNEDY",
+            "MiddleName": "OTIENO",
+            "LastName": "NYAGA"
+        }
+        
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"12237-28267856-1","CheckoutRequestID":"ws_CO_23112020153642783593","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":5.00},{"Name":"MpesaReceiptNumber","Value":"OKN4SFS7BU"},{"Name":"TransactionDate","Value":20201123153356},{"Name":"PhoneNumber","Value":254722301062}]}}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"4235-8616147-1","CheckoutRequestID":"ws_CO_23112020195038098771","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}{"Body":{"stkCallback":{"MerchantRequestID":"12221-29007476-1","CheckoutRequestID":"ws_CO_23112020225046060765","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction"}}}
+{"ResultCode":0,"ResultDesc":"Confirmation recieved successfu"}

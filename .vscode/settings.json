@@ -1,0 +1,27 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "kenyaom.c256zd31qebg.us-east-1.rds.amazonaws.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Invent",
+            "database": "uganda",
+            "username": "Barak",
+            "password": "mD#9vFCX7nen"
+        },
+        {
+            "previewLimit": 50,
+            "server": "redshift-cluster-1.c23y2nbde10g.eu-west-1.redshift.amazonaws.com",
+            "port": 5439,
+            "driver": "Redshift Driver (Dedicated ver)",
+            "name": "erick_test",
+            "database": "ghana1",
+            "username": "awsuser",
+            "password": "123456789Ab"
+        }
+    ]
+}

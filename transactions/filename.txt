@@ -1,0 +1,88 @@
+Array
+(
+    [underwriter] => AIG Kenya Insurance Company Limited
+    [description] => Small description about the Insurance company goes here.
+    [name_contact] => Erick Soi
+    [email] => ericksoi3709@gmail.com
+    [phone_number] => 0712962787
+    [vehicle_class] => 1. Private
+    [reg_number] => kbb 258k
+    [vehicle_make] => 5000
+    [sum_insured] => 5000
+    [yom] => 2021
+    [cover] => COMPREHENSIVE
+    [PCF] => 60
+    [ITL] => 75
+    [stamp_duty] => 40
+    [ANNUAL_RATES] => 30000
+    [PRODUCT_NAME] => Bimaplus(MOTORINSURANCE)
+    [RISK_COVERED] => Comercial Own goods
+    [UNDERWRITER] => AIG Kenya Insurance Company Limited
+    [COVERAGE] => Comprehensive
+    [CONDITIONS_AND_WARRANTIES] => TBA
+    [OPTIONAL_ADDITIONAL_BENEFITS] => Excess Protector
+    [PRODUCT_IDENTIFIER] => W0UIkZ6bZT
+    [YEAR_ACCEPTED] => 2005
+    [TONNAGE] => NA
+    [POLICY_BENEFITS] => 
+    [VEHICLE_TYPE] => MOTORVEHICLE
+    [gross_premium] => 30175
+    [files] => Array
+        (
+            [clientFiles] => Array
+                (
+                    [name] => Array
+                        (
+                            [0] => CORPORATE.jfif
+                            [1] => ID Front.jpg
+                            [2] => CORPORATE.jfif
+                        )
+
+                    [type] => Array
+                        (
+                            [0] => image/jpeg
+                            [1] => image/jpeg
+                            [2] => image/jpeg
+                        )
+
+                    [tmp_name] => Array
+                        (
+                            [0] => /opt/lampp/temp/phpAdf2rI
+                            [1] => /opt/lampp/temp/phpDTbR4o
+                            [2] => /opt/lampp/temp/phpIQ7Tx6
+                        )
+
+                    [error] => Array
+                        (
+                            [0] => 0
+                            [1] => 0
+                            [2] => 0
+                        )
+
+                    [size] => Array
+                        (
+                            [0] => 4154
+                            [1] => 73592
+                            [2] => 4154
+                        )
+
+                )
+
+        )
+
+    [logbook_file] => client_files/logbooks/9999/logbook-_-0CORPORATE.jfif
+    [id_file] => client_files/logbooks/9999/idnumber-_-1ID Front.jpg
+    [kra_file] => client_files/logbooks/9999/kra-_-2CORPORATE.jfif
+    [registration] => 222
+    [make] => 222
+    [color] => 222
+    [engine_number] => 222
+    [chasis] => 222
+    [passengers] => 444
+    [fuel] => 222
+    [man_year] => 222
+    [kra_number] => 99999
+    [id_number] => 9999
+    [policy_date] => 0099-09-09
+    [underweiter_email] => knyaga@iplus.co.ke
+)
