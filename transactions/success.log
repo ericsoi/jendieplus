@@ -242,3 +242,12 @@ END OF TRANSACTION
 {"Body":{"stkCallback":{"MerchantRequestID":"7755-39553512-1","CheckoutRequestID":"ws_CO_24072022095534421722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"8774-45540733-1","CheckoutRequestID":"ws_CO_26072022201344687722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"4606-47483878-1","CheckoutRequestID":"ws_CO_26072022202039916712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"43415-58355074-1","CheckoutRequestID":"ws_CO_30072022125726153722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"1313-66939670-1","CheckoutRequestID":"ws_CO_30072022125809751722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"9278-22896483-1","CheckoutRequestID":"ws_CO_30072022125851991722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"61139-103642940-1","CheckoutRequestID":"ws_CO_30072022125939819723775289","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"36230-60323038-1","CheckoutRequestID":"ws_CO_30072022130021122722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"7760-54918305-1","CheckoutRequestID":"ws_CO_30072022130102634722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"1278-66950971-1","CheckoutRequestID":"ws_CO_30072022130235206722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"7773-54930472-1","CheckoutRequestID":"ws_CO_30072022130615310722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"15288-52172883-1","CheckoutRequestID":"ws_CO_30072022130648349722301062","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction."}}}
