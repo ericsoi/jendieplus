@@ -1,7 +1,6 @@
 <?php
 
     $url = "http://41.84.131.13:8007/api/public/login";
-
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_POST, true);
@@ -14,16 +13,17 @@
     $data = '{"username": "APIUSER", "password": "test"}';
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-    // for debug only!
-    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($curl, CURLOPT_HEADER, false);
+    // // for debug only!
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_HEADER, true);
     $resp = curl_exec($curl);
-    // echo $resp;
-    $resp= json_decode($resp);
-    $token=$resp->token;
-    // echo $token;
-    curl_close($curl);
+    echo $resp;
+    // // echo $resp;
+    // $resp= json_decode($resp);
+    // $token=$resp->token;
+    // // echo $token;
+    // curl_close($curl);
     // var_dump($resp);
 
 ?>
