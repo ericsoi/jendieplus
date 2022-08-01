@@ -13,18 +13,9 @@
     $data = '{"username": "APIUSER", "password": "test"}';
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-    // // for debug only!
-    // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-    // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($curl, CURLOPT_HEADER, true);
+    curl_setopt($curl, CURLOPT_HEADER, false);
     $resp = curl_exec($curl);
-    echo $resp;
-    // // echo $resp;
-    // $resp= json_decode($resp);
-    // $token=$resp->token;
-    // // echo $token;
-    // curl_close($curl);
-    // var_dump($resp);
-
+    $resp= json_decode($resp);
+    $token=$resp->token;
 ?>
 
