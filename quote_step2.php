@@ -47,14 +47,14 @@
 
 							<div class="row">
 								<div class="col-md-10">
-									
+									<!-- <?php print_r($_SESSION["client_details"]);?> -->
 									<form method="post" action="confirmationpage.php" autocomplete="off" enctype="multipart/form-data">
 						
 										<div class="center">
 											<h3>Particulars</h3></div>
 							<div class="form-group">
 								<label>Registration</label>
-								<input type="text" class="form-control" name="registration" id = "registration" placeholder="enter vehicle registration number" onchange="validate_registration()">
+								<input type="text" class="form-control" name="registration" id = "registration" value="<?php echo $_SESSION["client_details"]["vehicle_reg"]?>" placeholder="enter vehicle registration number" onchange="validate_registration()" readonly>
 							</div>
 							<div class="form-group">
 								<label>Chasis/Frame</label>
@@ -169,10 +169,21 @@
 
 						</div>
 						<div class="form-group">
+						<label>Logbook Number</label>
+							<input type="text" class="form-control" name="logbook_number" required placeholder="Logbook Number">
+
+						</div>
+						<div class="form-group">
+						<label>Physical Address</label>
+							<input type="text" class="form-control" name="physical_address" required placeholder="Enter Physical Addres">
+
+						</div>
+						<div class="form-group">
 						<label>ID Number</label>
 							<input type="text" class="form-control" name="id_number" required placeholder="ID Number">
 
 						</div>
+						
 						<div class="form-group">
 						<label>Upload ID </label>
 							<input type="file" class="form-control" name="clientFiles[]" required placeholder="Upload ID Copy">
@@ -267,5 +278,4 @@
 	</script>
 <?php include "chat/chat.php"?>	
 </body>
-
 </html>

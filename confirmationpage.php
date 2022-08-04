@@ -114,6 +114,10 @@
 										<input type="text" class="form-control styled" id="emailaddress" value="<?php echo $_SESSION['client_details']['email']?>" name="emailaddress"  placeholder="Full Name">
 									</div>
 									<div class="form-group">
+										<label>Postal Address</label>
+										<input type="text" class="form-control styled" id="postaladdress" placeholder="Enter Postal Address" name="postaladdress" required>
+									</div>
+									<div class="form-group">
 										<label>Occupation</label>
 										<input type="text" class="form-control styled" id="occupation" placeholder="Enter Occupation" name="occupation" required>
 									</div>
@@ -148,6 +152,10 @@
 										<label>Tax class</label>
 										<input type="text" class="form-control styled" id="taxclass" value="<?php echo $_SESSION['logbook']['tax_class']?>" name="taxclass" placeholder="Full Name">
 									</div>
+									<div class="form-group">
+										<label>Postal Code</label>
+										<input type="text" class="form-control styled" id="postal_code" placeholder="Enter Postal Code" name="postal_code" required>
+									</div>
 								</div>
 								<div class="col-md-4 col-sm-4">
 									<label><b>Payment</b></label>
@@ -158,19 +166,19 @@
 									<label>Payment Options</label>
 									<div class="input-group input-group-default mb-3">
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="option1">
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="mpesa" checked>
 											<label class="form-check-label" for="inlineRadio1">Mpesa</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio2" value="option2" disabled>
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio2" value="ipf" disabled>
 											<label class="form-check-label" for="inlineRadio2">IPF</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="option3" disabled>
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="visa" disabled>
 											<label class="form-check-label" for="inlineRadio3">Visa </label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="option4" disabled>
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="cripto" disabled>
 											<label class="form-check-label" for="inlineRadio3">Cripto </label>
 										</div>
 									</div>

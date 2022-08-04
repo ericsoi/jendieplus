@@ -82,7 +82,7 @@
     );
     
     $data_string = json_encode($curl_post_data);
-    
+    echo "success";
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
@@ -98,22 +98,27 @@
     // $_SESSION["stk_callback"] = "TEST";
     $email = $_SESSION["client_details"]["email"];
     if ($success == "Success. Request accepted for processing"){
-        //$select = $pdo->prepare("SELECT * from tbl_mpesa where date >= NOW() - interval 100000 minute and MSISDN = '254112770613'");
-        sleep(30);
-        $select = $pdo->prepare("SELECT * from tbl_mpesa where PhoneNumber = '$phone' AND TransactionTime >=NOW()-interval 2 minute");
-        $select->execute();
-        $row = $select->fetch(PDO::FETCH_ASSOC);
-        if(!empty($row)){
-            $responce = $success . " " . $phone;
-            include "../mail/mail.php";
-            include "alert.php";
-            header("refresh:3;url=../index.php");
-        }else{
-            $responce = "Kindly recheck the transaction and try again";
-            include "alert.php";
-            header("refresh:3;url=../gateway.php");
-        }
+        include "../mail/mail.php";
+        // include "./underwriting/create_policy.php";
+        // print_r($_SESSION);
     }
+    // if ($success == "Success. Request accepted for processing"){
+    //     //$select = $pdo->prepare("SELECT * from tbl_mpesa where date >= NOW() - interval 100000 minute and MSISDN = '254112770613'");
+    //     sleep(30);
+    //     $select = $pdo->prepare("SELECT * from tbl_mpesa where PhoneNumber = '$phone' AND TransactionTime >=NOW()-interval 2 minute");
+    //     $select->execute();
+    //     $row = $select->fetch(PDO::FETCH_ASSOC);
+    //     if(!empty($row)){
+    //         $responce = $success . " " . $phone;
+    //         include "../mail/mail.php";
+    //         include "alert.php";
+    //         header("refresh:3;url=../index.php");
+    //     }else{
+    //         $responce = "Kindly recheck the transaction and try again";
+    //         include "alert.php";
+    //         header("refresh:3;url=../gateway.php");
+    //     }
+    // }
     // include '../mail/mail.php';
     // if ($success == "Success. Request accepted for processing"){
     //     // sleep(30);

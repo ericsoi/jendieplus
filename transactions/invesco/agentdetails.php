@@ -1,6 +1,6 @@
 <?php
     include './auth.php';
-    $url = "http://41.84.131.13:8007/api/portal/policies/policyenquiry?searchVal=0700&agentCode=0&offset=1&limit=20";
+    $url = "http://41.84.131.13:8007/api/portal/policies/dashboarddetails?agentId=0";
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -19,15 +19,17 @@
     $resp= json_decode($resp);
     // print_r($resp);
     $message=$resp->messages;
-    $obj=$resp->object->pageItems;
+    $obj=$resp->object;
     $i=0;
     while ($i < count($obj))
     {
-        print_r($obj[$i]->policyStatus);
         print_r($obj[$i]);
-
         echo "<br />";
         $i++;
     }
-
+    // $STD = $obj[0]; //[id] => 41 [prodshtdesc] => STD [proddesc] => STANDARD COVER
+    // $TPO = $obj[1]; //[id] => 86 [prodshtdesc] => TPO [proddesc] => THIRD PARTY ONLY
+    // $TPF = $obj[2]; //[id] => 87 [prodshtdesc] => TPF&T [proddesc] => THIRD PARTY FIRE AND THEFT 
+    // $COMP = $obj[3]; //[id] => 88 [prodshtdesc] => COMP [proddesc] => COMPREHENSIVE )
 ?>
+

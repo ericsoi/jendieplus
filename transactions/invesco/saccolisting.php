@@ -1,6 +1,6 @@
 <?php
     include './auth.php';
-    $url = "http://41.84.131.13:8007/api/portal/policies/policyenquiry?searchVal=0700&agentCode=0&offset=1&limit=20";
+    $url = "http://41.84.131.13:8007/api/portal/policies/saccos";
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -19,13 +19,14 @@
     $resp= json_decode($resp);
     // print_r($resp);
     $message=$resp->messages;
-    $obj=$resp->object->pageItems;
+    $obj=$resp->object;
+    // print_r($obj);
     $i=0;
     while ($i < count($obj))
     {
-        print_r($obj[$i]->policyStatus);
+        $sacco=$obj[$i];
         print_r($obj[$i]);
-
+        // print_r($obj[$i]);
         echo "<br />";
         $i++;
     }
