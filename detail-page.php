@@ -311,7 +311,7 @@ if($product){
 									<div class="">
 										
 										<div class="feature-box-info">
-											<h5><?php echo vehicleClass($_SESSION["product"]["vehicleclass"]);?></h5>
+											<h5><?php $_SESSION['class']=vehicleClass($_SESSION["product"]["vehicleclass"]); echo $_SESSION['class'];?></h5>
 											<p><?php echo $coverage;?></p>
 										</div>
 									</div>
@@ -397,7 +397,7 @@ if($product){
 						<small>*Terms and Conditions apply</small>
 					</div>
 					<div class="box_style_2">
-						<h3>Summary<span>Delivered To Your Email or Whatsapp</span></h3>
+						<h3>Summary<span>Certificate Will Be Delivered To Email or Whatsapp</span></h3>
 						<div id="message-booking"></div>
 						
 							

@@ -23,11 +23,11 @@
 					<h3>Newsletter</h3>
 					<div id="message-newsletter_2">
 					</div>
-					<form method="post" action="assets/newsletter.php" name="newsletter_2" id="newsletter_2">
+					<form method="" action="" name="" id="">
 						<div class="form-group">
-							<input name="email_newsletter_2" id="email_newsletter_2" type="email" value="" placeholder="Your email" class="form-control">
+							<input name="" id="email_newsletter_2" type="" value="" placeholder="Your email" class="form-control">
 						</div>
-						<input type="submit" value="Subscribe" class="btn_1" id="submit-newsletter_2">
+						<input  value="Subscribe" class="btn_1" id="submit-newsletter_2">
 					</form>
 				</div>
 			</div>

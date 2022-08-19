@@ -1,114 +1,68 @@
+<form action="#" method="post" enctype="multipart/form-data">
+  <input type="file" name="upcsv" accept=".csv" required/>
+  <input type="submit" value="Upload"/>
+</form>
+
+
 <?php
-    /*
-    //change Benefit to Optional Benefit
-    $basic_premium = 1000000; //from quote -> third party only/and theft and comprehensive
-    $policy_holder_compensation_fund = (0.2/100) * $basic_premium;
-    $training_levy = (0.25/100) * $basic_premium;
-    $free_limit = 30000;
-    $windscreen_value = 50000; //User Input
-    $radio_cassete = 50000; // User Input
-    $sum_insured = 1000000;// not included in third party. User Input
-    $AA_ROAD_RESQUE = 3000;//not charging training levy and policy holder compensation fund. Included in third party
-    $INFAMA_ROAD_RESQUE = 9280;//not charging training levy and policy holder compensation fund. Included in third party
-    $AMREF = 3200;//not charging training levy and policy holder compensation fund. Included in third party
-    $BIMALIFE = 500;//not charging training levy and policy holder compensation fund. Included in third party
-    $PASSENGER_LEGAL_LIABILITY = 500;//not charging training levy and policy holder compensation fund (input enter number of passangers int)
-    $EXCESS_PROTECTOR = (0.25/100) * $sum_insured;//
-    $EXCESS_PROTECTOR = (0.45/100) * $EXCESS_PROTECTOR + $EXCESS_PROTECTOR;
-    $POLITICAL_VIOLENCE_AND_TERRORISM = (0.25/100) * $sum_insured;//(PVT)
-    $POLITICAL_VIOLENCE_AND_TERRORISM = (0.45/100) * $POLITICAL_VIOLENCE_AND_TERRORISM + $POLITICAL_VIOLENCE_AND_TERRORISM;
-    $WINDSCREEN = ($windscreen_value - $free_limit)*10/100;//(input: Enter Value int(windscreen value)) Value below 0 = 0(No charge)
-    $WINDSCREEN = (0.45/100) * $WINDSCREEN + $WINDSCREEN;
-    $RADIO_CASSETE = ($radio_cassete - $free_limit)*10/100;//(input: enter Value of radio)
-    $RADIO_CASSETE = (0.45/100) * $RADIO_CASSETE + $RADIO_CASSETE;
-    $PERSONAL_ACCIDENT = 500; //Included in third party
+    include "dashboard/db/connect_db.php";
 
-    $stamp_duty = 40; //for new businesses.
-    $gross_premium = $basic_premium + $training_levy + $policy_holder_compensation_fund + $stamp_duty;//+ Optional Benefits(in caps) new businesses 
-    #echo "training levy $training_levy \n";
-    #echo "policy holder compensation fund $policy_holder_compensation_fund\n";
-    #echo  "Windscreen $WINDSCREEN\n";
-    #echo  "Radio Cassete $RADIO_CASSETE\n";
-    */
-
-include "../bimaplus/config/db.php";
-//$jsonobj = '{"Body":{"stkCallback":{"MerchantRequestID":"30457-779409-1","CheckoutRequestID":"ws_CO_16012021152911823780","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","jdatalue":5.00},{"Name":"MpesaReceiptNumber","jdatalue":"PAG0OJ3CDO"},{"Name":"TransactionDate","jdatalue":20210116153013},{"Name":"PhoneNumber","jdatalue":254722301062}]}}}}';
-/*$jsonobj = '{
-    "TransactionType": "Pay Bill",
-    "TransID": "PAG0OJ3CDO",
-    "TransTime": "20210116153012",
-    "TransAmount": "5.00",
-    "BusinessShortCode": "7290377",
-    "BillRefNumber": "pay",
-    "InvoiceNumber": "",
-    "OrgAccountBalance": "393.00",
-    "ThirdPartyTransID": "",
-    "MSISDN": "254722301062",
-    "FirstName": "KENNEDY",
-    "MiddleName": "OTIENO",
-    "LastName": "NYAGA"
-}';*/
-$jsonobj = '{"Body":{"stkCallback":{"MerchantRequestID":"13372-920220-1","CheckoutRequestID":"ws_CO_16012021155101510922","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}';
-#$jsonobj = '{"Body":{"stkCallback":{"MerchantRequestID":"30448-809288-1","CheckoutRequestID":"ws_CO_16012021154558038107","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction"}}}';
-#$jsonobj = '{"Body":{"stkCallback":{"MerchantRequestID":"30464-745261-1","CheckoutRequestID":"ws_CO_16012021151556755039","ResultCode":1031,"ResultDesc":"Request cancelled by user"}}}';
-$jsonobj = '{"Result":{"ResultType":0,"ResultCode":0,"ResultDesc":"The service request is processed successfully.","OriginatorConversationID":"24487-4109872-1","ConversationID":"AG_20210118_00005592cd9ffe8a06d3","TransactionID":"PAI3R04TKD","ResultParameters":{"ResultParameter":[{"Key":"DebitPartyCharges","Value":"Disbursement of Funds Charge|KES|0.00&Disbursement of Funds Charge by Receiver|KES|0.00"},{"Key":"CreditAccountBalance","Value":"Working Account|KES|3.00|3.00|0.00|0.00&Charges Paid Account|KES|0.00|0.00|0.00|0.00"},{"Key":"CreditPartyPublicName","Value":"503200 - AIG KENYA INSURANCE COMPANY LTD VIA NCBA"},{"Key":"DebitAccountCurrentBalance","Value":"{Amount={CurrencyCode=KES, MinimumAmount=39900, BasicAmount=399.00}}"},{"Key":"DebitPartyPublicName","Value":"7290377 - Iplus Insurance Agency Limited"},{"Key":"TransCompletedTime","Value":20210118183322}]},"ReferenceData":{"ReferenceItem":[{"Key":"QueueTimeoutURL","Value":"http:\/\/internalapi.safaricom.co.ke\/mpesa\/b2bresults\/v1\/submit"},{"Key":"Occassion"}]}}}';
-$jdata = json_decode($jsonobj, true);
-echo "<br><br><br><br><br><br><br><br>";
-//print_r($jdata);
-$TransactionID = $jdata["Result"]["TransactionID"];
-$underwriter = $jdata["Result"]["ResultParameters"]["ResultParameter"][2]["Value"];
-$from = $jdata["Result"]["ResultParameters"]["ResultParameter"][4]["Value"];
-$time = $jdata["Result"]["ResultParameters"]["ResultParameter"][5]["Value"];
-echo count($jdata);
-print_r($jdata)[0];
-
-create table b2b_mpesa_transactions (
-    id int NOT NULL AUTO_INCREMENT,
-    TransactionID varchar (255), 
-    underwriter varchar (255),
-    from varchar (255),
-    time varchar (255),
-    amount varchar (255),
-    date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id)
-)
-
-/*if (count($jdata) == 1){
-    $code = $jdata["Body"]["stkCallback"]["ResultCode"];
-    if(!$code == 0){
-        $ResultDesc = $jdata["Body"]["stkCallback"]["ResultDesc"];
-        if ($code == 1032){
-            $ResultDesc = "Payment Request timeout";
-        }
-        $sql = "INSERT INTO MpesaTransactions (Code, ResultDesc) jdataLUES ('$code', '$ResultDesc')";
-
-        if (mysqli_query($connection, $sql)) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($connection);
-        }
-    }
-    
-}elseif (count($jdata) == 13){
-    print_r($jdata);
-    $code = '0';
-    $TransID = $jdata["TransID"];
-    $TransTime = $jdata["TransTime"];
-    $TransAmount =$jdata["TransAmount"];
-    $MSISDN =$jdata["MSISDN"];
-    $FirstName = $jdata["FirstName"];
-    $MiddleName = $jdata["MiddleName"];
-    $LastName = $jdata["LastName"];
-    $ResultDesc = "The service request is processed successfully";
-    $sql = "INSERT INTO MpesaTransactions (code, TransID, TransTime, TransAmount, MSISDN, FirstName, MiddleName, LastName, ResultDesc) jdataLUES ('$code', '$TransID', '$TransTime', '$TransAmount', '$MSISDN', '$FirstName', '$MiddleName', '$LastName', '$ResultDesc')";
-
-    if (mysqli_query($connection, $sql)) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($connection);
-    }
-}
-*/
-
-//$phone = "254712962787";
-//echo 0 . substr($phone, 3);
+  echo date("02/01/2022");
+  // php function to convert csv to json format
+$fname = $_FILES["upcsv"]["tmp_name"];
+    // open csv file
+  if (!($fp = fopen($fname, 'r',))) {
+      die("Can't open file...");
+  }
+  
+  //read csv headers
+  $key = fgetcsv($fp,10000,",");
+  $key = preg_replace('/[\x00-\x1F\x80-\xFF]/', '',$key);
+  $json = array();
+  while ($row = fgetcsv($fp,10000,",")) {
+    $obj= ((object)  (array_combine($key, $row)));
+    $first_name=$obj->first_name; $middle_name=$obj->middle_name; $last_name=$obj->last_name; $id_number=$obj->id_number; $pin_number=$obj->pin_number; $phone_number=$obj->phone_number; $client_email=$obj->client_email; $gender=$obj->gender; $poastall_address=$obj->poastall_address; $policy_number=$obj->policy_number; $cover_from=date($obj->cover_from); $cover_to=date($obj->cover_to); $cert_from=date($obj->cert_from); $cert_to=date($obj->cert_to); $vehicle_reg=$obj->vehicle_reg; $chassis_number=$obj->chassis_number; $insurance_class=$obj->insurance_class; $cover_type=$obj->cover_type; $sum_insured=$obj->sum_insured; $gross_premium=$obj->gross_premium; $proof_of_payment=$obj->proof_of_payment; $method_of_payment=$obj->method_of_payment; $amount=$obj->amount; $certificate_number=$obj->certificate_number; $underwriter=$obj->underwriter; $seating_capacity=$obj->seating_capacity; $tonnage=$obj->tonnage; $optional_benefits=$obj->optional_benefits; 
+    echo $first_name;
+    echo "<br>";
+    include "dashboard/db/connect_db.php";
+    $insert = $pdo->prepare("INSERT INTO tbl_policy(first_name, middle_name, last_name, id_number, pin_number, phone_number, client_email, gender, poastall_address, policy_number, cover_from, cover_to, cert_from, cert_to, vehicle_reg, chassis_number, insurance_class, cover_type, sum_insured, gross_premium, proof_of_payment, method_of_payment, amount, certificate_number, underwriter, seating_capacity, tonnage, optional_benefits)
+      values(:first_name,:middle_name,:last_name,:id_number,:pin_number,:phone_number,:client_email,:gender,:poastall_address,:policy_number,:cover_from,:cover_to,:cert_from,:cert_to,:vehicle_reg,:chassis_number,:insurance_class,:cover_type,:sum_insured,:gross_premium,:proof_of_payment,:method_of_payment,:amount,:certificate_number,:underwriter,:seating_capacity,:tonnage,:optional_benefits)");
+      
+      $insert->bindParam(':first_name',$first_name);
+      $insert->bindParam(':middle_name',$middle_name);
+      $insert->bindParam(':last_name',$last_name);
+      $insert->bindParam(':id_number',$id_number);
+      $insert->bindParam(':pin_number',$pin_number);
+      $insert->bindParam(':phone_number',$phone_number);
+      $insert->bindParam(':client_email',$client_email);
+      $insert->bindParam(':gender',$gender);
+      $insert->bindParam(':poastall_address',$poastall_address);
+      $insert->bindParam(':policy_number',$policy_number);
+      $insert->bindParam(':cover_from',$cover_from);
+      $insert->bindParam(':cover_to',$cover_to);
+      $insert->bindParam(':cert_from',$cert_from);
+      $insert->bindParam(':cert_to',$cert_to);
+      $insert->bindParam(':vehicle_reg',$vehicle_reg);
+      $insert->bindParam(':chassis_number',$chassis_number);
+      $insert->bindParam(':insurance_class',$insurance_class);
+      $insert->bindParam(':cover_type',$cover_type);
+      $insert->bindParam(':sum_insured',$sum_insured);
+      $insert->bindParam(':gross_premium',$gross_premium);
+      $insert->bindParam(':proof_of_payment',$proof_of_payment);
+      $insert->bindParam(':method_of_payment',$method_of_payment);
+      $insert->bindParam(':amount',$amount);
+      $insert->bindParam(':certificate_number',$certificate_number);
+      $insert->bindParam(':underwriter',$underwriter);
+      $insert->bindParam(':seating_capacity',$seating_capacity);
+      $insert->bindParam(':tonnage',$tonnage);
+      $insert->bindParam(':optional_benefits',$optional_benefits);
+      
+      if($insert->execute()){
+          echo "sucess";
+      }else{
+        print_r($insert->errorInfo());
+      }
+  }
+  echo "done";
+  fclose($fp);  
+?>

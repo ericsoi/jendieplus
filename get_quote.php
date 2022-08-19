@@ -20,6 +20,13 @@
 			unset ($_SESSION['product']);
 		}
 	}
+	$select = $pdo->prepare("SELECT code FROM tbl_user");
+	$select->execute();
+	while ($codes = $select->fetch(PDO::FETCH_ASSOC)){
+		print_r($codes);
+	}
+	
+	
 
 	include "nav/journeyheader.php";
 ?>
@@ -169,11 +176,15 @@
 											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="F">
 											<label class="form-check-label" for="female">Female</label>
 										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="bisexual" value="B">
+											<label class="form-check-label" for="bisexual">Both</label>
+										</div>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
-										<label>Have an agent code?: </label>
+										<label>Enter Agent code?: </label>
 										<input type="text" class="form-control styled text-center" name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal()">
 									</div>
 								</div>

@@ -1,0 +1,5 @@
+<?php
+// $jdata='{"Body":{"stkCallback":{"MerchantRequestID":"111264-109761501-1","CheckoutRequestID":"ws_CO_04082022174554380723775289","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1.00},{"Name":"MpesaReceiptNumber","Value":"QH46NN0IYS"},{"Name":"TransactionDate","Value":20220804174608},{"Name":"PhoneNumber","Value":254723775289}]}}}}';
+// $jdata='{"Body":{"stkCallback":{"MerchantRequestID":"9177-38318685-1","CheckoutRequestID":"ws_CO_21072022234541704112770613","ResultCode":0,"ResultDesc":"The service request is processed successfully.","CallbackMetadata":{"Item":[{"Name":"Amount","Value":1.00},{"Name":"MpesaReceiptNumber","Value":"QGL8V2SRNM"},{"Name":"Balance"},{"Name":"TransactionDate","Value":20220721234557},{"Name":"PhoneNumber","Value":254112770613}]}}}}'
+$postData='{"Body":{"stkCallback":{"MerchantRequestID":"8762-68251480-1","CheckoutRequestID":"ws_CO_04082022174522155712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}'
+?>

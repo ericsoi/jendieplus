@@ -152,6 +152,24 @@
 										<input type="text" class="form-control styled" id="vehicle_make" name="vehicle_make" placeholder="Make of your vehicle" required>
 									</div>
 								</div>
+								<div class="row">
+								<div class="col-md-6 col-sm-6">
+									<div class="form-group">
+										<label>Gender</label>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="M">
+											<label class="form-check-label" for="male">Male</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="F">
+											<label class="form-check-label" for="female">Female</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="Bisexual" value="F">
+											<label class="form-check-label" for="female">Both</label>
+										</div>
+									</div>
+								</div>
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Choose Cover Period:</label>
@@ -162,7 +180,7 @@
 								</div>
 								<div class="col-md-6 col-sm-6">
 								<div class="form-group">
-									<label class="styled text-center">Have a Agent code?:</label>
+									<label class="styled text-center">Enter Agent code?:</label>
 									<input type="text" class="form-control styled text-center" name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal()">
 								</div>
 							</div>

@@ -11,7 +11,12 @@
 	}if(!isset($_SESSION["underwriter"])) { 
 		header("refresh:0;url=./index.php");
 	}
-	
+	$id_number = trim($_POST["id_number"]);
+	$docs = array();
+	$logbooks = "dashboard/client_files/logbooks/$id_number/";
+	if (!file_exists($logbooks)) {
+		mkdir($logbooks, 0755, true);
+	}
 	// else{
 	// 	include "dashboard/session.php";
 	// }
@@ -30,26 +35,22 @@
 
 		// print_r($_SESSION);
 	}
-	$id_number = trim($_POST["id_number"]);
-	$docs = array();
-	$logbooks = "dashboard/client_files/logbooks/$id_number/";
-	if (!file_exists($logbooks)) {
-		mkdir($logbooks, 0755, true);
-	}
+
 	if ( null !==  $_FILES['clientFiles']){
 		foreach($_FILES['clientFiles']['tmp_name'] as $key=>$tmp_name){
 			$file_name = $key.$_FILES['clientFiles']['name'][$key];
 			$file_tmp =$_FILES['clientFiles']['tmp_name'][$key];
+			$ext = pathinfo($file_name, PATHINFO_EXTENSION);
 			if ($key == 0){
-				$file_name = "idnumber-" . bin2hex(random_bytes(4)) . "-" . $file_name;
+				$file_name = strtolower($_SESSION["firstname"])."-idnumber.".$ext;
 				$_SESSION["client_files"]["id"] = $logbooks . $file_name;
 			}elseif($key == 1){
 				$id_file = $file_name;
-				$file_name = "kra-". bin2hex(random_bytes(4)) . "-" . $file_name;
+				$file_name = strtolower($_SESSION["firstname"])."-kra.".$ext;
 				$_SESSION["client_files"]["kra"] = $logbooks . $file_name;
 			}else{
 				$kra_file = $file_name;
-				$file_name = "logbook-" . bin2hex(random_bytes(4)) . "-" . $file_name;
+				$file_name = strtolower($_SESSION["firstname"])."-logbook.".$ext;
 				$_SESSION["client_files"]["logbook"] = $logbooks . $file_name;
 			}
 			$path = $logbooks . $file_name;
@@ -170,6 +171,10 @@
 											<label class="form-check-label" for="inlineRadio1">Mpesa</label>
 										</div>
 										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="credit">
+											<label class="form-check-label" for="inlineRadio1">Credit </label>
+										</div>
+										<!-- <div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="payments" id="inlineRadio2" value="ipf" disabled>
 											<label class="form-check-label" for="inlineRadio2">IPF</label>
 										</div>
@@ -180,7 +185,8 @@
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="cripto" disabled>
 											<label class="form-check-label" for="inlineRadio3">Cripto </label>
-										</div>
+										</div> -->
+										
 									</div>
 									
 									<div class="form-group">

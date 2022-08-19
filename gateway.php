@@ -16,6 +16,11 @@
 		}
 	}
 	include "nav/journeyheader.php";
+	// if(isset($_POST["payments"])){
+	// 	if ($_POST["payments"] == "credit"){
+	// 		echo "<script> alert('Kindly wait for your agency to process your request'); <script/>";
+	// 	}
+	// }
 ?>
 
 
@@ -67,7 +72,7 @@
 					<h2>Customer  Details</h2>
 					<h5>Confirm mobile number for m-pesa payment</h5>
 					<!-- <form action="#" method="post" autocomplete="off" > -->
-					<form action="transactions/stk.php" method="post" autocomplete="off" >
+					<form action="<?php echo ($_POST['payments'] == 'mpesa')? 'transactions/stk.php':'#';?>" method="post" autocomplete="off" >
 						<div class="input-container">
 							<i class="icon-mobile-6 icon"></i>
 							<input class="input-field" id="phone" type="text" name="phone" value='<?php echo $_SESSION["client_details"]["phone_number"]?>'>
@@ -76,6 +81,8 @@
 						<div class="input-container">
 							<i class="icon-mobile-6 icon"></i>
 							<input class="input-field" id="email" type="text" name="email" value='<?php echo $_SESSION["client_details"]["email"]?>'>
+							<input class="input-field" id="email" type="hidden" name="payments" value='<?php echo ($_POST['payments'] == 'mpesa')? 'mpesa':'credit';?>'>
+
 						</div>				
 						<div class="form-group">
 							<input type="submit" value="Make Payment" class="btn_full" onclick="myFunction()">

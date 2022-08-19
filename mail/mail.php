@@ -70,7 +70,7 @@ foreach ($optional_benefit as $key => $val){
         $benrate.=$rate."<br>";
     }
 }
-$server = "https://bimaplus.co.ke/bimaplus/";
+$server = "https://jendieplus.co.ke";
 // print_r($_SESSION);
 $TransactionID = $_SESSION["stk_callback"]["TransactionID"];
 $stk_underwriter = $_SESSION["stk_callback"]["underwriter"];
@@ -82,7 +82,7 @@ $vehicle_type = $_SESSION["logbook"]["type"];
 $underwriter = $_SESSION['underwriter']['Name'];
 $vehicle_class = $_SESSION["product"]['vehicleclass'];
 $cover = $_SESSION["product"]['coverage'];
-$insurance_class =$_SESSION["product"]["vehicleclass"];
+$insurance_class =$_SESSION["class"];
 $scheme = "JendiePlus";
 $name = $_SESSION["confirmed_items"]["firstname"]." ".$_SESSION["confirmed_items"]["lastname"];
 $pin_no = $_SESSION["confirmed_items"]["kra"];
@@ -165,6 +165,12 @@ if (isset($_SESSION["user_role"])){
     $phone1 = "+254 722 301 062";
     $email = "info@iplus.co.ke";
 }
+$company_name = $_SESSION["ahency_owner"]["companyname"];
+$box = $_SESSION["ahency_owner"]["postaladdress"];
+$phone1 = $_SESSION["ahency_owner"]["phonenumber"];
+$phone2 = $_SESSION["ahency_owner"]["phonenumber"];
+$email = $_SESSION["ahency_owner"]["emailaddress"];
+$agency_owner = $_SESSION["ahency_owner"]["firstname"] . " " . $_SESSION["ahency_owner"]["lastname"];
 //require_once('examples/tcpdf_include.php');
 
 // create new PDF document
@@ -294,7 +300,7 @@ $html = <<<EOF
 <div></div>
 <table class="first" cellpadding="4" cellspacing="18">
     <tr>
-        <td width="85" align="center"><b><img src="https://bimaplus.co.ke/img/logo.png" alt="logo" ></b></td>
+        <td width="85" align="center"><b><img src="https://jendieplus.co.ke/img/logo.png" alt="logo" ></b></td>
         <td width="230" align="center"><b></b></td>
         
         <td width="300" align="right"><b>$company_name<br>
@@ -468,7 +474,7 @@ $html = <<<EOF
 </tr>
 <tr>
     <td width="300" align="left" class="" rowspan="">
-    Prepared by Kenedy Nyaga:
+    <b> Prepared by $agency_owner</b>:
     </td>
     <td width="100" align="right" class="" rowspan="">
      Signature: 

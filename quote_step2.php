@@ -48,7 +48,7 @@
 							<div class="row">
 								<div class="col-md-10">
 									<!-- <?php print_r($_SESSION["client_details"]);?> -->
-									<form method="post" action="confirmationpage.php" autocomplete="off" enctype="multipart/form-data">
+			<form method="post" action="confirmationpage.php" autocomplete="off" enctype="multipart/form-data">
 						
 										<div class="center">
 											<h3>Particulars</h3></div>
@@ -209,9 +209,12 @@
 								<input type="submit" value="Register" class="btn_full">
 							</div>
 			</div>
+</form>
 			<!-- End row -->
 					</div>
+					
 				<!-- End Logbook-->
+
 		</div>
 		<!-- End container -->
 
@@ -224,11 +227,11 @@
 	<!-- Search Menu -->
 	<div class="search-overlay-menu">
 		<span class="search-overlay-close"><i class="icon_close"></i></span>
-		<form role="search" id="searchform" method="get">
+		<!-- <form role="search" id="searchform" method="get">
 			<input value="" name="q" type="search" placeholder="Search..." />
 			<button type="submit"><i class="icon-search-6"></i>
 			</button>
-		</form>
+		</form> -->
 	</div>
 	<!-- End Search Menu -->
 

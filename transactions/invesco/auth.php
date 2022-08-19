@@ -17,5 +17,6 @@
     $resp = curl_exec($curl);
     $resp= json_decode($resp);
     $token=$resp->token;
+    echo $token;
 ?>
 

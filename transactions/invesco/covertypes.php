@@ -1,5 +1,5 @@
 <?php
-    include './auth.php';
+    include '/var/www/jendieplus.co.ke/transactions/invesco/auth.php';
     $url = "http://41.84.131.13:8007/api/portal/policies/covertypes";
 
     $curl = curl_init($url);
@@ -17,12 +17,13 @@
     curl_setopt($curl, CURLOPT_HEADER, false);
     $resp = curl_exec($curl);
     $resp= json_decode($resp);
-    // print_r($resp);
     $message=$resp->messages;
     $obj=$resp->object;
     $STD = $obj[0]; //[id] => 41 [prodshtdesc] => STD [proddesc] => STANDARD COVER
     $TPO = $obj[1]; //[id] => 86 [prodshtdesc] => TPO [proddesc] => THIRD PARTY ONLY
     $TPF = $obj[2]; //[id] => 87 [prodshtdesc] => TPF&T [proddesc] => THIRD PARTY FIRE AND THEFT 
     $COMP = $obj[3]; //[id] => 88 [prodshtdesc] => COMP [proddesc] => COMPREHENSIVE )
+
+
 ?>
 

@@ -12,6 +12,7 @@ if(isset($_POST['btn_login'])){
 	$total_records = $select->rowCount();
 	if($total_records > 0){
 		$row=$select->fetch(PDO::FETCH_OBJ); 
+		$_SESSION["user"]=$row;
 		$_SESSION["username"]=$username;
 		$_SESSION["loggedin"]=true;
 		if($row->is_active == 0){
