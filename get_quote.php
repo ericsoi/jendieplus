@@ -167,15 +167,15 @@
 									<div class="form-group">
 										<label>Gender</label>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="male" name="gender" required>
+											<input type="radio" class="custom-control-input" id="male" name="gender" value="Male" required>
 											<label class="custom-control-label" for="male">Male</label>
 										</div>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="female" name="gender" required>
+											<input type="radio" class="custom-control-input" id="female" name="gender" value="Female" required>
 											<label class="custom-control-label" for="female">Female</label>
 										</div>
 										<div class="custom-control custom-radio mb-3">
-											<input type="radio" class="custom-control-input" id="other" name="gender" required>
+											<input type="radio" class="custom-control-input" id="other" name="gender" value="Other" required>
 											<label class="custom-control-label" for="other">Other</label>
 											<div class="invalid-feedback">Select Gender</div>
 										</div>
@@ -184,12 +184,12 @@
 								<div class="col-md-6 col-sm-6">
 								<label>Have an agent code?: </label>
 									<div class="custom-control custom-radio">
-										<input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" checked required onchange="validate_referal(this)">
-										<label class="custom-control-label" value="yes" for="customControlValidation2">Yes</label>
+										<input type="radio" class="custom-control-input" value="yes" id="yes" name="agent_code" checked required onchange="validate_referal(this)">
+										<label class="custom-control-label" for="yes">Yes</label>
 									</div>
 									<div class="custom-control custom-radio mb-3">
-										<input type="radio" class="custom-control-input" value="no" id="customControlValidation3" name="radio-stacked" required onchange="validate_referal(this)">
-										<label class="custom-control-label" for="customControlValidation3">No</label>
+										<input type="radio" class="custom-control-input" value="no" id="no" name="agent_code" required onchange="validate_referal(this)">
+										<label class="custom-control-label" for="no">No</label>
 										<div class="invalid-feedback"></div>
 									</div>
 									<div class="form-group">

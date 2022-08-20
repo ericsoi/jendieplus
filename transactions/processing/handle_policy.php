@@ -9,13 +9,14 @@ if($_SESSION["confirmed_items"]["payments"] == "credit"){
     $status=2;
 }else{
     $status=0;
+    $proof_of_payment = $_SESSION["stk_callback"]["MpesaReceiptNumber"];
 }
 $agency=$_SESSION['user']->agency;
 $subagent=$_SESSION['user']->subagent;
 $code=$_SESSION['user']->code;
 $username=$_SESSION['user']->phonenumber;
 $role=$_SESSION['user']->role;
-
+$cover_period=$_SESSION["client_details"]["coverperiod"];
 $first_name=$_SESSION["confirmed_items"]["firstname"];
 $middle_name=$_SESSION["confirmed_items"]["firstname"];
 $last_name=$_SESSION["confirmed_items"]["lastname"];
@@ -26,17 +27,20 @@ $client_email=$_SESSION["confirmed_items"]["emailaddress"];
 $gender=$_SESSION["client_details"]["inlineRadioOptions"];
 $poastall_address=$_SESSION["confirmed_items"]["postaladdress"];
 $policy_number=0;
-$cover_from=$_SESSION[""];
-$cover_to=$_SESSION[""];
+$cover_from=$_SESSION["logbook"]["date"];
+$date=date_create($cover_from);
+date_add($date,date_interval_create_from_date_string($cover_period));
+$cover_to=date_format($date,"Y-m-d");
 $cert_from=0;
 $cert_to=0;
-$vehicle_reg=$_SESSION[""];
-$chassis_number=$_SESSION[""];
-$insurance_class=$_SESSION[""];
-$cover_type=$_SESSION[""];
-$sum_insured=$_SESSION[""];
-$gross_premium=$_SESSION[""];
-$proof_of_payment=$_SESSION[""];
+$vehicle_reg=$_SESSION["logbook"]["registration"];
+$chassis_number=$_SESSION["logbook"]["chasis"];
+$insurance_class=$_SESSION["confirmed_items"]["class"];
+$cover_type=$_SESSION["cover"]["cover"];
+if($cover_type == "Third Party Only"){
+    $sum_insured=0;
+}
+$gross_premium=$_SESSION["grosspremium"];
 $method_of_payment=$_SESSION[""];
 $installments=$_SESSION[""];
 $amount=$_SESSION[""];
