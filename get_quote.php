@@ -22,12 +22,10 @@
 	}
 	$select = $pdo->prepare("SELECT code FROM tbl_user");
 	$select->execute();
+	$code = [];
 	while ($codes = $select->fetch(PDO::FETCH_ASSOC)){
-		print_r($codes);
-	}
-	
-	
-
+		array_push($code, trim($codes['code']));
+	};
 	include "nav/journeyheader.php";
 ?>
 
@@ -53,7 +51,7 @@
 					
 					<div>
 						<div id="message-contact"></div>
-						<form action="detail-page.php" method="get">
+						<form class="was-validated" action="detail-page.php" method="get">
 							<div class="row">
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
@@ -168,24 +166,34 @@
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Gender</label>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="male" value="M">
-											<label class="form-check-label" for="male">Male</label>
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" id="male" name="gender" required>
+											<label class="custom-control-label" for="male">Male</label>
 										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="female" value="F">
-											<label class="form-check-label" for="female">Female</label>
+										<div class="custom-control custom-radio">
+											<input type="radio" class="custom-control-input" id="female" name="gender" required>
+											<label class="custom-control-label" for="female">Female</label>
 										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inlineRadioOptions" id="bisexual" value="B">
-											<label class="form-check-label" for="bisexual">Both</label>
+										<div class="custom-control custom-radio mb-3">
+											<input type="radio" class="custom-control-input" id="other" name="gender" required>
+											<label class="custom-control-label" for="other">Other</label>
+											<div class="invalid-feedback">Select Gender</div>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
+								<label>Have an agent code?: </label>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" checked required onchange="validate_referal(this)">
+										<label class="custom-control-label" value="yes" for="customControlValidation2">Yes</label>
+									</div>
+									<div class="custom-control custom-radio mb-3">
+										<input type="radio" class="custom-control-input" value="no" id="customControlValidation3" name="radio-stacked" required onchange="validate_referal(this)">
+										<label class="custom-control-label" for="customControlValidation3">No</label>
+										<div class="invalid-feedback"></div>
+									</div>
 									<div class="form-group">
-										<label>Enter Agent code?: </label>
-										<input type="text" class="form-control styled text-center" name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal()">
+										<input type="text" class="form-control styled text-center" name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal(this)" required>
 									</div>
 								</div>
 							</div>
@@ -193,7 +201,6 @@
 
 							<div class="col-md-12 col-sm-12">
 								<div class="form-group">
-									<label>Confirm Submission:</label>
 									<input type="Submit" class="form-control styled btn-danger"/>
 								</div>
 							</div>			
@@ -231,6 +238,9 @@
 	<script src="assets/validate.js"></script>
 	<script src="js/jquery.tweet.min.js"></script>
 	<script src="js/functions.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	<!-- SPECIFIC SCRIPTS -->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
@@ -289,17 +299,32 @@
 		
 
 	}
-	function validate_referal(){
+	function validate_referal(name){
+		var codes = <?php echo json_encode($code); ?>;
 		const referal_code = document.getElementById("referal_code");
-		console.log(referal_code.value);
 		var ira_patt = /[0-9]{5,6}[-][0-9]+[-][0-9]+|[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}|[0-9]{5,6}[-][0-9]+|[0-9]{5,6}/im;
 		var result = referal_code.value.match(ira_patt);
 		if(result){
 			referal_code.value = result;
-			console.log(result);
+			console.log(referal_code.value);
+			console.log(codes.includes(referal_code.value));
+			if (!codes.includes(referal_code.value)){
+				referal_code.value = "";
+				referal_code.placeholder='Agent code doesnt exist, recheck or use 31212';
+
+			}
 		}else{
 			referal_code.value = "";
 			referal_code.placeholder='Invalid agent code: Use this format: 00000 or 00000-00';
+		}
+		if(name.id == "customControlValidation2"){
+			document.getElementById("referal_code").className ="form-control styled text-center";
+		}
+		if(name.id == "customControlValidation3"){
+			document.getElementById("referal_code").className ="form-control styled text-center d-none";
+			referal_code.value = "31212";
+
+			// referal_code.value = "31212";
 		}
 	}
 	function validateEmail(){

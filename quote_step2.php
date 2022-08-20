@@ -48,7 +48,7 @@
 							<div class="row">
 								<div class="col-md-10">
 									<!-- <?php print_r($_SESSION["client_details"]);?> -->
-			<form method="post" action="confirmationpage.php" autocomplete="off" enctype="multipart/form-data">
+			<form class="was-validated" method="post" action="confirmationpage.php" autocomplete="off" enctype="multipart/form-data">
 						
 										<div class="center">
 											<h3>Particulars</h3></div>

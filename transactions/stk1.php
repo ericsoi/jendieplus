@@ -6,7 +6,7 @@
     include "../dashboard/db/connect_db.php";
     $amount = "1";//$_SESSION["gross_premium"];
     // $amount1 = $_SESSION["gross_premium"];
-    #echo $amount;
+    print_r($_SESSION);
     $phone = "2547237752";
     $phone = "254712962787";
     $phone = "254723775289";

@@ -167,28 +167,32 @@
 									<label>Payment Options</label>
 									<div class="input-group input-group-default mb-3">
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="mpesa" checked>
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="mpesa" checked onchange="credit(this)">
 											<label class="form-check-label" for="inlineRadio1">Mpesa</label>
 										</div>
 										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="credit">
+											<input class="form-check-input" type="radio" name="payments" id="inlineRadio2" value="credit" onchange="credit(this)">
 											<label class="form-check-label" for="inlineRadio1">Credit </label>
 										</div>
-										<!-- <div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio2" value="ipf" disabled>
-											<label class="form-check-label" for="inlineRadio2">IPF</label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="visa" disabled>
-											<label class="form-check-label" for="inlineRadio3">Visa </label>
-										</div>
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="payments" id="inlineRadio3" value="cripto" disabled>
-											<label class="form-check-label" for="inlineRadio3">Cripto </label>
-										</div> -->
 										
 									</div>
-									
+									<div class="form-group" id="instalments">
+										<label>Choose Number of Instalments</label>
+										<select id="installments" name="installments" class="form-control styled"  required>
+											<option>1</option>
+											<option>2</option>
+											<option>3</option>
+											<option>4</option>
+											<option>5</option>
+											<option>6</option>
+											<option>7</option>
+											<option>8</option>
+											<option>9</option>
+											<option>10</option>
+											<option>11</option>
+											<option>12</option>
+										</select>
+									</div>
 									<div class="form-group">
 										<label>Agency Name</label>
 										<input type="text" class="form-control styled" id="agencyname" value="<?php echo $intermediary_name?>" name="agencyname" placeholder="Full Name">
@@ -269,6 +273,18 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="js/mapmarker.jquery.js"></script>
 	<script type="text/javascript" src="js/mapmarker_func.jquery.js"></script>
+	<script>
+		function credit(name){
+			console.log(name.id);
+			if(name.id == "inlineRadio1"){
+				document.getElementById("instalments").className ="form-group";
+			}
+			if(name.id == "inlineRadio2"){
+				document.getElementById("instalments").className ="form-group d-none";
+			}
+		}
+			
+	</script>
 	<?php include "chat/chat.php"?>
 </body>
 

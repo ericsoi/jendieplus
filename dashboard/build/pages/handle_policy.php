@@ -7,6 +7,7 @@ $agency=$_SESSION['user']->agency;
 $subagent=$_SESSION['user']->subagent;
 $code=$_SESSION['user']->code;
 $username=$_SESSION['user']->phonenumber;
+$role=$_SESSION['user']->role;
   // echo date("02/01/2022");
   // php function to convert csv to json format
 $fname = $_FILES["upcsv"]["tmp_name"];
@@ -21,22 +22,26 @@ $fname = $_FILES["upcsv"]["tmp_name"];
   $json = array();
   while ($row = fgetcsv($fp,10000,",")) {
     $obj= ((object)  (array_combine($key, $row)));
-    $first_name=$obj->first_name; $middle_name=$obj->middle_name; $last_name=$obj->last_name; $id_number=$obj->id_number; $pin_number=$obj->pin_number; $phone_number=$obj->phone_number; $client_email=$obj->client_email; $gender=$obj->gender; $poastall_address=$obj->poastall_address; $policy_number=$obj->policy_number; $cover_from=date($obj->cover_from); $cover_to=date($obj->cover_to); $cert_from=date($obj->cert_from); $cert_to=date($obj->cert_to); $vehicle_reg=$obj->vehicle_reg; $chassis_number=$obj->chassis_number; $insurance_class=$obj->insurance_class; $cover_type=$obj->cover_type; $sum_insured=$obj->sum_insured; $gross_premium=$obj->gross_premium; $proof_of_payment=$obj->proof_of_payment; $method_of_payment=$obj->method_of_payment; $amount=$obj->amount; $certificate_number=$obj->certificate_number; $underwriter=$obj->underwriter; $seating_capacity=$obj->seating_capacity; $tonnage=$obj->tonnage; $optional_benefits=$obj->optional_benefits;
+    $first_name=$obj->first_name; $middle_name=$obj->middle_name; $last_name=$obj->last_name; $id_number=$obj->id_number; $pin_number=$obj->pin_number; $phone_number=$obj->phone_number; $client_email=$obj->client_email; $gender=$obj->gender; $poastall_address=$obj->poastall_address; $policy_number=$obj->policy_number; $cover_from=date($obj->cover_from); $cover_to=date($obj->cover_to); $cert_from=date($obj->cert_from); $cert_to=date($obj->cert_to); $vehicle_reg=$obj->vehicle_reg; $chassis_number=$obj->chassis_number; $insurance_class=$obj->insurance_class; $cover_type=$obj->cover_type; $sum_insured=$obj->sum_insured; $gross_premium=$obj->gross_premium; $proof_of_payment=$obj->proof_of_payment; $method_of_payment=$obj->method_of_payment; $installments=$obj->installments; $amount=$obj->amount; $certificate_number=$obj->certificate_number; $underwriter=$obj->underwriter; $seating_capacity=$obj->seating_capacity; $tonnage=$obj->tonnage; $optional_benefits=$obj->optional_benefits;
     $unique_string=$username.$first_name.$middle_name.$last_name.$id_number.$pin_number.$phone_number.$client_email.$gender.$poastall_address.$policy_number.$cover_from.$cover_to.$cert_from.$cert_to.$vehicle_reg.$chassis_number.$insurance_class.$cover_type.$sum_insured.$gross_premium.$proof_of_payment.$method_of_payment.$amount.$certificate_number.$underwriter.$seating_capacity.$tonnage.$optional_benefits;
     $unique_string= md5($unique_string);
     $policy_expiry=date('Y-m-d', strtotime($cover_to));
     $today = date("Y-m-d");
     if($policy_expiry > $today){
       $table='tbl_policy';
+      $status=0;
     }else{
       $table='tbl_renewal';
+      $status=1;
     }
     $select=$pdo->prepare("SELECT * from $table where unique_string='$unique_string'");
     $select->execute();
     $total_records = $select->rowCount();
     if($total_records <= 0){
-        $insert = $pdo->prepare("INSERT INTO $table(first_name, middle_name, last_name, id_number, pin_number, phone_number, client_email, gender, poastall_address, policy_number, cover_from, cover_to, cert_from, cert_to, vehicle_reg, chassis_number, insurance_class, cover_type, sum_insured, gross_premium, proof_of_payment, method_of_payment, amount, certificate_number, underwriter, seating_capacity, tonnage, optional_benefits, unique_string, agency, subagent, code, username)
-        values(:first_name,:middle_name,:last_name,:id_number,:pin_number,:phone_number,:client_email,:gender,:poastall_address,:policy_number,:cover_from,:cover_to,:cert_from,:cert_to,:vehicle_reg,:chassis_number,:insurance_class,:cover_type,:sum_insured,:gross_premium,:proof_of_payment,:method_of_payment,:amount,:certificate_number,:underwriter,:seating_capacity,:tonnage,:optional_benefits,:unique_string,:agency,:subagent,:code,:username)");
+        $insert = $pdo->prepare("INSERT INTO $table(status,role,first_name, middle_name, last_name, id_number, pin_number, phone_number, client_email, gender, poastall_address, policy_number, cover_from, cover_to, cert_from, cert_to, vehicle_reg, chassis_number, insurance_class, cover_type, sum_insured, gross_premium, proof_of_payment, method_of_payment, installments, amount, certificate_number, underwriter, seating_capacity, tonnage, optional_benefits, unique_string, agency, subagent, code, username)
+        values(:status,:role,:first_name,:middle_name,:last_name,:id_number,:pin_number,:phone_number,:client_email,:gender,:poastall_address,:policy_number,:cover_from,:cover_to,:cert_from,:cert_to,:vehicle_reg,:chassis_number,:insurance_class,:cover_type,:sum_insured,:gross_premium,:proof_of_payment,:method_of_payment,:installments,:amount,:certificate_number,:underwriter,:seating_capacity,:tonnage,:optional_benefits,:unique_string,:agency,:subagent,:code,:username)");
+        $insert->bindParam(':status',$status);
+        $insert->bindParam(':role',$role);
         $insert->bindParam(':first_name',$first_name);
         $insert->bindParam(':middle_name',$middle_name);
         $insert->bindParam(':last_name',$last_name);
@@ -59,6 +64,7 @@ $fname = $_FILES["upcsv"]["tmp_name"];
         $insert->bindParam(':gross_premium',$gross_premium);
         $insert->bindParam(':proof_of_payment',$proof_of_payment);
         $insert->bindParam(':method_of_payment',$method_of_payment);
+        $insert->bindParam(':installments',$installments);
         $insert->bindParam(':amount',$amount);
         $insert->bindParam(':certificate_number',$certificate_number);
         $insert->bindParam(':underwriter',$underwriter);

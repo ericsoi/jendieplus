@@ -96,7 +96,8 @@
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Cover Period</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Underwriter</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Gross Premium</th>
-                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Sum Insured</th>
+                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Policy Status</th>
+                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Installments</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
                                             <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                                         </tr>
@@ -110,16 +111,20 @@
                                             extract($row);
                                             $datetime1 = date_create($row['cover_from']);
                                             $datetime2 = date_create($row['cover_to']);
-                                           
+                                            $datetime3 = date_create($row['cover_from']);
+                                            $datetime4 = date_create($row['cover_to']);                                           
                                             $interval = date_diff($datetime1, $datetime2);
-                                            $interval = $interval->format('%R%y years %R%m months');
+                                            $certinterval = date_diff($datetime3, $datetime4);
+
+                                            $interval = $interval->format('%R%m months');
+                                            $certinterval =$certinterval->format('%R%m months');
                                             
                                             $count++;
                                             ?>
                                         <tr>
                                             
                                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $count . '&nbsp&nbsp&nbsp' . $row['first_name'] . ' ' . $row['last_name'] ;?></p>
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $count . '&nbsp&nbsp&nbsp' . ucwords($row['first_name']) . ' ' . $row['last_name'] ;?></p>
                                                 <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo '&nbsp&nbsp&nbsp&nbsp&nbsp'.$row['policy_number'];?></p>
                                             </td>
                                        
@@ -130,7 +135,9 @@
                                         
                                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                 <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row['vehicle_reg'];?></p>
-                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $row['insurance_class'] . ' ' . $row['cover_type'];?></p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo  ucwords($row['cover_type']);?></p>
+
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo ucwords($row['insurance_class']);?></p>
                                             </td>
                                                
                                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -141,23 +148,192 @@
                                             </td>
                                         
                                             <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['underwriter'];?></span>
+                                                <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo ucwords($row['underwriter']);?></span>
                                             </td>
                                       
                                             <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                 <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['gross_premium'];?></span>
                                             </td>
                                             <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['sum_insured'];?></span>
+                                                <?php
+                                                if($row["status"]==0){?>
+                                                    <p><span class="badge badge-success  badge-pill text-size-xs">Active</span></p>
+                                                <?php
+                                                }elseif($row["status"]==1){
+                                                ?>
+                                                    <p><span class="badge badge-danger  badge-pill text-size-xs">Inactice</span></p>
+                                                <?php
+                                                }elseif($row["status"]==2){
+                                                ?>
+                                                    <p><span class="badge badge-warning  badge-pill text-size-xs">Pending Agent Approval</span></p>
+                                                <?php
+                                                }
+                                                ?>
+
+                                            </td>
+                                            <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['installments'];?></span>
                                             </td>
                                         
                                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><button type="file" class="bg-gradient-slate px-3.6-em text-size-xs-em rounded-1.8 py-2.2-em inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">View details</button></p>
+                                            <button class="bg-gradient-slate px-3.6-em text-size-xs-em rounded-1.8 py-2.2-em inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white" type="button" data-toggle="collapse" data-target="#<?php echo $row['id']?>" aria-expanded="false" aria-controls="collapseExample">
+                                                    View details
+                                                </button>                                               
+                                            </td>
+                                        </tr>
+                                        <tr class="collapse" id="<?php echo $row['id']?>">
+                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Owner</p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $row['role'];?></p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php if ($row['role'] == 'agency'){echo $row['agency'];}elseif($row['role']=="sub-agent"){echo $row['subagent'];}elseif($row['role']=="operator"){echo $row['code'];}elseif($row['role']=="admin"){echo $row['agency'];}?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                            </td>
+                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Agent Number</p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $row['username'];?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                            </td> 
+                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Certificate Number</p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $row['certificate_number']?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+
+                                            </td>
+                                               
+                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Cert Period</p>
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row['cert_from'];?></p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $row['cert_to'];?></p>
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $certinterval;?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+
+
+                                            </td>
+                                        
+                                            <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Seating Capacity</p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['seating_capacity'];?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                            </td>
+                                      
+                                            <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Sum Insured</p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['sum_insured'];?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+
+                                            </td>
+                                            <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <?php 
+                                                    if($row["method_of_payment"] == "mpesa"){?>
+                                                    <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Payment Method</p>
+                                                    <p class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['method_of_payment'];?></p>
+
+                                                    <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Mpesa Receip</p>
+                                                    <p class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['proof_of_payment'];?></p>
+
+                                                <?php
+                                                    }else{
+                                                        if ($row['role'] == 'agency' && $row['status'] == 2){?>
+                                                    <form action="#" method="get">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center alert-dark text-size-xs">
+                                                            <p class="font-semibold leading-tight text-size-xs text-slate-400">Payment Method</p>
+                                                            <p class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo ucwords($row['method_of_payment']);?></p>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center text-size-xs list-group-item-success">
+                                                            <button type="submit" name="approve" value="approve"  class="btn btn-success btn-sm  text-size-xs">Approve</button>
+                                                            <button type="submit" name="reject" value="reject" class="btn btn-danger btn-sm   text-size-xs">Reject </button>
+                                                        </li>    
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center text-size-xs list-group-item-success">
+                                                            <br><button type="button" class="btn btn-primary  text-size-xs btn-sm " data-toggle="modal"  data-target="#exampleModalCenter" onclick="receipt()">
+
+                                                            Update transaction receipt
+                                                            </button>
+
+                                                        </li>
+                                                        <?php
+                                                            }else{
+                                                        ?>
+                                                        <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Payment Method </p><p class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo ucwords($row['method_of_payment']);?></p>
+                                                        <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Payment receipt </p>
+                                                        <p class="font-semibold  text-size-xs text-slate-400"><?php echo $row['proof_of_payment'];?></p>
+                                                        <p class="font-semibold  text-size-xs text-slate-400"><br></p>
+
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                    </ul>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Transaction Receipt</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div id="receiptform">
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </form>
+
+                                                <?php
+                                                    }
+                                                    ?>
+                                            </td>
+                                            <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 font-semibold leading-tight text-size-xs alert-dark">Transaction Amount</p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"> Ksh. <?php echo $row['amount'];?></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+                                                <p class="font-semibold leading-tight text-size-xs text-slate-400"><br></p>
+
+
+                                            </td>
+                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent"> 
+                                                <?php
+                                                if (strtolower($row['optional_benefits']) == 'yes'){
+                                                ?>
+                                                <form class="was-validated" >     
+                                                    <label>Optional Benefits</label>             
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required onchange="benefits(this)">
+                                                        <label class="custom-control-label" for="customControlValidation2">Upload File</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio mb-3">
+                                                        <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required onchange="benefits(this)">
+                                                        <label class="custom-control-label" for="customControlValidation3">Enter benefits</label>
+                                                        <div class="invalid-feedback">Select one</div>
+                                                    </div>
+                                                    <div class="custom-file d-none" id="custom_file">
+                                                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                                                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                                                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                                                    </div>
+                                                </form>
+                                                <?php
+                                                }
+                                                ?>                                          
                                             </td>
                                         </tr>
                                         <?php
                                             }
-                                        ?>    
+                                        ?>   
                                             
                                     </tbody>
                                 </table>
@@ -213,7 +389,7 @@
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Cover Period</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Underwriter</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Gross Premium</th>
-                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Sum Insured</th>
+                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Payment Method</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
                                             <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                                         </tr>
@@ -229,7 +405,7 @@
                                             $datetime2 = date_create($row['cover_to']);
                                            
                                             $interval = date_diff($datetime1, $datetime2);
-                                            $interval = $interval->format('%R%y years %R%m months');
+                                            $interval = $interval->format('%R%m months');
                                             $count++;
                                             ?>
                                         <tr>
@@ -255,7 +431,7 @@
                                             </td>
                                         
                                             <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $row['underwriter'];?></span>
+                                                <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo ucwords($row['underwriter']);?></span>
                                             </td>
                                       
                                             <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -385,7 +561,7 @@
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Cover Period</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Underwriter</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Gross Premium</th>
-                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Sum Insured</th>
+                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Payment Method</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
                                             <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                                         </tr>
@@ -401,7 +577,7 @@
                                             $datetime2 = date_create($row['cover_to']);
                                            
                                             $interval = date_diff($datetime1, $datetime2);
-                                            $interval = $interval->format('%R%y years %R%m months');
+                                            $interval = $interval->format('%R%m months');
                                             $count++;
                                             ?>
                                         <tr>
@@ -546,6 +722,11 @@ function benefits(name){
         console.log(id);
         document.getElementById("custom_file").className ="custom-file d-none";
     }
+}
+function receipt(){
+    document.getElementById("receiptform").innerHTML='<div class="modal-body">\
+                                                <input type="text" class="form-control" id="recipient-name" name="receipt" placeholder="eg... QH42O98F56" required>\
+                                            </div>'
 }
 </script>
 </html>
