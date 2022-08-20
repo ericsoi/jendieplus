@@ -1,2 +1,5 @@
 dashboard/client_files/
 soft-ui-design-system/
+config/db.php
+dashboard/build/pages/category.php
+dashboard/db/connect_db.php
