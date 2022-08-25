@@ -62,3 +62,12 @@
 {"Body":{"stkCallback":{"MerchantRequestID":"10733-93583208-1","CheckoutRequestID":"ws_CO_16082022103053379722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"10727-93584837-1","CheckoutRequestID":"ws_CO_16082022103140776722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"3603-9883096-1","CheckoutRequestID":"ws_CO_16082022103228332722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"8774-108560061-1","CheckoutRequestID":"ws_CO_20082022221727376722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"118815-62198203-1","CheckoutRequestID":"ws_CO_20082022234019033712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"22326-23908752-1","CheckoutRequestID":"ws_CO_20082022234630589712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"9192-121594192-1","CheckoutRequestID":"ws_CO_20082022234906730712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"82710-32795008-1","CheckoutRequestID":"ws_CO_20082022235227630712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"3573-487858-1","CheckoutRequestID":"ws_CO_21082022015329557712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"36230-121214186-1","CheckoutRequestID":"ws_CO_21082022231456911743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"15450-30591-1","CheckoutRequestID":"ws_CO_21082022234850093743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"130490-571279-1","CheckoutRequestID":"ws_CO_22082022100604144722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}

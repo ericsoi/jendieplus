@@ -2,6 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+$product_id=$_SESSION["edit_product"];
 if (isset($_SESSION["username"])){
     $phone= $_SESSION["username"];
     include "../../db/connect_db.php";
@@ -26,319 +27,316 @@ if (isset($_SESSION["username"])){
 }else{
     header ("Location: ./misc/logout.php");
 }
-
-
-
-
-
-
-$product_id =$_GET['q'];
-if(isset($_POST['benefit_submit'])){
-    $benefit_name=$_POST['benefit_name'];
-    if(isset($_POST["days"])){
-        $benefit_days=$_POST["days"];
-    }else{
-        $benefit_days="";
-    }
-    if(isset($_POST["amount"])){
-            $benefit_amount=$_POST["amount"];
-    }else{
-        $benefit_amount="";
-    }
-    if(isset($_POST["freelimit"])){
-            $benefit_freelimit=$_POST["freelimit"];
-    }else{
-        $benefit_freelimit="";
-    }
-    if(isset($_POST["rate"])){
-            $benefit_rate=$_POST["rate"];
-    }else{
-        $benefit_rate="";
-    }
-    
-    $select = $pdo->prepare("SELECT benefit_name FROM tbl_benefits WHERE benefit_name='$benefit_name' AND product_id='$product_id'");
-    $select->execute();
-    if($select->rowCount() > 0 ){
-        echo '<script type="text/javascript">alert("Exists")</script>';
-    }else{
-     
-        $insert = $pdo->prepare("INSERT INTO tbl_benefits(benefit_name, benefit_rate, product_id, benefit_freelimit, benefit_amount, benefit_days) VALUES(:benefit_name,:benefit_rate,:product_id,:benefit_freelimit,:benefit_amount,:benefit_days)");
-        $insert->bindParam(':benefit_name', $benefit_name);
-        $insert->bindParam(':benefit_rate', $benefit_rate);
-        $insert->bindParam(':product_id', $product_id);
-        $insert->bindParam(':benefit_freelimit', $benefit_freelimit);
-        $insert->bindParam(':benefit_amount', $benefit_amount);
-        $insert->bindParam(':benefit_days', $benefit_days);
-
-
-        if($insert->execute()){
-        echo '<script type="text/javascript">alert("Added")</script>';
-        }
-
-    }
-
-    // $benefit_name = trim($_POST['benefit']);
-    // print_r($benefit_name);
-    // if (isset($_POST["benefit_rate"])){
-    //   $benefit_rate = $_POST["benefit_rate"];
-    // }else{
-    //   $benefit_rate = "1";
-    // }
-    // $benefit_value = trim($_POST['benefit_value']);
-    // $select = $pdo->prepare("SELECT benefit_name FROM tbl_benefits WHERE benefit_name='$benefit_name' AND product_id='$product_id'");
-    // $select->execute();
-    // if($select->rowCount() > 0 ){
-    //     $i="i";
-    //     // echo '<script type="text/javascript">alert("Exists")</script>';
-
-    //     }else{
-    //       $insert = $pdo->prepare("INSERT INTO tbl_benefits(benefit_name, benefit_value, benefit_rate, product_id) VALUES(:benefit_name,:benefit_value,:benefit_rate,:product_id)");
-    //       $insert->bindParam(':benefit_name', $benefit_name);
-    //       $insert->bindParam(':benefit_value', $benefit_value);
-    //       $insert->bindParam(':benefit_rate', $benefit_rate);
-    //       $insert->bindParam(':product_id', $product_id);
-
-    //       if($insert->execute()){
-    //         echo '<script type="text/javascript">alert("Added")</script>';
-    //       }
-    //     }
-  }
-
 ?>
 
 
 
 
 
-        <!-- cards row 2 -->
-<div class="w-full px-6 py-6 mx-auto">
-    <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-        <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+<div class="flex flex-wrap -mx-3">
+    <div class="flex-none w-full max-w-full px-3">
+        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+            <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+            </div>
+            <?php if(isset($_GET["benefit_name"])){
+                $status=$_GET;
+                include "toasts/toast.php";
+                ?>
 
-            <h7>EDIT PRODUCT</h7>
-        </div>
-        <div class="flex flex-wrap mt-6 -mx-3">
-            <div class="w-full px-3 mb-6 lg:mb-0 lg:w-5/12 lg:flex-none">
-                <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div class="flex-auto p-4">
-                        <div class="ma2 lg:flex-nonex-w-full px-3 lg:w-1/">
-                            <div class="flex flex-col h-full">
-                                <form role="form" action="#" method="post">
-                                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Optional Benefit</label>
-                                    <div class="mb-4">
-                                        <select in="benefit_name" name="benefit_name" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow" name="benefit" id="benefit" onchange="handlebenefit(this)">
-                                            
-                                        <?php
-                                            $select = $pdo->prepare("SELECT * FROM tbl_benefits_list");
-                                            $select->execute();
-                                            while($row = $select->fetch(PDO::FETCH_ASSOC)){
-                                                extract($row);
-                                                $row = array_map('trim', $row);?>
-                                                <option value="<?php echo $row["benefit_name"];?>"><?php echo  $row["benefit_name"];?></option>
+            <?php
+                }
+            ?>
+
+            <div class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <div class="flex flex-wrap -mx-3">
+                    <div class="flex items-center flex-none w-1/2 max-w-full px-3">
+                        <h6 class="mb-0 font-bold">Product Benefits</h6>
+                    </div>
+                    <div class="flex-none w-1/2 max-w-full px-3 text-right">
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"></button>
+
+                        <button type="button" class="px-6
+                            py-2.5
+                            bg-blue-600
+                            text-white
+                            font-medium
+                            text-xs
+                            leading-tight
+                            uppercase
+                            rounded
+                            shadow-md
+                            hover:bg-blue-700 hover:shadow-lg
+                            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                            active:bg-blue-800 active:shadow-lg
+                            transition
+                            duration-150
+                            ease-in-out" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Add Benefit
+                        </button>   
+                        <a href="products.php"> <button type="button" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Back</button></a>
+                    </div>
+                    <!-- Button trigger modal -->
+
+                                        <!-- Modal -->
+                    <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog relative w-auto pointer-events-none">
+                            <form role="form" action="processor/handle_benefits.php" method="post">
+                                <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                                    <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                                        <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalLabel">Optional Benefit</h5>
+                                    </div>
+                                    <div class="modal-body relative p-4">
+                                        <div class="mb-4">
+                                            <select class="form-select appearance-none
+                                                block
+                                                w-full
+                                                px-3
+                                                py-1.5
+                                                text-base
+                                                font-normal
+                                                text-gray-700
+                                                bg-white bg-clip-padding bg-no-repeat
+                                                border border-solid border-gray-300
+                                                rounded
+                                                transition
+                                                ease-in-out
+                                                m-0
+                                                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
+                                                id="benefit_name" name="benefit_name"
+                                                name="benefit" id="benefit" data-bs-toggle="dropdown" onchange="handlebenefit(this)"
+                                                >
                                                 <?php
-                                                }
+                                                    $select = $pdo->prepare("SELECT * FROM tbl_benefits_list");
+                                                    $select->execute();
+                                                    while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                                                        extract($row);
+                                                        $row = array_map('trim', $row);?>
+                                                        <option value="<?php echo $row["benefit_name"];?>"><?php echo  $row["benefit_name"];?></option>
+                                                <?php
+                                                    }
                                                 ?>
                                             </select>
-                                            
-                                    </div>
-                                    <div id="rates">
-                                        <div class="mb-4">
-                                            <label id="freelimitlabel" name="freelimitlabel" class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Free Limit</label>
-                                            <input type="number" name="freelimit" id="freelimit" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                                                placeholder="Enter Free Limit" aria-label="Email" aria-describedby="email-addon" />
                                         </div>
-                                        <div class="mb-4">
-                                            <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>
-                                            <input type="number" name="rate" id="rate" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                                                placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" />
+                                        <div id="rates">
+                                            <div class="mb-4">
+                                                <label id="freelimitlabel" name="freelimitlabel" class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Free Limit</label>
+                                                <input type="number" name="freelimit" id="freelimit" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                                                            placeholder="Enter Free Limit" aria-label="Email" aria-describedby="email-addon" />
+                                            </div>
+                                            <div class="mb-4">
+                                                <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>
+                                                <input type="number" name="rate" id="rate" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                                                            placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="flex-none max-w-full px-3 text-right">
-                                    <button type="submit" name="benefit_submit" id="benefit_submit" class="inline-block px-2 py-1 font-bold text-right text-white uppercase align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-size-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-dark-gray hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25">Submit </button>
-                                    </div> 
-                                </form>
-                            </div>
-                                
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full px-3 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
-                <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div class="flex-auto p-4">
-                        <div class="ma2 lg:flex-nonex-w-full px-3 lg:w-1/">
-                            <div class="flex flex-col h-full">
-                                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                                <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Product Benefits</label>
-
-                                    <thead class="">
-                                        <tr>
-                                            <th class="px-6 py-3 font-bold text- uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Name</th>
-                                            <th class="px-6 py-3 font-bold text- uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"> Rate</th>
-                                            <th class="px-6 py-3 font-bold text- uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Free Limit</th>
-                                            <th class="px-6 py-3 font-bold text- uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Value</th>
-                                            <th class="px-6 py-3 font-bold text- uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">No of Days</th>
-
-                                            <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        $no=1;
-                                        $select = $pdo->prepare("SELECT * FROM tbl_benefits where product_id='$product_id'");
-                                        $select->execute();
-                                        while($row = $select->fetch(PDO::FETCH_ASSOC)){
-                                            extract($row);
-                                            $row = array_map('trim', $row);
-                                            if(isset($row["benefit_days"])){
-                                                   $benefit_days=$row["benefit_days"];
-                                            }else{
-                                                $benefit_days="";
-                                            }
-                                             if(isset($row["benefit_amount"])){
-                                                   $benefit_amount=$row["benefit_amount"];
-                                            }else{
-                                                $days="";
-                                            }
-                                             if(isset($row["benefit_freelimit"])){
-                                                   $benefit_freelimit=$row["benefit_freelimit"];
-                                            }else{
-                                                $days="";
-                                            }
-                                             if(isset($row["benefit_rate"])){
-                                                   $benefit_rate=$row["benefit_rate"];
-                                            }else{
-                                                $days="";
-                                            }
-                                            ?>
-                                            
-                                        <tr>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    
-                                                    <div class="flex flex-col justify-center">
-                                                        <h6 class="mb-0 leading-normal text-size-sm"><?php echo $row["benefit_name"]?></h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_rate"];?></p>
-                                            </td>
-                                            
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_freelimit"];?></p>
-                                            </td>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_amount"];?></p>
-                                            </td>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_days"];?></p>
-                                            </td>
-                                           
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <a href="javascript:;" class="font-semibold leading-tight text-size-xs text-slate-400"> Delete </a>
-                                            </td>
-                                        </tr>    
-                                        <?php 
-                                        }
-                                        ?>                              
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                                
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-        <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-            <h7>Excluded Vehicles</h7>
-        </div>
-        <div class="flex flex-wrap mt-6 -mx-3">
-            <div class="w-full px-3 mb-6 lg:mb-0 lg:w-5/12 lg:flex-none">
-                <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div class="flex-auto p-4">
-                        <div class="ma2 lg:flex-nonex-w-full px-3 lg:w-1/">
-                            <div class="flex flex-col h-full">
-                                <form role="form">
-                                    
-                                    <div class="mb-4">
-                                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Vehicle</label>
-                                        <input type="email" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
-                                            placeholder="Search vehicle make" aria-label="Email" aria-describedby="email-addon" />
+                                    <div class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                                        <button type="button" class="px-6
+                                            py-2.5
+                                            bg-purple-600
+                                            text-white
+                                            font-medium
+                                            text-xs
+                                            leading-tight
+                                            uppercase
+                                            rounded
+                                            shadow-md
+                                            hover:bg-purple-700 hover:shadow-lg
+                                            focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0
+                                            active:bg-purple-800 active:shadow-lg
+                                            transition
+                                            duration-150
+                                            ease-in-out" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" name="benefit_submit" class="px-6
+                                            py-2.5
+                                            bg-blue-600
+                                            text-white
+                                            font-medium
+                                            text-xs
+                                            leading-tight
+                                            uppercase
+                                            rounded
+                                            shadow-md
+                                            hover:bg-blue-700 hover:shadow-lg
+                                            focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                                            active:bg-blue-800 active:shadow-lg
+                                            transition
+                                            duration-150
+                                            ease-in-out
+                                            ml-1">Save changes
+                                        </button>
                                     </div>
-                                    
-                                    <div class="flex-none max-w-full px-3 text-right">
-                                    <button type="submit" name="submit" id="submit" class="inline-block px-2 py-1 font-bold text-right text-white align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-size-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-dark-gray hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"
-                                        href="createpolicy.php"></i>Submit </button>
-                                    </div> 
-                            </div>
-                                
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="w-full px-3 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
-                <div class="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div class="flex-auto p-4">
-                        <div class="ma2 lg:flex-nonex-w-full px-3 lg:w-1/">
-                            <div class="flex flex-col h-full">
-                                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                                <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Excluded Vehicles</label>
+            <div class="flex-auto px-0 pt-0 pb-2">
+                <div class="p-0 overflow-x-auto">
+                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table table-success table-striped border-separate border-spacing-2 border border-slate-500">
+                        
+                        <thead class="border-b bg-gray-800">
+                            
+                            <tr>
+                                <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Name</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Rate</th>
+                                <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Free Limit</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Value</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">No of Days</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Minimum Premium</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
 
-                                    <thead class="align-bottom">
-                                        <tr>
-                                            <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Name</th>
-                                            <th class="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Rate</th>
-                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Value</th>
-                                            <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                        $no=1;
-                                        // while (!empty($keys)){
-                                        //     $key = array_pop($keys);
-                                            ?>
-                                        <tr>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <div class="flex px-2 py-1">
-                                                    
-                                                    <div class="flex flex-col justify-center">
-                                                        <!-- <h6 class="mb-0 leading-normal text-size-sm"><?php echo $benefits[$key]->benefit_name?></h6> -->
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <!-- <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $benefits[$key]->benefit_name?></p> -->
-                                            </td>
-                                            
-                                            <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <!-- <span class="font-semibold leading-tight text-size-xs text-slate-400"><?php echo $benefits[$key]->benefit_name?></span> -->
-                                            </td>
-                                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                                <a href="javascript:;" class="font-semibold leading-tight text-size-xs text-slate-400"> Edit </a>
-                                            </td>
-                                        </tr>    
-                                        <?php 
-                                        // }
-                                        ?>                              
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                             $no=1;
+                             $select = $pdo->prepare("SELECT * FROM tbl_benefits where product_id='$product_id'");
+                             $select->execute();
+                             while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                                 extract($row);
+                                 $no++;
+                                 ?>
+                            <tr <?php echo $no%2==0? "class='bg-gray-100 border-b'":"class='bg-blue-100 border-b'"?>>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_name"]?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_rate"];?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_freelimit"];?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_amount"];?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <div class="grid grid-cols-4 gap-1">
+                                        <div>10</div>
+                                        <div>15</div>
+                                        <div>20</div>
+                                        <div>30</div>
+                                    </div>
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_days"];?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_minimum_premium"];?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <a href="processor/handle_benefits.php?action=delete&product_id=<?php echo $product_id?>&benefit_name=<?php echo $row['benefit_name']?>" class="font-semibold leading-tight text-size-xs text-slate-400"> Delete </a>
+                                </td>
                                 
-                        </div>
-                    </div>
+                            </tr>
+                                <?php
+                             }
+                             ?>
+                                
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="flex flex-wrap -mx-3">
+<div class="flex-none w-full max-w-full px-3">
+        <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+            <div class="p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+            </div>
+            <?php if(isset($_GET["vehicle_model"])){
+                $status=$_GET;
+                include "toasts/toast.php";
+                ?>
+
+            <?php
+                }
+            ?>
+
+            <div class="flex space-x-2  p-6 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
+                <div class="font-black">
+                    <h6 class="mb-0 font-bold">Excluded Vehicles
+                        (<?php
+                        $select = $pdo->prepare("SELECT * FROM tbl_excluded_vehicles where product_id='$product_id'");
+                        $select->execute();
+                        $total_records = $select->rowCount();
+                        echo $total_records;
+                        ?>)
+                    </h6>
+                </div>
+                <div class="flex">
+                    <div class="mb-3 xl:w-96">
+                        <div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
+                            
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+                            
+                            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                            <form class="flex" action="processor/handle_benefits.php" method="post">
+                                <input type="search" name="term" id="term" class="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+                                <button type="submit" name="vehicle_search" class="btn inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" id="button-addon3">Add_Vehicle</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-auto px-0 pt-0 pb-2">
+                <div class="p-0 overflow-x-auto">
+                <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table table-success table-striped border-separate border-spacing-2 border border-slate-500">
+                        
+                        <thead class="border-b bg-gray-800">
+                            
+                            <tr>
+                                <th class="px-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">No</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Vehicle Model</th>
+                                <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                             $no=0;
+                             $select = $pdo->prepare("SELECT * FROM tbl_excluded_vehicles where product_id='$product_id'");
+                             $select->execute();
+                             while($row = $select->fetch(PDO::FETCH_ASSOC)){
+                                 extract($row);
+                                 $no++;
+                                 ?>
+                            <tr <?php echo $no%2==0? "class='bg-gray-100 border-b'":"class='bg-blue-100 border-b'"?>>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $no;?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["vehicle_model"];?></p>
+                                </td>
+                                <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                    <a href="processor/handle_benefits.php?action=delete&vehicle_id=<?php echo $row['vehicle_id']?>" class="font-semibold leading-tight text-size-xs text-slate-400"> Delete </a>
+                                </td>
+                                
+                            </tr>
+                                <?php
+                             }
+                             ?>
+                                
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+  $(function() {
+     $( "#term" ).autocomplete({
+       source: 'processor/vehicle_search.php',
+     });
+  });
+</script>
 <script>
 
   
@@ -383,16 +381,21 @@ if(isset($_POST['benefit_submit'])){
                 document.getElementById("rates").innerHTML ='<div id="rates">\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>\
-                        <input type="number" name="rate" id="rate" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="rate" id="rate" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" required/>\
+                    </div>\
+                    <div class="mb-4">\
+                        <label  id="minpremiumlebal" name="minpremiumlebal"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Minimum Premium</label>\
+                        <input type="number" name="minimum_premium" id="minimum_premium" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                            placeholder="Enter Amount" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
                 break;
             case "passengerlegal_liability":
                 document.getElementById("rates").innerHTML ='<div id="rates">\
                     <div class="mb-4">\
-                        <label id="freelimitlabel" name="freelimitlabel" class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Enter Premium per passenger</label>\
-                        <input type="number" name="amount" id="amount" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <label id="freelimitlabel" name="freelimitlabel" class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Enter Minimum Premium</label>\
+                        <input type="number" name="minimum_premium" id="minimum_premium" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter ammount" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
@@ -410,8 +413,13 @@ if(isset($_POST['benefit_submit'])){
                 document.getElementById("rates").innerHTML ='<div id="rates">\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>\
-                        <input type="number" name="rate" id="rate" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="rate" id="rate" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" required/>\
+                    </div>\
+                    <div class="mb-4">\
+                        <label  id="minpremiumlebal" name="minpremiumlebal"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Minimum Premium</label>\
+                        <input type="number" name="amount" id="amount" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                            placeholder="Enter Amount" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
                 break;
@@ -424,7 +432,7 @@ if(isset($_POST['benefit_submit'])){
                     </div>\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>\
-                        <input type="number" name="rate" id="rate" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="rate" id="rate" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
@@ -438,7 +446,7 @@ if(isset($_POST['benefit_submit'])){
                     </div>\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>\
-                        <input type="number" name="rate" id="rate" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="rate" id="rate" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
@@ -456,7 +464,7 @@ if(isset($_POST['benefit_submit'])){
                 document.getElementById("rates").innerHTML ='<div id="rates">\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Amount</label>\
-                        <input type="number" name="amount" id="amount" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="amount" id="amount" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
@@ -470,7 +478,7 @@ if(isset($_POST['benefit_submit'])){
                     </div>\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Rate</label>\
-                        <input type="number" name="rate" id="rate" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="rate" id="rate" step="any" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Rate" aria-label="Email" aria-describedby="email-addon" />\
                     </div>\
                 </div>'
@@ -561,8 +569,20 @@ if(isset($_POST['benefit_submit'])){
     //   }  
       
     // }
-</script>
+window.addEventListener("load", function(event) 
+{
 
+    console.log('before');
+    setTimeout(console.log("donothing"),30000); // run donothing after 0.5 seconds
+    console.log('after');
+    setTimeout(function(){
+        document.getElementById("close_toast").click();
+        console.log("Closed");
+    },3000);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<!-- <id="close_toast"> -->
 <?php
     include "../pages/nav/footer.php";
 ?>

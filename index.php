@@ -106,7 +106,7 @@
 					<div class="col-md-4 col-sm-6 wow fadeIn animated" id = "<?php echo str_replace(' ', '', $row['Name'])?>" hidden="hidden" data-wow-delay="0.2s">
 						<div class="img_wrapper">
 							<div class="img_container" style="height:233px; ">
-							 <a href="underwriter.php?q=<?php echo $row['ID']?>" class="fill" id="underwriter">
+							 <a href="processer/handle_index.php?q=<?php echo $row['ID']?>" class="fill" id="underwriter">
 								<img src="<?php echo $row['path'] ?>" width="100%" height="100%" class="img-responsive" alt="">
 									<div class="short_info">
 										<h3><?php echo $row["Name"]?></h3>
@@ -152,7 +152,7 @@
 					<div class="col-md-4 col-sm-6 wow fadeIn animated" data-wow-delay="0.2s">
 						<div class="img_wrapper">
 							<div class="img_container" style="height:233px;">
-							 <a href="underwriter.php?q=<?php echo $row['ID']?>">
+							 <a href="processer/handle_index.php?q=<?php echo $row['ID']?>">
 								<img src="<?php echo $row['path']?>" width="100%" height="100px" class="img-responsive" alt="">
 									<div class="short_info">
 										<h3><?php echo $row["Name"]?></h3>
@@ -332,6 +332,7 @@
 		});
     </script>
 	<script>
+		<script>history.replaceState({},'','$url');</script>
 		function handleClear(id){
 			document.getElementById("txtHint").innerHTML = "";
 			document.getElementById('underwriterlistseen').style.display = 'block';

@@ -4,22 +4,12 @@
 		#print_r($_SESSION);
 	}
 	include "dashboard/db/connect_db.php";
-	if (isset($_SESSION['cover'])){
-		unset($_SESSION['cover']);
-	}
-	if (isset($_GET["cover"])){
-		$_SESSION["cover"] = $_GET;
-	}	
-	if(!isset($_SESSION["underwriter"])) { 
-	
+	if(!isset($_SESSION["cover"])) { 
 		header("refresh:0;url=./index.php");
-	}else{
-		$underwriter = $_SESSION["underwriter"]["Name"];
-		$description = $_SESSION["underwriter"]["description"];
-		if(isset($_SESSION["product"])){
-			unset ($_SESSION['product']);
-		}
 	}
+	$underwriter = $_SESSION["underwriter"]["Name"];
+	$description = $_SESSION["underwriter"]["description"];
+
 	$select = $pdo->prepare("SELECT code FROM tbl_user");
 	$select->execute();
 	$code = [];
@@ -27,6 +17,7 @@
 		array_push($code, trim($codes['code']));
 	};
 	include "nav/journeyheader.php";
+	if(isset($_SESSION['client_details']['vehicleclass']))$vehicleclass=trim($_SESSION['client_details']['vehicleclass']);else$vehicleclass='';
 ?>
 
 	<!-- SubHeader =============================================== -->
@@ -51,18 +42,18 @@
 					
 					<div>
 						<div id="message-contact"></div>
-						<form class="was-validated" action="detail-page.php" method="get">
+						<form class="was-validated" action="processer/handle_get_quote.php" method="get">
 							<div class="row">
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
-										<label>Your name</label>
-										<input type="text" class="form-control styled" id="name_contact" name="name_contact" placeholder="Full Name" onchange="validate_names(this.id,this.value)" required>
+										<label>Client Name</label>
+										<input type="text" class="form-control styled" id="name_contact" <?php if(isset($_SESSION['client_details']['name_contact'])) echo 'value='.'"'.$_SESSION['client_details']['name_contact'].'"'?> name="name_contact" placeholder="Full Name" onchange="validate_names(this.id,this.value)" required>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Email</label>
-										<input type="email" class="form-control styled" id="email" name="email" placeholder="Your Email" onchange="validateEmail()" required>
+										<input type="email" class="form-control styled" id="email" <?php if(isset($_SESSION['client_details']['email'])) echo 'value='.'"'.$_SESSION['client_details']['email'].'"'?> name="email" placeholder="Your Email" onchange="validateEmail()" required>
 									</div>
 								</div>
 							</div>
@@ -70,14 +61,14 @@
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 										<label>Phone Number:</label>
-										<input type="text" id="phone_number" name="phone_number" class="form-control styled" placeholder="Phone Number" onchange="validatePhone(this.id,this.value)" required>
+										<input type="text" id="phone_number" <?php if(isset($_SESSION['client_details']['phone_number'])) echo 'value='.'"'.$_SESSION['client_details']['phone_number'].'"'?> name="phone_number" class="form-control styled" placeholder="Phone Number" onchange="validatePhone(this.id,this.value)" required>
 									</div>
 								</div>
 								
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
 									<label>Choose Vehicle Class:</label>
-									<select id="mySelect1" name="vehicleclass" class="form-control styled" placeholder="Vehicle Class" onchange="myFunction()" required>
+									<select id="mySelect1"  name="vehicleclass" class="form-control styled" placeholder="Vehicle Class" onchange="myFunction()" required>
 										<optgroup label="1. MOTORCYCLE">
 											<?php
 											$select = $pdo->prepare("SELECT * FROM tbl_vehicleclass where type = 'MOTORCYCLE'");
@@ -85,8 +76,9 @@
 											while($row = $select->fetch(PDO::FETCH_ASSOC)){
 												extract($row);
 												$row = array_map('trim', $row);
+												$class= trim($row['ID']).'. '.trim($row['class']);
 											?>
-												<option><?php echo $row["ID"].".  ".$row["class"] ?></option>
+												<option <?php if($class==$vehicleclass) echo 'selected';?>><?php echo $class?></option>
 												
 											<?php
 												}
@@ -99,8 +91,9 @@
 											while($row = $select->fetch(PDO::FETCH_ASSOC)){
 												extract($row);
 												$row = array_map('trim', $row);
-											?>  
-												<option><?php echo $row["ID"].".  ".$row["class"] ?></option>
+												$class= trim($row['ID']).'. '.trim($row['class']);
+											?>
+												<option <?php if($class==$vehicleclass) echo 'selected';?>><?php echo $class?></option>
 											<?php
 												}
 											?>
@@ -112,31 +105,20 @@
 											while($row = $select->fetch(PDO::FETCH_ASSOC)){
 												extract($row);
 												$row = array_map('trim', $row);
-
+												$class= trim($row['ID']).'. '.trim($row['class']);
 											?>
-												<option><?php echo $row["ID"].".  ".$row["class"] ?></option>
+												<option <?php if($class==$vehicleclass) echo 'selected';?>><?php echo $class?></option>
 											<?php
 											}
 											?>
 										</optgroup>
-										<!-- <?php 	
-											$select = $pdo->prepare("SELECT * FROM tbl_vehicleclass");
-											$select->execute();
-											while($row = $select->fetch(PDO::FETCH_ASSOC)){
-												extract($row);
-												?>
-													<option value="<?php echo $row["type"] . ' ' . $row["class"];?>"><?php echo $row["type"] . ": " . $row["class"];?></option> 
-												<?php 
-													}
-												?> -->
 										</select>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
 									<div class="form-group">
-									
 										<label>Vehicle Registration Number:</label>
-										<input type="text" class="form-control styled" id="reg_number" name="vehicle_reg" placeholder="Vehicle Registrattion Number" onchange="validate_registration()" required>
+										<input type="text" class="form-control styled" id="reg_number" <?php if(isset($_SESSION['client_details']['vehicle_reg'])) echo 'value='.'"'.$_SESSION['client_details']['vehicle_reg'].'"'?> name="vehicle_reg" placeholder="Vehicle Registrattion Number" onchange="validate_registration()" required>
 									</div>
 								</div>
 								
@@ -145,8 +127,8 @@
 										<label>Choose Cover Period:</label>
 											<div id="coveroptional">
 												<select name="coverperiod" id="coverperiod" class="form-control py-1">
-													<option>1 year</option>
-													<option>1 month</option>
+													<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 year') echo 'selected'?>>1 year</option>
+													<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 month') echo 'selected'?>>1 month</option>
 												</select>
 											</div>
 										</div>
@@ -167,15 +149,15 @@
 									<div class="form-group">
 										<label>Gender</label>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="male" name="gender" value="Male" required>
+											<input type="radio" class="custom-control-input" id="male" name="gender" value="Male" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Male') echo 'checked'?> required>
 											<label class="custom-control-label" for="male">Male</label>
 										</div>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="female" name="gender" value="Female" required>
+											<input type="radio" class="custom-control-input" id="female" name="gender" value="Female" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Female') echo 'checked'?>  required>
 											<label class="custom-control-label" for="female">Female</label>
 										</div>
 										<div class="custom-control custom-radio mb-3">
-											<input type="radio" class="custom-control-input" id="other" name="gender" value="Other" required>
+											<input type="radio" class="custom-control-input" id="other" name="gender" value="Other" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Other') echo 'checked'?>required>
 											<label class="custom-control-label" for="other">Other</label>
 											<div class="invalid-feedback">Select Gender</div>
 										</div>
@@ -188,12 +170,12 @@
 										<label class="custom-control-label" for="yes">Yes</label>
 									</div>
 									<div class="custom-control custom-radio mb-3">
-										<input type="radio" class="custom-control-input" value="no" id="no" name="agent_code" required onchange="validate_referal(this)">
+										<input type="radio" class="custom-control-input" value="no" id="no" name="agent_code" <?php if(isset($_SESSION['client_details']['agent_code']) && trim($_SESSION['client_details']['agent_code']) == 'no') echo 'checked'?> required onchange="validate_referal(this)">
 										<label class="custom-control-label" for="no">No</label>
 										<div class="invalid-feedback"></div>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control styled text-center" name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal(this)" required>
+										<input type="text" class="form-control styled text-center" <?php if(isset($_SESSION['client_details']['referal_code'])) echo 'value='.'"'.$_SESSION['client_details']['referal_code'].'"';?> name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal(this)" required>
 									</div>
 								</div>
 							</div>
@@ -256,12 +238,10 @@
 	function myFunction() {
 		var x = document.getElementById("mySelect1");
 		var text=x.options[x.selectedIndex].text;
-		console.log(text);
 		if ((text == "7. commercial Own goods")||(text == "8. General Cartage Lorries,Trucks and Tankers")) {
-			console.log("TONNAGE");
 			document.getElementById("tonnage").innerHTML ='\
-			<label>Enter Tonnage</label>\
-			<input type="text" class="form-control styled text-center" id="tonnage" name="tonnage" placeholder="Tonnage" required>';
+			<label>Enter Tonnage (KG)</label>\
+			<input type="text" class="form-control styled text-center" id="tonnage" <?php if(isset($_SESSION['client_details']['tonnage'])) echo 'value='.'"'.$_SESSION['client_details']['tonnage'].'"';?> name="tonnage" placeholder="Tonnage (KG)" required>';
 			document.getElementById("passangers").innerHTML = "";
 			document.getElementById("coveroptional").innerHTML ='';
 
@@ -275,24 +255,24 @@
 		if ((text == "15. PSV - Matatu") || (text == "17. PSV - BUS") || (text == "7. commercial Own goods") || (text == "8. General Cartage Lorries,Trucks and Tankers")){
 			if ((text == "7. commercial Own goods") || (text == "8. General Cartage Lorries,Trucks and Tankers")){
 				document.getElementById("coveroptional").innerHTML ='<select name="coverperiod" id="coverperiod" class="form-control py-1">\
-				<option>1 year</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 year') echo 'selected'?>>1 year</option>\
 			</select>';
 			}else{
 			document.getElementById("passangers").innerHTML ='<label class="text-center">Seating Capacity:</label>\
-			<input type="number" class="form-control styled text-center" name="passangers" placeholder="Enter seating capacity" required>';
+			<input type="number" class="form-control styled text-center" name="passangers" <?php if(isset($_SESSION['client_details']['passangers'])) echo 'value='.'"'.$_SESSION['client_details']['passangers'].'"';?> placeholder="Enter seating capacity" required>';
 			document.getElementById("coveroptional").innerHTML ='<select name="coverperiod" id="coverperiod" class="form-control py-1">\
-				<option>1 week</option>\
-				<option>2 weeks</option>\
-				<option>1 month</option>\
-				<option>1 year</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 week') echo 'selected'?>>1 week</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '2 weeks') echo 'selected'?>>2 weeks</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 month') echo 'selected'?>>1 month</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 year') echo 'selected'?>>1 year</option>\
 			</select>';
 			}
 			
 		}else{
 			document.getElementById("passangers").innerHTML ="";
 			document.getElementById("coveroptional").innerHTML ='<select name="coverperiod" id="coverperiod" class="form-control py-1">\
-				<option>1 month</option>\
-				<option>1 year</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 month') echo 'selected'?>>1 month</option>\
+				<option <?php if(isset($_SESSION['client_details']['coverperiod']) && trim($_SESSION['client_details']['coverperiod']) == '1 year') echo 'selected'?>>1 year</option>\
 			</select>';
 		}
 		// Get the value of the input field with id="numb"
@@ -306,8 +286,6 @@
 		var result = referal_code.value.match(ira_patt);
 		if(result){
 			referal_code.value = result;
-			console.log(referal_code.value);
-			console.log(codes.includes(referal_code.value));
 			if (!codes.includes(referal_code.value)){
 				referal_code.value = "";
 				referal_code.placeholder='Agent code doesnt exist, recheck or use 31212';
@@ -317,10 +295,10 @@
 			referal_code.value = "";
 			referal_code.placeholder='Invalid agent code: Use this format: 00000 or 00000-00';
 		}
-		if(name.id == "customControlValidation2"){
+		if(name.id == "yes"){
 			document.getElementById("referal_code").className ="form-control styled text-center";
 		}
-		if(name.id == "customControlValidation3"){
+		if(name.id == "no"){
 			document.getElementById("referal_code").className ="form-control styled text-center d-none";
 			referal_code.value = "31212";
 
@@ -329,12 +307,10 @@
 	}
 	function validateEmail(){
 		const email = document.getElementById("email");
-		console.log(email.value);
 		var ira_patt = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/g;
 		var result = email.value.match(ira_patt);
 		if(result){
 			email.value = result;
-			console.log(result);
 		}else{
 			email.value = "";
 			email.placeholder='Invalid email Use this format: donjoe@email.com';
@@ -342,29 +318,37 @@
 	}
 	function validate_registration(){
 		const reg_number = document.getElementById("reg_number");
-		console.log(reg_number.value);
 		var ira_patt = /[A-Za-z]{3}[0-9]{3}[A-Za-z]{1}|[A-Za-z]{3}[0-9]{3}|[A-Za-z]{3} [0-9]{3}[A-Za-z]{1}|[A-Za-z]{3} [0-9]{3}/g;
 		var result = reg_number.value.match(ira_patt);
 		if(result){
 			// reg_number.value = result[0];
-			console.log(result);
 		}else{
 			reg_number.value = "";
 			reg_number.placeholder='Invalid Registration Use this format: KAA 000A/KAA 000';
 		}
 	}
 	function validate_names(id,value){
-		// console.log(id,value);
 		if(value.split(' ').length <=1){
 			document.getElementById(id).value ='';
 			document.getElementById(id).placeholder="Enter full names";
 		}
-		// console.log(document.getElementById(id).value =);
 	}
 	function validatePhone(id,value){
-		console.log(id, value);
 	}
 	</script>
+	<script type = "text/javascript"> 
+	window.onload = function(){   
+		myFunction();
+		var name = document.getElementById("no");
+		
+		if(name.checked ==false){
+			name = document.getElementById("yes");
+		}else{
+			name = document.getElementById("no");
+		}
+		validate_referal(name);
+	}
+	</script>  
 	<?php include "chat/chat.php"?>
 
 </body>

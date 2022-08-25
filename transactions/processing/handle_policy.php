@@ -1,21 +1,33 @@
 <?php
+
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 include "../../dashboard/db/connect_db.php";
 
 
+$owner_referal= explode("/", $_SESSION["client_details"]["referal_code"])[0];
+$select = $pdo->prepare("select * from tbl_user where code = '$owner_referal'");
+$select->execute();
+$row = $select->fetch(PDO::FETCH_ASSOC);
+$_SESSION["agency_owner"]=$row;
+
 if($_SESSION["confirmed_items"]["payments"] == "credit"){
     $status=2;
+    $method_of_payment=$_SESSION["confirmed_items"]["payments"];
+    $amount=0;
 }else{
     $status=0;
     $proof_of_payment = $_SESSION["stk_callback"]["MpesaReceiptNumber"];
+    $method_of_payment=$_SESSION["confirmed_items"]["payments"];
+    $amount=$_SESSION["stk_callback"]["Amount"];
 }
-$agency=$_SESSION['user']->agency;
-$subagent=$_SESSION['user']->subagent;
-$code=$_SESSION['user']->code;
-$username=$_SESSION['user']->phonenumber;
-$role=$_SESSION['user']->role;
+// print_r($_SESSION);
+$agency=$_SESSION['agency_owner']["agency"];
+$subagent=$_SESSION['agency_owner']["subagent"];
+$code=$_SESSION['agency_owner']["code"];
+$username=$_SESSION['agency_owner']["phonenumber"];
+$role=$_SESSION['agency_owner']["role"];
 $cover_period=$_SESSION["client_details"]["coverperiod"];
 $first_name=$_SESSION["confirmed_items"]["firstname"];
 $middle_name=$_SESSION["confirmed_items"]["firstname"];
@@ -24,7 +36,7 @@ $id_number=$_SESSION["confirmed_items"]["idnumber"];
 $pin_number=$_SESSION["confirmed_items"]["kra"];
 $phone_number=$_SESSION["confirmed_items"]["phonenumber"];
 $client_email=$_SESSION["confirmed_items"]["emailaddress"];
-$gender=$_SESSION["client_details"]["inlineRadioOptions"];
+$gender=$_SESSION["client_details"]["gender"];
 $poastall_address=$_SESSION["confirmed_items"]["postaladdress"];
 $policy_number=0;
 $cover_from=$_SESSION["logbook"]["date"];
@@ -35,71 +47,73 @@ $cert_from=0;
 $cert_to=0;
 $vehicle_reg=$_SESSION["logbook"]["registration"];
 $chassis_number=$_SESSION["logbook"]["chasis"];
-$insurance_class=$_SESSION["confirmed_items"]["class"];
+$insurance_class=$_SESSION["class"];
 $cover_type=$_SESSION["cover"]["cover"];
 if($cover_type == "Third Party Only"){
     $sum_insured=0;
 }
 $gross_premium=$_SESSION["grosspremium"];
-$method_of_payment=$_SESSION[""];
-$installments=$_SESSION[""];
-$amount=$_SESSION[""];
-$certificate_number=$_SESSION[""];
-$underwriter=$_SESSION[""];
-$seating_capacity=$_SESSION[""];
-$tonnage=$_SESSION[""];
-$optional_benefits=$_SESSION[""];
-$unique_string=$_SESSION[""];
+$installments=$_SESSION["confirmed_items"]["installments"];
+$certificate_number=0;
+$underwriter=$_SESSION["underwriter"]["Name"];
+$seating_capacity=$_SESSION["logbook"]["passengers"];
+$tonnage=$_SESSION["logbook"]["load_capacity"];
+$optional_benefits="no";
+$unique_string=$agency.$subagent.$code.$username.$role.$cover_period.$first_name.$middle_name.$last_name.$id_number.$pin_number.$phone_number.$client_email.$gender.$poastall_address.$cover_from.$cover_to.$vehicle_reg.$chassis_number.$insurance_class.$cover_type.$cover_type.$sum_insured.$gross_premium.$installments.$underwriter.$seating_capacity.$tonnage;
 
-
-    // $select=$pdo->prepare("SELECT * from $table where unique_string='$unique_string'");
-    // $select->execute();
-    // $total_records = $select->rowCount();
-    // if($total_records <= 0){
-    //     $insert = $pdo->prepare("INSERT INTO tbl_policy(status,role,first_name, middle_name, last_name, id_number, pin_number, phone_number, client_email, gender, poastall_address, policy_number, cover_from, cover_to, cert_from, cert_to, vehicle_reg, chassis_number, insurance_class, cover_type, sum_insured, gross_premium, proof_of_payment, method_of_payment, installments, amount, certificate_number, underwriter, seating_capacity, tonnage, optional_benefits, unique_string, agency, subagent, code, username)
-    //     values(:status,:role,:first_name,:middle_name,:last_name,:id_number,:pin_number,:phone_number,:client_email,:gender,:poastall_address,:policy_number,:cover_from,:cover_to,:cert_from,:cert_to,:vehicle_reg,:chassis_number,:insurance_class,:cover_type,:sum_insured,:gross_premium,:proof_of_payment,:method_of_payment,:installments,:amount,:certificate_number,:underwriter,:seating_capacity,:tonnage,:optional_benefits,:unique_string,:agency,:subagent,:code,:username)");
-    //     $insert->bindParam(':status',$status);
-    //     $insert->bindParam(':role',$role);
-    //     $insert->bindParam(':first_name',$first_name);
-    //     $insert->bindParam(':middle_name',$middle_name);
-    //     $insert->bindParam(':last_name',$last_name);
-    //     $insert->bindParam(':id_number',$id_number);
-    //     $insert->bindParam(':pin_number',$pin_number);
-    //     $insert->bindParam(':phone_number',$phone_number);
-    //     $insert->bindParam(':client_email',$client_email);
-    //     $insert->bindParam(':gender',$gender);
-    //     $insert->bindParam(':poastall_address',$poastall_address);
-    //     $insert->bindParam(':policy_number',$policy_number);
-    //     $insert->bindParam(':cover_from',$cover_from);
-    //     $insert->bindParam(':cover_to',$cover_to);
-    //     $insert->bindParam(':cert_from',$cert_from);
-    //     $insert->bindParam(':cert_to',$cert_to);
-    //     $insert->bindParam(':vehicle_reg',$vehicle_reg);
-    //     $insert->bindParam(':chassis_number',$chassis_number);
-    //     $insert->bindParam(':insurance_class',$insurance_class);
-    //     $insert->bindParam(':cover_type',$cover_type);
-    //     $insert->bindParam(':sum_insured',$sum_insured);
-    //     $insert->bindParam(':gross_premium',$gross_premium);
-    //     $insert->bindParam(':proof_of_payment',$proof_of_payment);
-    //     $insert->bindParam(':method_of_payment',$method_of_payment);
-    //     $insert->bindParam(':installments',$installments);
-    //     $insert->bindParam(':amount',$amount);
-    //     $insert->bindParam(':certificate_number',$certificate_number);
-    //     $insert->bindParam(':underwriter',$underwriter);
-    //     $insert->bindParam(':seating_capacity',$seating_capacity);
-    //     $insert->bindParam(':tonnage',$tonnage);
-    //     $insert->bindParam(':optional_benefits',$optional_benefits);
-    //     $insert->bindParam(':unique_string', $unique_string);
-    //     $insert->bindParam(':agency', $agency);
-    //     $insert->bindParam(':subagent', $subagent);
-    //     $insert->bindParam(':code', $code);
-    //     $insert->bindParam(':username', $username);
+$select=$pdo->prepare("SELECT * from tbl_policy where unique_string='$unique_string'");
+$select->execute();
+$total_records = $select->rowCount();
+if($total_records <= 0){
+    $insert = $pdo->prepare("INSERT INTO tbl_policy(status,role,first_name, middle_name, last_name, id_number, pin_number, phone_number, client_email, gender, poastall_address, policy_number, cover_from, cover_to, cert_from, cert_to, vehicle_reg, chassis_number, insurance_class, cover_type, sum_insured, gross_premium, proof_of_payment, method_of_payment, installments, amount, certificate_number, underwriter, seating_capacity, tonnage, optional_benefits, unique_string, agency, subagent, code, username)
+    values(:status,:role,:first_name,:middle_name,:last_name,:id_number,:pin_number,:phone_number,:client_email,:gender,:poastall_address,:policy_number,:cover_from,:cover_to,:cert_from,:cert_to,:vehicle_reg,:chassis_number,:insurance_class,:cover_type,:sum_insured,:gross_premium,:proof_of_payment,:method_of_payment,:installments,:amount,:certificate_number,:underwriter,:seating_capacity,:tonnage,:optional_benefits,:unique_string,:agency,:subagent,:code,:username)");
+    $insert->bindParam(':status',$status);
+    $insert->bindParam(':role',$role);
+    $insert->bindParam(':first_name',$first_name);
+    $insert->bindParam(':middle_name',$middle_name);
+    $insert->bindParam(':last_name',$last_name);
+    $insert->bindParam(':id_number',$id_number);
+    $insert->bindParam(':pin_number',$pin_number);
+    $insert->bindParam(':phone_number',$phone_number);
+    $insert->bindParam(':client_email',$client_email);
+    $insert->bindParam(':gender',$gender);
+    $insert->bindParam(':poastall_address',$poastall_address);
+    $insert->bindParam(':policy_number',$policy_number);
+    $insert->bindParam(':cover_from',$cover_from);
+    $insert->bindParam(':cover_to',$cover_to);
+    $insert->bindParam(':cert_from',$cert_from);
+    $insert->bindParam(':cert_to',$cert_to);
+    $insert->bindParam(':vehicle_reg',$vehicle_reg);
+    $insert->bindParam(':chassis_number',$chassis_number);
+    $insert->bindParam(':insurance_class',$insurance_class);
+    $insert->bindParam(':cover_type',$cover_type);
+    $insert->bindParam(':sum_insured',$sum_insured);
+    $insert->bindParam(':gross_premium',$gross_premium);
+    $insert->bindParam(':proof_of_payment',$proof_of_payment);
+    $insert->bindParam(':method_of_payment',$method_of_payment);
+    $insert->bindParam(':installments',$installments);
+    $insert->bindParam(':amount',$amount);
+    $insert->bindParam(':certificate_number',$certificate_number);
+    $insert->bindParam(':underwriter',$underwriter);
+    $insert->bindParam(':seating_capacity',$seating_capacity);
+    $insert->bindParam(':tonnage',$tonnage);
+    $insert->bindParam(':optional_benefits',$optional_benefits);
+    $insert->bindParam(':unique_string', $unique_string);
+    $insert->bindParam(':agency', $agency);
+    $insert->bindParam(':subagent', $subagent);
+    $insert->bindParam(':code', $code);
+    $insert->bindParam(':username', $username);
+    if($insert->execute()){
+            if($_SESSION["confirmed_items"]["payments"] == "credit"){
+                header("refresh:2;url= ../../gateway.php?pending=1");
+            }else{
+                include "../stk.php";
+            }
+    }else{
+        header("refresh:2;url= ../../gateway.php?pending=".$insert->errorInfo()[2]);
+    }
         
-    //     if($insert->execute()){
-    //           header("location: policies.php");
-    //     }else{
-    //       header("location: policies.php");
-    //       print_r($insert->errorInfo()[2]);
-    //     }
-    //   }
+}else{
+    header("refresh:2;url=../../gateway.php?pending=0");
+}
 ?>

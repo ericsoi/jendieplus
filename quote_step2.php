@@ -1,16 +1,7 @@
 <?php 
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
-	}
-	if (isset($_SESSION["optionalbenefits"])){
-		unset($_SESSION["optionalbenefits"]);
-	}
-    if(isset($_GET)){
-		#print_r($_GET);
-		// print_r($_SESSION);
-		$_SESSION["optionalbenefits"] = $_GET;
-	}if(!isset($_SESSION["underwriter"])) { 
-	
+	@session_start();
+
+	if(!isset($_SESSION["client_details"])) { 
 		header("refresh:0;url=./index.php");
 	}else{
 		include "dashboard/db/connect_db.php";
@@ -35,189 +26,195 @@
 
 	<section class="wrapper">
 		<div class="divider_border"></div>
-
-	<div class="logbook">
-		<div class="container">
-			
-			<div class="row-logbook">
-				<div class="col-md-6">
-
-				
-
-
-							<div class="row">
-								<div class="col-md-10">
-									<!-- <?php print_r($_SESSION["client_details"]);?> -->
-			<form class="was-validated" method="post" action="confirmationpage.php" autocomplete="off" enctype="multipart/form-data">
-						
+		<div class="logbook">
+			<div class="container">
+				<div class="row-logbook">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-10">
+								<form class="was-validated" method="post" action="processer/handle_quote2.php" autocomplete="off" enctype="multipart/form-data">
 										<div class="center">
-											<h3>Particulars</h3></div>
-							<div class="form-group">
-								<label>Registration</label>
-								<input type="text" class="form-control" name="registration" id = "registration" value="<?php echo $_SESSION["client_details"]["vehicle_reg"]?>" placeholder="enter vehicle registration number" onchange="validate_registration()" readonly>
-							</div>
-							<div class="form-group">
-								<label>Chasis/Frame</label>
-								<input type="text" class="form-control" name="chasis" required placeholder="Chasis/Frame">
-							</div>
-							<div class="form-group">
-								<label>Make</label>
-								<input type="text" class="form-control" name="make" required placeholder="Make">
-							</div>
-							<div class="form-group">
-								<label>Model</label>
-								<input type="text" class="form-control" name="model" required placeholder="Model">
-							</div>
-							<div class="form-group">
-								<label>Type</label>
-								<input type="text" class="form-control" name="type" required placeholder="Type">
-							</div>
-							<div class="form-group">
-								<label>Body</label>
-								<input type="text" class="form-control" name="body" required placeholder="Body">
-							</div>
-							<div class="form-group">
-								<label>Fuel</label>
-								<input type="text" class="form-control" name="fuel" required placeholder="Fuel">
-							</div>
-							<div class="form-group">
-								<label>Man Year</label>
-								<select name="man_year" class="form-control py-1"> <?php for ($i = date('Y'); $i >= 1900; $i--){echo "<option>$i</option>"; }?></select>
-							</div>
-							<div class="form-group">
-								<label>Rating</label>
-								<input type="text" class="form-control" name="rating" required placeholder="Rating">
-							</div>
-							<div class="form-group">
-								<label>Engine Number</label>
-								<input type="text" class="form-control" name="engine_number" required placeholder="Engine Number">
-							</div>
-							<div class="form-group">
-								<label>Color</label>
-								<input type="text" class="form-control" name="color" required placeholder="Color">
-							</div>
+											<h3>Particulars</h3>
+										</div>
 										<div class="form-group">
-								<label>Registration Date</label>
-								<input type="date" class="form-control" name="reg_date">
-							</div>
-							<div class="form-group">
-								<label>Gross Weight</label>
-								<input type="number" class="form-control" name="gross_weight" required placeholder="Gross Weight">
-							</div>
-							<div class="form-group">
-								<label>Duty</label>
-								<select id="duty" name="duty" class="form-control styled" placeholder="Vehicle Class" required>
-									<option value="paid">Paid</option>
-									<option value="unpaid">Unpaid</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label>Number Of Previous Owners</label>
-								<input type="number" class="form-control" name="previous_owners" required placeholder="Number Of Previous Owners">
-							</div>
-								</div>
-								<!-- End col -->
+											<label>Registration</label>
+											<input type="text" class="form-control" name="registration" id = "registration" value="<?php echo $_SESSION["client_details"]["vehicle_reg"]?>" placeholder="enter vehicle registration number" onchange="validate_registration()" readonly>
+										</div>
+										<div class="form-group">
+											<label>Chasis/Frame</label>
+											<input type="text" class="form-control" name="chasis"  <?php if(isset($_SESSION['logbook']['chasis'])) echo 'value='.'"'.$_SESSION['logbook']['chasis'].'"'?> required placeholder="Chasis/Frame">
+										</div>
+										<div class="form-group">
+											<label>Make</label>
+											<input type="text" class="form-control" name="make" <?php if(isset($_SESSION['logbook']['make'])) echo 'value='.'"'.$_SESSION['logbook']['make'].'"'?> required placeholder="Make">
+										</div>
+										<div class="form-group">
+											<label>Model</label>
+											<input type="text" class="form-control" name="model" <?php if(isset($_SESSION['logbook']['model'])) echo 'value='.'"'.$_SESSION['logbook']['model'].'"'?> required placeholder="Model">
+										</div>
+										<div class="form-group">
+											<label>Type</label>
+											<input type="text" class="form-control" name="type" <?php if(isset($_SESSION['logbook']['type'])) echo 'value='.'"'.$_SESSION['logbook']['type'].'"'?> required placeholder="Type">
+										</div>
+										<div class="form-group">
+											<label>Body</label>
+											<input type="text" class="form-control" name="body" <?php if(isset($_SESSION['logbook']['body'])) echo 'value='.'"'.$_SESSION['logbook']['body'].'"'?> required placeholder="Body">
+										</div>
+										<div class="form-group">
+											<label>Fuel</label>
+											<input type="text" class="form-control" name="fuel" <?php if(isset($_SESSION['logbook']['fuel'])) echo 'value='.'"'.$_SESSION['logbook']['fuel'].'"'?> required placeholder="Fuel">
+										</div>
+										<div class="form-group">
+											<label>Man Year</label>
+											<?php if(isset($_SESSION['logbook']['man_year']))$man_year=trim($_SESSION['logbook']['man_year']);else $man_year='';?>
+											
+											<select name="man_year" class="form-control py-1"> 
+												<?php for ($i = date('Y'); $i >= 1900; $i--){?>
+													<option <?php if($i==$man_year) echo 'selected';?>><?php echo $i;?></option>
+												<?php
+													}
+												?>
+											</select>
+											
+										</div>
+										<div class="form-group">
+											<label>Rating</label>
+											<input type="text" class="form-control" name="rating" <?php if(isset($_SESSION['logbook']['rating'])) echo 'value='.'"'.$_SESSION['logbook']['rating'].'"'?> required placeholder="Rating">
+										</div>
+										<div class="form-group">
+											<label>Engine Number</label>
+											<input type="text" class="form-control" name="engine_number" <?php if(isset($_SESSION['logbook']['engine_number'])) echo 'value='.'"'.$_SESSION['logbook']['engine_number'].'"'?> required placeholder="Engine Number">
+										</div>
+										<div class="form-group">
+											<label>Color</label>
+											<input type="text" class="form-control" name="color" <?php if(isset($_SESSION['logbook']['color'])) echo 'value='.'"'.$_SESSION['logbook']['color'].'"'?> required placeholder="Color">
+										</div>
+										<div class="form-group">
+											<label>Registration Date</label>
+											<input type="date" class="form-control" name="reg_date" <?php if(isset($_SESSION['logbook']['reg_date'])) echo 'value='.'"'.$_SESSION['logbook']['reg_date'].'"'?>>
+										</div>
+										<div class="form-group">
+											<label>Gross Weight</label>
+											<input type="number" class="form-control" name="gross_weight" <?php if(isset($_SESSION['logbook']['gross_weight'])) echo 'value='.'"'.$_SESSION['logbook']['gross_weight'].'"'?> required placeholder="Gross Weight">
+										</div>
+										<div class="form-group">
+											<label>Duty</label>
+											<?php if(isset($_SESSION['logbook']['duty']))$duty=trim($_SESSION['logbook']['duty']);else $duty='';?>
+											<select id="duty" name="duty" class="form-control styled" placeholder="Vehicle Class" required>
+												<option value="paid" <?php if($duty=="paid") echo "selected"?>>Paid</option>
+												<option value="unpaid" <?php if($duty=="unpaid") echo "selected"?> >Unpaid</option>
+											</select>
+										</div>
+										<div class="form-group">
+											<label>Number Of Previous Owners</label>
+											<input type="number" class="form-control" name="previous_owners" <?php if(isset($_SESSION['logbook']['previous_owners'])) echo 'value='.'"'.$_SESSION['logbook']['previous_owners'].'"'?> required placeholder="Number Of Previous Owners">
+										</div>
+											</div>
+											<!-- End col -->
 
-								
-								<!-- End col -->
-							</div>
-							<!-- End row -->
+											
+											<!-- End col -->
+										</div>
+										<!-- End row -->
 
-							<hr>
+										<hr>
 
 							
 					
-				</div>
-				<!-- End Col -->
+									</div>
+									<!-- End Col -->
 
-				<aside class="col-md-6">
+									<aside class="col-md-6 was-validated">
 			
 						
-							<div class="center">
-											<h3>Particulars</h3></div>
-							<div class="form-group">
-								<label>Passengers</label>
-								<input type="number" class="form-control" name="passengers" required placeholder="Passengers">
-							</div>
-							<div class="form-group">
-								<label>Tare Weight</label>
-								<input type="number" class="form-control" name="tare_weight" required placeholder="Tare Weight">
-							</div>
-							<div class="form-group">
-								<label>Tax Class</label>
-								<input type="text" class="form-control" name="tax_class" required placeholder="Tax Class">
-							</div>
-							<div class="form-group">
-								<label>Axels</label>
-								<input type="number" class="form-control" name="axels" required placeholder="Axels">
-							</div>
-							<div class="form-group">
-								<label>Load Capaticity(KG)</label>
-								<input type="number" class="form-control" name="load_capacity" required placeholder="Load Capaticity(KG)">
-							</div>
-							<div class="form-group">
-								<label>Previous Registration Country</label>
-								<input type="text" class="form-control" name="reg_country" required placeholder="Previous Registration Country">
-							</div>
-							<div class="form-group">
-								<label>Previous Registration</label>
-								<input type="text" class="form-control" name="previous_reg" required placeholder="Previous Registration">
-							</div>
-						<div class="form-group">
-						<label>Date of Policy</label>
-						<input type="date" class="form-control" name="date" min="<?php echo date('Y-m-d'); ?>" value = "<?php echo date('Y-m-d');?>" autofocus>
+									<div class="center">
+										<h3>Particulars</h3>
+									</div>
+									<div class="form-group">
+										<label>Passengers</label>
+										<input type="number" class="form-control" name="passengers" <?php if(isset($_SESSION['client_details']['passangers'])) {echo 'value='.'"'.$_SESSION['client_details']['passangers'].'"'; echo "readonly";} if(isset($_SESSION['logbook']['passengers'])) echo 'value='.'"'.$_SESSION['logbook']['passengers'].'"'?> required placeholder="Passengers">
+									</div>
+									<div class="form-group">
+										<label>Tare Weight</label>
+										<input type="number" class="form-control" name="tare_weight" <?php if(isset($_SESSION['logbook']['tare_weight'])) echo 'value='.'"'.$_SESSION['logbook']['tare_weight'].'"'?> required placeholder="Tare Weight">
+									</div>
+									<div class="form-group">
+										<label>Tax Class</label>
+										<input type="text" class="form-control" name="tax_class" <?php if(isset($_SESSION['logbook']['tax_class'])) echo 'value='.'"'.$_SESSION['logbook']['tax_class'].'"'?> required placeholder="Tax Class">
+									</div>
+									<div class="form-group">
+										<label>Axels</label>
+										<input type="number" class="form-control" name="axels" <?php if(isset($_SESSION['logbook']['axels'])) echo 'value='.'"'.$_SESSION['logbook']['axels'].'"'?> required placeholder="Axels">
+									</div>
+									<div class="form-group">
+										<label>Load Capaticity(KG)</label>
+										<input type="number" class="form-control" name="load_capacity" <?php if (isset($_SESSION["client_details"]["tonnage"])) {echo 'value='.'"'.$_SESSION['client_details']['tonnage'].'"'; echo "readonly";} if(isset($_SESSION['logbook']['load_capacity'])) echo 'value='.'"'.$_SESSION['logbook']['load_capacity'].'"'?> required placeholder="Load Capaticity(KG)">
+									</div>
+									<div class="form-group">
+										<label>Previous Registration Country</label>
+										<input type="text" class="form-control" name="reg_country" <?php if(isset($_SESSION['logbook']['reg_country'])) echo 'value='.'"'.$_SESSION['logbook']['reg_country'].'"'?> required placeholder="Previous Registration Country">
+									</div>
+									<div class="form-group">
+										<label>Previous Registration</label>
+										<input type="text" class="form-control" name="previous_reg" <?php if(isset($_SESSION['logbook']['previous_reg'])) echo 'value='.'"'.$_SESSION['logbook']['previous_reg'].'"'?> required placeholder="Previous Registration">
+									</div>
+									<div class="form-group">
+										<label>Date of Policy</label>
+										<input type="date" class="form-control" name="date" min="<?php echo date('Y-m-d'); ?>" <?php if(isset($_SESSION['logbook']['date'])) echo 'value='.'"'.$_SESSION['logbook']['date'].'"'; else echo 'value='.'"'.date('Y-m-d').'"'?> autofocus>
 
-						</div>
-						<div class="form-group">
-						<label>Logbook Number</label>
-							<input type="text" class="form-control" name="logbook_number" required placeholder="Logbook Number">
+									</div>
+									<div class="form-group">
+										<label>Logbook Number</label>
+										<input type="text" class="form-control" name="logbook_number" <?php if(isset($_SESSION['logbook']['logbook_number'])) echo 'value='.'"'.$_SESSION['logbook']['logbook_number'].'"'?> required placeholder="Logbook Number">
 
-						</div>
-						<div class="form-group">
-						<label>Physical Address</label>
-							<input type="text" class="form-control" name="physical_address" required placeholder="Enter Physical Addres">
+									</div>
+									<div class="form-group">
+										<label>Physical Address</label>
+										<input type="text" class="form-control" name="physical_address" <?php if(isset($_SESSION['logbook']['physical_address'])) echo 'value='.'"'.$_SESSION['logbook']['physical_address'].'"'?> required placeholder="Enter Physical Addres">
 
-						</div>
-						<div class="form-group">
-						<label>ID Number</label>
-							<input type="text" class="form-control" name="id_number" required placeholder="ID Number">
+									</div>
+									<div class="form-group">
+										<label>ID Number</label>
+										<input type="text" class="form-control" name="id_number" <?php if(isset($_SESSION['logbook']['id_number'])) echo 'value='.'"'.$_SESSION['logbook']['id_number'].'"'?> required placeholder="ID Number">
 
-						</div>
-						
-						<div class="form-group">
-						<label>Upload ID </label>
-							<input type="file" class="form-control" name="clientFiles[]" required placeholder="Upload ID Copy">
+									</div>
+									
+									<div class="form-group">
+										<label>Upload ID </label>
+										<input type="file" class="form-control" name="clientFiles[]"  <?php if(isset($_SESSION['client_files']['u_id'])) echo 'value='.'"'.$_SESSION['client_files']['u_id'].'"'?> required placeholder="Upload ID Copy">
 
-						</div>
-						<div class="form-group">
-						<label>KRA Pin Number</label>
-							<input type="text" class="form-control" name="kra_number" id="kra_number" required placeholder="KRA PIN Number" onchange="validate_kra()">
+									</div>
+									<div class="form-group">
+										<label>KRA Pin Number</label>
+										<input type="text" class="form-control" name="kra_number" <?php if(isset($_SESSION['logbook']['kra_number'])) echo 'value='.'"'.$_SESSION['logbook']['kra_number'].'"'?> id="kra_number" required placeholder="KRA PIN Number" onchange="validate_kra()">
 
-						</div>
-						<div class="form-group">
-						<label>Upload KRA PIN </label>
-							<input type="file" class="form-control" name="clientFiles[]" required placeholder="Upload KRA PIN Copy">
+									</div>
+									<div class="form-group">
+										<label>Upload KRA PIN </label>
+										<input type="file" class="form-control" name="clientFiles[]" <?php if(isset($_SESSION['client_files']['u_id'])) echo 'value='.'"'.$_SESSION['client_files']['u_id'].'"'?> required placeholder="Upload KRA PIN Copy">
 
-						</div>
-						<div class="form-group">
-						<label>Upload Logbook Copy </label>
-							<input type="file" class="form-control" name="clientFiles[]" required placeholder="Upload Logbook Copy">
+									</div>
+									<div class="form-group">
+										<label>Upload Logbook Copy </label>
+										<input type="file" class="form-control" name="clientFiles[]" <?php if(isset($_SESSION['client_files']['u_logbook'])) echo 'value='.'"'.$_SESSION['client_files']['u_logbook'].'"'?> required placeholder="Upload Logbook Copy">
 
+									</div>
+									</aside>
+									<div class="">
+										<input type="submit" value="Register" class="btn_full">
+									</div>
+								</div>
+							</form>
+							<!-- End row -->
 						</div>
-				</aside>
-					<div class="">
-								<input type="submit" value="Register" class="btn_full">
-							</div>
-			</div>
-</form>
-			<!-- End row -->
-					</div>
 					
-				<!-- End Logbook-->
+						<!-- End Logbook-->
 
+					</div>
+					<!-- End container -->
+				</div>
+			</div>
 		</div>
-		<!-- End container -->
-
 		<?php include "nav/footer.php"?>
 
 	<!-- End footer -->

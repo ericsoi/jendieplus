@@ -1,7 +1,7 @@
 <?php 
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
-	}
+	@session_start();
+
+	// print_r($_SESSION);
 	function vehicleClass($str){
 		$no=explode(".", $str)[0];
 		$vclass=explode(".", $str)[1];
@@ -19,8 +19,10 @@
 				return "";
 		}
 	}
-    if(isset($_GET)){
-        $copy = $_GET;
+	if(!isset($_SESSION["client_details"])) { 
+		header("refresh:0;url=./index.php");
+	}else{
+		$copy = $_SESSION['client_details'];
         foreach ($copy as $key => $value) {
             if ($value == "1 week") {
                 $value = "weeklyrates";
@@ -33,9 +35,9 @@
             }
             $copy[$key] = $value;
         }
-    }
-	if(isset($_GET["passangers"])){
-		$passangers="-".$_GET["passangers"];
+	}
+	if(isset($_SESSION['client_details']["passangers"])){
+		$passangers="-".$_SESSION['client_details']["passangers"];
 	}else{
 		$passangers='';
 	}
@@ -51,51 +53,49 @@
 
 	
     include "dashboard/db/connect_db.php";
-	if (isset($_SESSION["client_details"])){
-		unset($_SESSION["client_details"]);
-	}
+	// if (isset($_SESSION["client_details"])){
+	// 	unset($_SESSION["client_details"]);
+	// }
 	if(isset($_SESSION["product"])){
 		unset ($_SESSION['product']);
 	}
-    $_SESSION["client_details"] = $_GET;
-    if(!isset($_SESSION["underwriter"])) { 
+    if(!isset($_SESSION["client_details"])) { 
 		header("refresh:0;url=./index.php");
 	}else{
 		$underwriter = trim($_SESSION["underwriter"]["Name"]);
 		$description = trim($_SESSION["underwriter"]["description"]);
-        $coverage =  trim($_SESSION["cover"]["cover"]);
+        $coverage =  trim($_SESSION["cover"]);
         $referal_code = trim($_SESSION["client_details"]["referal_code"]);
         $vehicleclass = trim($_SESSION["client_details"]["vehicleclass"]);
 		$productcode=strtolower("-".$referal_code."-".$underwriter."-".$vehicleclass."-".$coverage);
 		$productcode= preg_replace('[ ]', '', $productcode);
 
 	}
-
-
 function t2($val, $min, $max) {
 	return ($val >= $min && $val <= $max);
 }
-
-
 $select = $pdo->prepare("SELECT * FROM tbl_product where product_code = '$productcode'");
 $select->execute();
 $product=False;$tonnage=0; $suinsured=0; $passengers=0;
 if($select->rowCount()>0){
-	// print_r($_SESSION);
 	$name=$_SESSION["client_details"]['name_contact'];$phone=$_SESSION["client_details"]['phone_number'];
 	$email=$_SESSION["client_details"]['email'];$vehicle_reg=$_SESSION["client_details"]['vehicle_reg'];
-	$vehicle_class=$_SESSION["client_details"]['vehicleclass'];$coverage=$_SESSION["cover"]["cover"];
+	$vehicle_class=$_SESSION["client_details"]['vehicleclass'];$coverage=$_SESSION["cover"];
 	$period=$_SESSION["client_details"]['coverperiod'];$underwriter=$_SESSION["underwriter"]['Name'];
 	$quatation_date=date("d/m/Y h:i:s");$premium="";$agency='';$agent=$_SESSION["client_details"]["referal_code"];
 	$saminsured="";$tonnage="";$passengers="";$details='';
 	while($row = $select->fetch(PDO::FETCH_ASSOC)){
-		if ($row["product_code"]==$row["uniqueidentifier"] ){
+		$product_code = preg_replace('[ ]', '', $row["product_code"]); 
+		$uniqueidentifier = preg_replace('[ ]', '', $row["uniqueidentifier"]); 
+
+		if ($product_code==$uniqueidentifier){
+			
 			if(strlen($row[$copy["coverperiod"]])>1){
 				$product=True;$tonnage=0;$passangers=0;$saminsured=0;
 				// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 				$_SESSION['product'] = $row;
 				$_SESSION['basicpremium']=$row[$copy["coverperiod"]]?$row[$copy["coverperiod"]]:0;
-				$coverperiod=$_GET["coverperiod"];
+				$coverperiod=$_SESSION['client_details']["coverperiod"];
 				$agency=$row["owner"];
 				include_once "premiumcalcuator.php";
 				grossCalculater();
@@ -105,14 +105,15 @@ if($select->rowCount()>0){
 				$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
 			}
 		}else{
+			echo $product_code ."<br>";
+			echo $uniqueidentifier . "<br>";
 			if(isset($copy['tonnage'])){
 				if(getRange($copy['tonnage'],$row['mintonnage'],$row['maxtonnage']) && strlen($row[$copy["coverperiod"]])>1){
-					
 					$product=True;$tonnage=$copy['tonnage'];$passangers=0;$saminsured=0;
 					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= $copy['tonnage']; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 					$_SESSION['product'] = $row;
 					$_SESSION['basicpremium']=$row[$copy["coverperiod"]]?$row[$copy["coverperiod"]]:0;
-					$coverperiod=$_GET["coverperiod"];
+					$coverperiod=$_SESSION['client_details']["coverperiod"];
 					$agency=$row["owner"];
 					include_once "premiumcalcuator.php";
 					grossCalculater();
@@ -131,7 +132,7 @@ if($select->rowCount()>0){
 					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= $copy["passangers"];
 					$_SESSION['product'] = $row;
 					$_SESSION['basicpremium']=$row[$copy["coverperiod"]]?$row[$copy["coverperiod"]]:0;
-					$coverperiod=$_GET["coverperiod"];
+					$coverperiod=$_SESSION['client_details']["coverperiod"];
 					$agency=$row["owner"];
 					include_once "premiumcalcuator.php";
 					grossCalculater();
@@ -142,26 +143,24 @@ if($select->rowCount()>0){
 					$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;					
 				}	
 			}
-			if($row["coverage"] == "Comprehensive"){
-				$age=date("Y")-$copy["yom"];
-				// echo getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"]);
 			
-				// echo "<br>".$row["minage"];
-				// echo  getRange($age, $row["minage"], $row["maxage"]);
+			if($row["coverage"] == "Comprehensive"){
+				$age=date("Y")-$copy["man_year"];
 				if(getRange($age, $row["minage"], $row["maxage"]) && getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"])){
 					$_SESSION['product'] = $row;
-					// print_r($row);
 					$product=True;$tonnage=0;$passangers=0;$saminsured=$copy['sum_insured'];
 					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 					$suinsured=$copy['sum_insured'];
 					$premium=$copy['sum_insured']*($row[$copy["coverperiod"]]/100);
+					echo $premium;
+					echo $row[$copy["coverperiod"]];
 					$agency=$row["owner"];
 					if($premium<=$row["minimumpremium"]){
 						$_SESSION['basicpremium']=$row["minimumpremium"];
 					}elseif($premium>=$row["minimumpremium"]){
 						$_SESSION['basicpremium']=$premium;
 					}
-					$coverperiod=$_GET["coverperiod"];
+					$coverperiod=$_SESSION['client_details']["coverperiod"];
 					include_once "premiumcalcuator.php";
 					grossCalculater();
 					break;
@@ -285,7 +284,7 @@ if($product){
 		<div class="divider_border"></div>
 
 		<div class="container">
-		<form method="get" action="quote_step2.php">
+		<form method="get" action="processer/handle_detail_page.php">
 
 			<div class="row">
 				<div class="col-md-8">

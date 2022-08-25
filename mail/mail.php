@@ -165,12 +165,12 @@ if (isset($_SESSION["user_role"])){
     $phone1 = "+254 722 301 062";
     $email = "info@iplus.co.ke";
 }
-$company_name = $_SESSION["ahency_owner"]["companyname"];
-$box = $_SESSION["ahency_owner"]["postaladdress"];
-$phone1 = $_SESSION["ahency_owner"]["phonenumber"];
-$phone2 = $_SESSION["ahency_owner"]["phonenumber"];
-$email = $_SESSION["ahency_owner"]["emailaddress"];
-$agency_owner = $_SESSION["ahency_owner"]["firstname"] . " " . $_SESSION["ahency_owner"]["lastname"];
+$company_name = $_SESSION["agency_owner"]["companyname"];
+$box = $_SESSION["agency_owner"]["postaladdress"];
+$phone1 = $_SESSION["agency_owner"]["phonenumber"];
+$phone2 = $_SESSION["agency_owner"]["phonenumber"];
+$email = $_SESSION["agency_owner"]["emailaddress"];
+$agency_owner = $_SESSION["agency_owner"]["firstname"] . " " . $_SESSION["agency_owner"]["lastname"];
 //require_once('examples/tcpdf_include.php');
 
 // create new PDF document

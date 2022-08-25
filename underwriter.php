@@ -1,23 +1,9 @@
 <?php
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
-	}
-	include "dashboard/db/connect_db.php";
-	if (isset($_GET["q"])){
-		$id=$_GET["q"];
-		$select = $pdo->prepare("SELECT * FROM tbl_underwriter where ID='$id'");
-		$select->execute();
-		$row = $select->fetch(PDO::FETCH_ASSOC);
-		$_SESSION["underwriter"] = $row;
-	}else{
-		header("refresh:0;url=./index.php");
-	}
+	@session_start();
 	if(!isset($_SESSION["underwriter"])) { 
-   
         header("refresh:0;url=./index.php");
     }else{
 		$underwriter = $_SESSION["underwriter"];
-		
 	}
 	include "./nav/journeyheader.php";
 ?>
@@ -59,7 +45,7 @@
 										
 									</ul>
 									<p>Descriptions of the Cover.</p>
-										<a href="get_quote.php?cover=Third Party Only" id ='get_quote' class="btn_1">Get Quote</a>
+										<a href="processer/handle_underwriter.php?cover=Third Party Only" id ='get_quote' class="btn_1">Get Quote</a>
 									</p>
 								</div>
 							</div>
@@ -83,7 +69,7 @@
 									
 								</ul>
 								<p>Descriptions of the Cover. </p>
-								<a href="get_quote_comprehensive.php?cover=Comprehensive" id ="getquote" class="btn_1">Get Quote</a>
+								<a href="processer/handle_underwriter.php?cover=Comprehensive" id ="get_quote" class="btn_1">Get Quote</a>
 							</div>
 						</div>
 						
@@ -222,7 +208,7 @@
 	<script src="js/common_scripts_min.js"></script>
 	<script src="assets/validate.js"></script>
 	<script src="js/jquery.tweet.min.js"></script>
-sss	<script>
+	<script>
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }

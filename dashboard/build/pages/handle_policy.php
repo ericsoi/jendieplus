@@ -12,6 +12,8 @@ $role=$_SESSION['user']->role;
   // php function to convert csv to json format
 $fname = $_FILES["upcsv"]["tmp_name"];
     // open csv file
+    print_r($_FILES);
+    echo $fname;
   if (!($fp = fopen($fname, 'r',))) {
       die("Can't open file...");
   }

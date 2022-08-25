@@ -47,8 +47,8 @@
 
             <div class="flex-auto p-6 px-0 pb-2"> 
                 <div class="overflow-x-auto">
-                    <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
-                        <thead class="align-bottom">
+                    <table class="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table table-success table-striped border-separate border-spacing-2 border border-slate-500">
+                        <thead class="border-b bg-gray-800">
                             <tr>
                                 <th class="px-6 py-3 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-size-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">Underwriting Company</th>
                                 <th class="px-6 py-3 font-bold tracking-normal text-left uppercase align-middle bg-transparent border-b letter border-b-solid text-size-xxs whitespace-nowrap border-b-gray-200 text-slate-400 opacity-70">Vehicle Class</th>
@@ -64,6 +64,7 @@
                             </div>
                         <tbody>
                         <?php
+                            $no=0;
                             while (!empty($keys)){
                                 $key = array_pop($keys);
                                 $underwriter=$products[$key]->underwriter;
@@ -73,8 +74,9 @@
                                 $annualrates=$products[$key]->annualrates;
                                 $productid=$products[$key]->uniqueidentifier;
                                 $id=$products[$key]->product_id;
+                                $no++;
                             ?> 
-                            <tr>
+                            <tr <?php echo $no%2==0? "class='bg-gray-100 border-b'":"class='bg-blue-100 border-b'"?>>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap">
                                     <div class="flex px-2 py-1">
                                         <div>
@@ -99,7 +101,9 @@
                                 </td>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                 <div class="flex-none w-1/2 max-w-full px-3 text-right">
-                                    <a href="optionalbenefits.php?q=<?php echo $id?>" class="font-semibold leading-tight text-size-xs text-slate-400"> EDIT </a>
+                                    <!-- <a href="optionalbenefits.php?q=<?php echo $id?>" class="font-semibold leading-tight text-size-xs text-slate-400"> EDIT </a> -->
+                                    <a href="processor/handle_product.php?q=<?php echo $id?>" class="font-semibold leading-tight text-size-xs text-slate-400"> EDIT </a>
+
                                 </td>
                                 </td>
                             </tr>

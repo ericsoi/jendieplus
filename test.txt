@@ -1,0 +1,7 @@
+echo "read domain"
+read domain
+echo "read file"
+read file
+cp $file 
+sed -i "s/example.com/$domain/" $file
+sed -i '' -e '24,26 s/^/#/' $file

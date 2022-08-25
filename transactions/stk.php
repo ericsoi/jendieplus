@@ -1,65 +1,19 @@
 <?php
 
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
-
+}
     include "../config/db.php";
     include "../dashboard/db/connect_db.php";
-    $amount = "1";//$_SESSION["gross_premium"];
-    // $amount1 = $_SESSION["gross_premium"];
-    #echo $amount;
-    $phone = "2547237752";
-    $phone = "254712962787";
-    $phone = " ";
-
-
-    $owner_referal= explode("/", $_SESSION["client_details"]["referal_code"])[0];
-	$select = $pdo->prepare("select * from tbl_user where code = '$owner_referal'");
-    $select->execute();
-	$row = $select->fetch(PDO::FETCH_ASSOC);
-    $_SESSION["ahency_owner"]=$row;
-
-
-    // $phone = "254712962787";
-
-    // print_r($_SESSION["logbook"]);
-    //$AccountReference = " KAA 432A";
     $user = "Kennedy";
-    // $underwriter = trim($_SESSION["underwriter"]["Name"]);
-    // $firstname  = $_SESSION["client_details"]["name_contact"];
-    // $lastname  = $_SESSION["client_details"]["name_contact"];
-    // $emailaddress  = $_SESSION["client_details"]["email"];
-    // $phonenumber  = $_SESSION["client_details"]["phone_number"];
-    // $gross_premium = $_SESSION["grosspremium"];
-    // //  
-    // #print_r($_SESSION["logbook"]);
-    // $name = $_SESSION["client_details"]["name_contact"];
-    //$vehicle_reg = $_SESSION["logbook"]["registration"];
-    // $vehicle_class = $_SESSION["logbook"]["type"];
-    // $kra_file  = $_SESSION["logbook"]["kra_number"];
-    // $krapin  = $_SESSION["logbook"]["kra_number"];
-    // $logbook_file  = $_SESSION["logbook"]["kra_number"];
     $AccountReference =  $_SESSION["logbook"]["registration"];
-    
-    
-    // // print_r($_SESSION);
-    // #session_destroy();
-    // #$coverage = $_SESSION["coverage"];
-    // #$period = $_SESSION["policy_date"];
-    // $period =  $_SESSION["logbook"]["date"];
-    // $underwriter = $_SESSION["underwriter"]["Name"];
-    // $quotation_date = $_SESSION["logbook"]["reg_date"];
-    // $premium = $_SESSION["grosspremium"];   
-    // $success = "Success. Request accepted for processing";
-    // $email = $_SESSION["client_details"]["email"];
-    // $test = "This is test Data";
-
     if(strlen($_POST["phone"]) < 10){
         $phone = $_SESSION["confirmed_items"]["phone"];
     }else{
         $phone = $_POST["phone"];
     }
     $phone = trim($phone);
-    if(substr($phone, 0,1) === "0"){   
+    if(substr($phone, 0,1) === "0"){
         #echo $phone;
         $phone = "254" . substr($phone, 1);
         
@@ -122,9 +76,13 @@
                     // print_r($_SESSION);
                     $_SESSION["stk_callback"]=$row;
                     $responce = $row->ResultDesc . ' '. $phone;
-                    include "../mail/mail.php";
-                    include "alert.php";
-                    header("refresh:2;url=../index.php");
+                    if($_SESSION["confirmed_items"]["payments"] == "credit"){
+                        include "processing/handle_policy.php";
+                        
+                        include "../mail/mail.php";
+                        include "alert.php";
+                        header("refresh:2;url=../index.php");
+                    }
                 }else{
                     $update="UPDATE tbl_mpesa set PhoneNumber = '$phone' where CheckoutRequestID = '$CheckoutRequestID'";
                     if (mysqli_query($connection, $update)) {
