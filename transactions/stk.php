@@ -7,10 +7,10 @@ if (session_status() == PHP_SESSION_NONE) {
     include "../dashboard/db/connect_db.php";
     $user = "Kennedy";
     $AccountReference =  $_SESSION["logbook"]["registration"];
-    if(strlen($_POST["phone"]) < 10){
+    if(strlen($_SESSION["gateway"]["phone"]) < 10){
         $phone = $_SESSION["confirmed_items"]["phone"];
     }else{
-        $phone = $_POST["phone"];
+        $phone = $_SESSION["gateway"]["phone"];
     }
     $phone = trim($phone);
     if(substr($phone, 0,1) === "0"){
@@ -22,7 +22,10 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     $amount = $_SESSION["grosspremium"];
-    
+    $amount = 50;
+    // echo $amount;
+    // print_r($_SESSION)
+
     include 'credentials.php';
     include 'auth.php';
     $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
@@ -92,12 +95,12 @@ if (session_status() == PHP_SESSION_NONE) {
                       }
                     $responce = $row->ResultDesc . ' '. $phone;
                     include "alert.php";
-                    header("refresh:2;url=../gateway.php");
+                    header("refresh:2;url=../../gateway.php");
                 }
             }else{
                 $responce="Kindly check your transaction and try again";
                 include "alert.php";
-                header("refresh:2;url=../gateway.php");
+                header("refresh:2;url=../../gateway.php");
             }
 
         }
@@ -109,7 +112,7 @@ if (session_status() == PHP_SESSION_NONE) {
         $responce = $errorMessage . ' '. $phone;
         // print_r($obj);
         include "alert.php";
-        header("refresh:2;url=../gateway.php");
+        header("refresh:2;url=../../gateway.php");
     }
 
         // if($row =  mysqli_fetch_assoc($res)){
@@ -148,7 +151,7 @@ if (session_status() == PHP_SESSION_NONE) {
         // }else{
         //     $responce = "Kindly recheck the transaction and try again";
         //     include "alert.php";
-        //     header("refresh:2;url=../gateway.php");
+        //     header("refresh:2;url=../../gateway.php");
         // }      
         // #header("refresh:2;url=../bimaplus1/gateway.php");
         // //print_r($_SESSION);

@@ -68,7 +68,7 @@
 				</div>
 					<h2>Customer  Details</h2>
 					<h5>Confirm mobile number for m-pesa payment</h5>
-					<form action="transactions/processing/handle_policy.php" method="post" autocomplete="off" >
+					<form action="processer/handle_gateway.php" method="get" autocomplete="off" >
 						<div class="input-container">
 							<i class="icon-mobile-6 icon"></i>
 							<input class="input-field" id="phone" type="text" name="phone" value='<?php echo $_SESSION["client_details"]["phone_number"]?>'>
@@ -90,7 +90,10 @@
 									
 		<!-- End container -->
 
-<?php include "nav/footer.php";?>
+<?php include "nav/footer.php";
+
+?>
+
 	<!-- End footer -->
 
 	<div id="toTop"></div>
@@ -164,6 +167,14 @@
 	</script>
 
 <?php include "chat/chat.php"?>
+
 </body>
+<?php
+if(isset($_SESSION["message"])){
+	$message=$_SESSION["message"];
+	echo "<script>var message = '$message'; alert(message);</script>";
+	unset($_SESSION["message"]);
+}
+?>
 
 </html>

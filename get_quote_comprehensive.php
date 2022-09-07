@@ -186,6 +186,7 @@
 									<div class="col-sm-4">
 										<label>Agent Code</label>
 										<input type="text" class="form-control styled text-center" <?php if(isset($_SESSION['client_details']['referal_code'])) echo 'value='.'"'.$_SESSION['client_details']['referal_code'].'"';?> name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal(this)" required>
+										<div class="invalid-feedback"> contact <?php echo $_SESSION["origin"]?>'s owner</div>
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">

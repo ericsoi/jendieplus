@@ -105,8 +105,8 @@ if($select->rowCount()>0){
 				$_SESSION["product"]['vehicleclass'] = "Product Not Found. Kindly contact the agent code owner";$_SESSION["product"]['coverperiod'] = False;$_SESSION["product"]['policylimits']= False;$coverperiod=false;$_SESSION["grosspremium"]=false;
 			}
 		}else{
-			echo $product_code ."<br>";
-			echo $uniqueidentifier . "<br>";
+			// echo $product_code ."<br>";
+			// echo $uniqueidentifier . "<br>";
 			if(isset($copy['tonnage'])){
 				if(getRange($copy['tonnage'],$row['mintonnage'],$row['maxtonnage']) && strlen($row[$copy["coverperiod"]])>1){
 					$product=True;$tonnage=$copy['tonnage'];$passangers=0;$saminsured=0;
@@ -146,14 +146,19 @@ if($select->rowCount()>0){
 			
 			if($row["coverage"] == "Comprehensive"){
 				$age=date("Y")-$copy["man_year"];
+				$age +=1;
+				// if ($age ==0){
+					
+				// }
 				if(getRange($age, $row["minage"], $row["maxage"]) && getRange($copy['sum_insured'], $row["minsum"], $row["maxsum"])){
 					$_SESSION['product'] = $row;
 					$product=True;$tonnage=0;$passangers=0;$saminsured=$copy['sum_insured'];
 					// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 					$suinsured=$copy['sum_insured'];
+					$_SESSION['product']['sum_insured']=$suinsured;
 					$premium=$copy['sum_insured']*($row[$copy["coverperiod"]]/100);
-					echo $premium;
-					echo $row[$copy["coverperiod"]];
+					// echo $premium;
+					// echo $row[$copy["coverperiod"]];
 					$agency=$row["owner"];
 					if($premium<=$row["minimumpremium"]){
 						$_SESSION['basicpremium']=$row["minimumpremium"];
@@ -301,7 +306,7 @@ if($product){
 						</li>
 											</ul>
 
-					<div class="tab-content">
+					<div class="tab-content container">
 						<div class="tab-pane in active" id="tab_1">
 							<h3>Product Overview</h3>
 							<hr>
@@ -332,6 +337,7 @@ if($product){
 									<hr>
 								</div>
 								<!-- End col -->
+								
 								<div class="col-md-5">
 									<?php
 										if(isset($_SESSION["product"]["product_id"])){
@@ -345,23 +351,29 @@ if($product){
                                                 while($row = $select->fetch(PDO::FETCH_ASSOC)){
                                                     extract($row);
                                                     $i++;
-													$value=$row["benefit_rate"]."-".$row["benefit_freelimit"]."-".$row["benefit_days"]."-".$row["benefit_amount"];
-												
 									?>		
-									<div class="form-check">	
-										<div class="feature-box-icon">
-											<input type="checkbox" name = "<?php echo $row['benefit_name']?>" class="form-check-input" value = "<?php echo $value ?>" id="<?php echo $row['benefit_id']?>" onchange= "handleoptional_benefits(this)">
+									<div class="form-check">
+										<div class="form-check form-switch display-7">
+											<input type="checkbox" id="<?php echo $row['benefit_id']?>" name = "<?php echo $row['benefit_name']?>" class="form-check-input" value="<?php echo htmlspecialchars( json_encode($row), ENT_COMPAT ); ?>" onchange= "handleoptional_benefits(this)">
 											<label class="form-check-label" for="<?php echo $row['benefit_id']?>"><?php echo str_replace("_", " ", $row["benefit_name"])?></label>
-				
-											<div id="<?php echo 'input'.$row['benefit_id']?>">
+											<div hidden id="<?php echo 'input'.$row['benefit_id']?>" class="form-group">
+												<div class="form-check-label" id="inputslabel"></div>
+												<input type="number" class="form-control" id="<?php echo 'inputs'.$row['benefit_id']?>" aria-describedby="basic-addon3" onchange="handle_input(this)">
 											</div>
 										</div>
 									</div>
+									
 									<?php
 										}
                                     
 									?>
-									<input type="hidden" class="form-group" id="benefittotal"value="Total: 0" readonly> </input>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text" id="btnGroupAddon">Total</div>
+										</div>
+										<input type="text" class="input-group-text" id="benefitstotal" placeholder="0" aria-label="Input group example" aria-describedby="btnGroupAddon">
+									</div>
+
 									<?php
                                         }
                                     }		
@@ -387,8 +399,10 @@ if($product){
 				<!-- End Col -->
 				<aside class="col-md-4">
 					<div class="box_style_1">
-						<div class="price">
-							<small>GROSS PREMIUM</small><br><small id="grosspremium">KSH <?php echo $_SESSION["grosspremium"]?></small>
+						<div class="price overflow-hidden">
+							<small>GROSS PREMIUM</small><br>
+							<input class="form-control text-white fs-2 border-0 border-bottom-0" STYLE="background-color: #2780c2;" id="grosspremium" name="grosspremium" value='KSH <?php echo $_SESSION["grosspremium"]?>' aria-describedby="basic-addon3" readonly/>
+
 						</div>
 						<ul class="list_ok" id="optionalbenefits">
 							
@@ -448,8 +462,8 @@ if($product){
 	<!-- Search Menu -->
 	<div class="search-overlay-menu">
 		<span class="search-overlay-close"><i class="icon_close"></i></span>
-			<input value="" name="q" type="search" placeholder="Search..." />
-			<button type="submit"><i class="icon-search-6"></i>
+			<input type="search" placeholder="Search..." />
+			<button type="button"><i class="icon-search-6"></i>
 			</button>
 	</div>
 	<!-- End Search Menu -->
@@ -478,258 +492,199 @@ if($product){
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.3/js/bootstrap.min.js"></script>
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/js/mdb.min.js"></script>
-	<script type="text/javascript">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
-		var added=[]
-		var grossfinal = "";
-		function calculateGrosspremium(premium, id){
-			basicpremium=Math.ceil(premium+(0.45/100 * premium))
-			var grosspremium = document.getElementById("grosspremium").innerHTML;
-			grosspremium=parseFloat(grosspremium.replace('KSH ', ''));
-			grosspremium+=basicpremium;
-			added.push({"id":id,"premium":basicpremium});
-			grossfinal = grosspremium
-			document.getElementById("grosspremium").innerHTML = "KSH " + grosspremium;
-		}	
-		function removepremium(premium){
-			var grosspremium = document.getElementById("grosspremium").innerHTML;
-			grosspremium=parseFloat(grosspremium.replace('KSH ', ''));
-			grosspremium = grossfinal - premium;
-			document.getElementById("grosspremium").innerHTML = "KSH " + grosspremium;
-		}	
-		function handlewindscreen(id,freelimit,inputvalue){
-			document.getElementById(id).readOnly = true;
-			var rate = freelimit.split("-")[0];
-			freelimit = freelimit.split("-")[1];
-			var premium = 0;
-			if(inputvalue-freelimit < 0){
-				premium=0;
-			}else{
-				premium=(rate/100)*(inputvalue-freelimit);
-			}
-			
-			calculateGrosspremium(premium, id);
-		}
-		
-		function handlepassanger(id,passangers,value){
-			document.getElementById(id).readOnly = true;
-			console.log(id,passangers,value);
-			premium=passangers*value;
-			calculateGrosspremium(premium, id)
-			// document.getElementById(id).readOnly = true;
-			// var rate = freelimit.split("-")[0];
-			// freelimit = freelimit.split("-")[1];
-			// var premium = 0;
-			// if(inputvalue-freelimit < 0){
-			// 	premium=0;
-			// }else{
-			// 	premium=(rate/100)*(inputvalue-freelimit);
-			// }
-			
-			// calculateGrosspremium(premium, id);
-		}
-		function handlevalue(id,value){
-			var grosspremium = document.getElementById("grosspremium").innerHTML;
-			grosspremium=parseFloat(grosspremium.replace('KSH ', ''));
-			grosspremium+=parseFloat(value);
-			added.push({"id":id,"premium":value});
-			grossfinal = grosspremium
-			document.getElementById("grosspremium").innerHTML = "KSH " + grosspremium;
-		}
-		
-		function handleoptional_benefits(input){
+	<script type="text/javascript">
+		document.getElementById("inputslabel").innerHTML="Select Number of Days";
+		let benefitstotal = Number(document.getElementById("benefitstotal").placeholder);
+		let grosspremium = document.getElementById("grosspremium").value;
+		grosspremium=parseFloat(grosspremium.replace('KSH ', ''));
+		function handleoptional_benefits(benefit){
+			let values = JSON.parse(benefit.value);
 			inputArray = ["WINDSCREEN", "RADIO_CASSETE", "PASSENGER_LEGAL_LIABILITY","COURTESY_CAR"];
-			var benefitlist=[];
-			var targetInput = 'input'+input.id;
-			// console.log(input.value)
-			if (inputArray.includes(input.name) && input.checked){
-				if ((input.name == "WINDSCREEN" || input.name == "RADIO_CASSETE")){
-					// calculateGrosspremium();
-					var value = input.value.split("-")[0] +"-"+ input.value.split("-")[1];
-					document.getElementById(targetInput).innerHTML = '\
-						<div class="md-form form-sm">\
-							<input type="number" tag="ewew" id=form'+input.id+' name='+value+' class="form-control" onchange="handlewindscreen(this.id,this.name, this.value)"></input>\
-							<label for='+targetInput+'>Enter Value</label>\
-						</div>';
-				}else if(input.name == "PASSENGER_LEGAL_LIABILITY"){
-					var value = input.value.split("-");
-					value = value.pop();
-					document.getElementById(targetInput).innerHTML = '\
-						<div class="md-form form-sm">\
-							<input type="number" tag="ewew" id=form'+input.id+' name='+value+' class="form-control" onchange="handlepassanger(this.id,this.name, this.value)"></input>\
-							<label for='+targetInput+'>Enter Value</label>\
-						</div>';
-				}else if(input.name == "COURTESY_CAR"){
-					document.getElementById(targetInput).innerHTML = '\
-						<div class="md-form form-sm">\
-						<input type="number" tag="ewew" id='+targetInput+' name='+input.value+' class="form-control" onkeyup="handleChange(this.id,this.name)"></input>\
-							<label for='+targetInput+'>No of Days</label>\
-						</div>';
+			let inputs = document.getElementById("input"+values.benefit_id);
+			let inputsform = document.getElementById("inputs"+values.benefit_id);
+			let ul = document.getElementById("optionalbenefits");
+			let li = document.createElement("li");
+			if (inputArray.includes(values.benefit_name)){
+				if (benefit.checked){
+					li.setAttribute('id',values.benefit_id + "optional" );
+					li.appendChild(document.createTextNode(values.benefit_name));
+					ul.appendChild(li);
+					
+					inputs.removeAttribute("hidden");
+					if(values.benefit_name=="COURTESY_CAR"){
+						let amounts=values.benefit_amount.split(",");
+						let select = document.createElement('select');
+						select.setAttribute('id',inputsform.getAttribute('id'));
+						select.setAttribute("class","input-group")
+						select.setAttribute("onchange","handle_input(this)")
+						inputsform.setAttribute("name",values.benefit_name);
+						inputsform.parentNode.replaceChild(select,inputsform);
+						values.benefit_days.split(",").forEach(myFunction);
+						inputs.setAttribute("class","form-group");
+						
+						let option= document.createElement('option');
+						option.value = 0;
+						option.innerHTML = "Select Days";
+						option.setAttribute("selected","")
+						select.appendChild(option);
+						function myFunction(item, index) {
+							let option= document.createElement('option');
+							option.value = amounts[index];
+							option.innerHTML = item + " Days:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + amounts[index] + " Ksh";
+							select.appendChild(option);
+						}
+					}else{
+						inputsform.setAttribute("placeholder","Enter Value");
+						inputsform.setAttribute("name",values.benefit_name);
+						// inputsform.setAttribute("required","");
+					}
+
 				}else{
-					console.log(" dssdsdsdsdsds ");
-					// calculateGrosspremium();
+					inputs.setAttribute("hidden", "");
+					let elem = document.getElementById(values.benefit_id + "optional" );
+					let benefit_freelimit = values;
+					elem.parentNode.removeChild(elem);
+					let inputval = Number(document.getElementById("inputs"+values.benefit_id).value);
+					switch(values.benefit_name){
+						case "WINDSCREEN":
+						case "RADIO_CASSETE":
+							if(inputval>Number(values.benefit_freelimit)){
+								let diff = inputval - Number(values.benefit_freelimit)
+								let i = Math.ceil(((Number(values.benefit_rate)/100)*diff));
+								benefit_premium = Math.ceil(((0.45/100)*i)+i);
+								benefitstotal-=benefit_premium;
+								document.getElementById("benefitstotal").placeholder = benefitstotal;
+								grosspremium-=Number(benefit_premium);
+								document.getElementById("grosspremium").value = "KSH " + grosspremium;
+								document.getElementById("inputs"+values.benefit_id).value='';
+							}
+							break;
+						case "PASSENGER_LEGAL_LIABILITY":
+							let benefit_amount = Number(values.benefit_amount);
+							let premium = benefit_amount*inputval;
+							benefit_premium = Math.ceil((0.45/100)*premium+premium);
+							benefitstotal-=benefit_premium;
+							document.getElementById("benefitstotal").placeholder = benefitstotal;
+							grosspremium-=Number(benefit_premium);
+							document.getElementById("grosspremium").value = "KSH " + grosspremium;
+							document.getElementById("inputs"+values.benefit_id).value='';
+							break;
+						case "COURTESY_CAR":
+							benefit_premium = Math.ceil((0.45/100)*inputval+inputval);
+							benefitstotal-=benefit_premium;
+							document.getElementById("benefitstotal").placeholder = benefitstotal;
+							grosspremium-=Number(benefit_premium);
+							document.getElementById("grosspremium").value = "KSH " + grosspremium;
+							break;
+					}					
 				}
 			}else{
-				document.getElementById(targetInput).innerHTML = '';
-				// added.forEach(add => {
-				// for (let key in add) {
-				// 	console.log(add[key]);
-				// }});
-				added.forEach(add => {
-					for (let key in add) {
-						if(add["id"] == "form"+input.id){
-							console.log(add["premium"]);
-							removepremium(add["premium"]);
+				if (benefit.checked){
+					li.setAttribute('id',values.benefit_id + "optional" );
+					li.appendChild(document.createTextNode(values.benefit_name));
+					ul.appendChild(li);
+					if(values.benefit_amount){
+						benefitstotal+=Number(values.benefit_amount);
+						document.getElementById("benefitstotal").placeholder = benefitstotal;
+						grosspremium+=Number(values.benefit_amount);
+						document.getElementById("grosspremium").value = "KSH " + grosspremium;
+					}
+					if(values.benefit_minimum_premium){
+						let suinsured = "<?php echo"$suinsured"?>";
+						let benefit_premium=(Number(values.benefit_rate)*suinsured)/100;
+						benefit_premium = Math.ceil((0.45/100)*benefit_premium+benefit_premium);
+
+						if(benefit_premium<Number(values.benefit_minimum_premium)){
+							benefitstotal+=Number(values.benefit_minimum_premium);
+							document.getElementById("benefitstotal").placeholder = benefitstotal;
+							grosspremium+=Number(values.benefit_minimum_premium);
+							document.getElementById("grosspremium").value = "KSH " + grosspremium;
+						}else{
+							//capture decimal foward 
+							benefitstotal+=Number(benefit_premium);
+							document.getElementById("benefitstotal").placeholder = benefitstotal;
+							grosspremium+=benefit_premium;
+							document.getElementById("grosspremium").value = "KSH " + grosspremium;
 						}
-					}});
-				
+						
+					}
+				}else{
+					let elem = document.getElementById(values.benefit_id + "optional" );
+					elem.parentNode.removeChild(elem);
+					if(values.benefit_amount){
+						benefitstotal=Number(benefitstotal)-Number(values.benefit_amount);
+						grosspremium-=Number(values.benefit_amount);
+						document.getElementById("grosspremium").value = "KSH " + grosspremium;
+						document.getElementById("benefitstotal").placeholder = benefitstotal;
+					}
+					if (values.benefit_minimum_premium){
+						let suinsured = "<?php echo"$suinsured"?>";
+						let benefit_premium=(values.benefit_rate*suinsured)/100
+						benefit_premium = Math.ceil((0.45/100)*benefit_premium+benefit_premium);
+
+						if(benefit_premium<Number(values.benefit_minimum_premium)){
+							benefitstotal-=Number(values.benefit_minimum_premium);
+							document.getElementById("benefitstotal").placeholder = benefitstotal;
+							grosspremium-=Number(values.benefit_minimum_premium);
+							document.getElementById("grosspremium").value = "KSH " + grosspremium;
+						}else{
+							//capture decimal foward 
+							benefitstotal-=Number(benefit_premium);
+							document.getElementById("benefitstotal").placeholder = benefitstotal;
+							grosspremium-=benefit_premium;
+							document.getElementById("grosspremium").value = "KSH " + grosspremium;
+						}
+
+					}
+
+				}
 			}
-			if (!(inputArray.includes(input.name)) && input.checked){
-				console.log(input.value);
-				var value = input.value.split("-");
-				value = value.pop();
-				console.log(value);
-				handlevalue("form"+input.id, value);
-			}
-			if (input.checked){
-				benefitlist.push(input.name)
-				var ul = document.getElementById("optionalbenefits");
-				var li = document.createElement("li");
-				li.setAttribute('id',input.id + "optional" );
-				li.appendChild(document.createTextNode(input.name));
-				ul.appendChild(li);
-			}else{
-				// console.log(input.id+"optional");
-				var elem = document.getElementById(input.id+"optional");
-				elem.parentNode.removeChild(elem);
-			}
+			// console.log(values);
+
+
 		}
-
-
-		// $row["benefit_rate"]."-".$row["benefit_freelimit"]."-".$row["benefit_days"]."-".$row["benefit_amount"]
-		// var inputs = 0;
-		// function handle_input(selector, idString, selectorId){
-		// 	var frontName = selector.name.replaceAll("_", " ")
-		// 	if(idString.indexOf(selector.name) == -1){
-		// 		idString = selector[idString.indexOf(selector.name)];
-		// 	}else{
-		// 		idString = selector.value;
-		// 	}
-		// 	if (selector.checked) {
-		// 		var ul = document.getElementById("optionalbenefits");
-		// 		var li = document.createElement("li");
-		// 		console.log(selector.value);
-		// 		console.log(idString);
-		// 		if (selector.value.indexOf(idString) !== -1){
-		// 			var variables = selector.value.split("-");
-		// 			console.log("Checked");
-		// 			var name = selector.value + "-checked"
-		// 			var rate = variables.pop();
-		// 			var freeLimit = variables[0];
-		// 			// console.log(name);
-		// 			// var premium = (rate/100) * freeLimit;
-		// 			var targetInput = "input-" + selector.id;
-					document.getElementById(targetInput).innerHTML = '\
-					<div class="md-form form-sm">\
-						<input type="number" tag="ewew" id='+targetInput+' name='+name+' class="form-control" onkeyup="handleChange(this.id,this.name, this.value)"></input>\
-						<label for='+targetInput+'>Value</label>\
-					</div>';
-		// 			li.setAttribute('id',selector.id + "optional" );
-		// 			li.appendChild(document.createTextNode(frontName));
-		// 			ul.appendChild(li);
-		// 		}else{
-		// 			var variables = selector.value.split("-");
-		// 			var rate = parseFloat(variables.pop())
-		// 			var value = parseFloat(variables[0]);
-		// 			var premium = value * rate
-		// 			var benefittotal = parseFloat(document.getElementById("benefittotal").value.split(": ").pop()) + premium
-		// 			// console.log(benefittotal)
-		// 			document.getElementById("benefittotal").value = "Total: " + benefittotal;
-		// 			li.setAttribute('id',selector.id + "optional" );
-		// 			li.appendChild(document.createTextNode(frontName));
-		// 			ul.appendChild(li);
-		// 		}
-        //         // console.log(selector.id);
-				
-				
-				
-
-        //         var grossPremium = parseInt(document.getElementById("grosspremium").innerHTML.split(" ").pop());
-		// 		// var totalgrossPremium = grossPremium + subTotal;
-		// 		// document.getElementById("grosspremium").value = "KSH " + totalgrossPremium;
-				
-		// 	}
-		// 	else {
-		// 		var ul = document.getElementById("optionalbenefits");
-		// 		var candidate = document.getElementById(selector.id + "optional");
-		// 		var targetInput = "input-" + selector.id;
-				
-		// 		if (selector.value.indexOf(idString) !== -1){
-		// 			var variables = selector.value.split("-");
-		// 			var name = selector.value + "-notchecked"
-		// 			var rate = variables.pop();
-		// 			var freeLimit = variables[0];
-		// 			var benefittotal = parseFloat(document.getElementById("benefittotal").value.split(": ").pop()) - parseFloat(inputs)
-		// 			document.getElementById("benefittotal").value = "Total: " + benefittotal;
-		// 			console.log(inputs);
-
-		// 		}else{
-		// 			var variables = selector.value.split("-");
-		// 			var name = selector.value + "-notchecked"
-		// 			var rate = parseFloat(variables.pop());
-		// 			var value = parseFloat(variables[0]);
-		// 			var premium = rate*value
-		// 			var benefittotal = parseFloat(document.getElementById("benefittotal").value.split(": ").pop()) - parseFloat(premium)
-		// 			document.getElementById("benefittotal").value = "Total: " + benefittotal;
-		// 			console.log(benefittotal);
-		// 		}
-
-		// 		document.getElementById(targetInput).innerHTML = "";
-		// 		ul.removeChild(candidate);	
-        //     }				
-		// }
-		// function handleoptional_benefits(clicked_id){
-		// 	inputArray = ["WINDSCREEN", "RADIO_CASSETE", "PASSENGER_LEGAL_LIABILITY","COURTESY_CAR"]
-		// 	var benefitSelector = document.getElementById(clicked_id);
-		// 	handle_input(benefitSelector, inputArray, clicked_id)
-		// 	var basicpremium = parseFloat(document.getElementById("grosspremium").innerHTML.split(" ").pop())
-		// 	var totalBenefits = parseFloat(document.getElementById("benefittotal").value.split(": ").pop())
-		// 	var grossPremium = basicpremium + totalBenefits
-		// 	console.log(basicpremium)
-		// 	console.log(totalBenefits)
-		// 	document.getElementById("grosspremium").innerHTML = "KSH " + grossPremium
-		// }
-		// function handleChange(id,name,input_value){
-		// 	console.log(id, name, input_value)
-		// 	isChecked = name.split("-").pop()
-		// 	rate = name.split("-")[1]
-		// 	value = name.split("-")[0]
-		// 	// console.log(value, input_value, rate);
-		// 	if (parseFloat(input_value) > parseFloat(value)){
-		// 		var premium = (parseFloat(input_value) - parseFloat(value))*parseFloat(rate);
-		// 		console.log(premium, "ppp")
-		// 		inputs = premium;
-		// 		var benefittotal = parseFloat(document.getElementById("benefittotal").value.split(": ").pop()) + premium
-		// 		console.log(benefittotal)
-		// 		document.getElementById("benefittotal").value = "Total: " + benefittotal;
-		// 		console.log(inputs, "lll");
-		// 	}
-
-		// 	var additionalOptional = parseInt(name);
-		// 	var additionalinput = parseInt(document.getElementById(id).value);
-		// 	// if (additionalinput > additionalOptional){
-		// 	// 	aditionalTotal = additionalinput = additionalOptional;
-		// 	// 	var subTotalOptional = document.getElementById("benefittotal").value.split(": ").pop()
-		// 	// 	subTotal = parseInt(subTotalOptional) + parseInt(aditionalTotal);
-		// 	// 	document.getElementById("benefittotal").value = "Total: " + subTotal;
-		// 	// 	var grossPremium = parseInt(document.getElementById("grosspremium").innerHTML.split(" ").pop());
-		// 	// 	var totalgrossPremium = grossPremium + subTotal;
-		// 	// 	document.getElementById("grosspremium").innerHTML = "KSH " + totalgrossPremium;
-
-		// 	// }
+		function handle_input(input){
+			let id = input.id.replace(/inputs/gi, "");
+			let parrent = document.getElementById(id);
+			let inputval = Number(input.value);
+			values=JSON.parse(parrent.value);
+			switch(values.benefit_name){
+				case "WINDSCREEN":
+				case "RADIO_CASSETE":
+					if(Number(inputval)>Number(values.benefit_freelimit)){
+						let diff = inputval - Number(values.benefit_freelimit)
+						
+						let i = Math.ceil(((Number(values.benefit_rate)/100)*diff));
+						// console.log(i);
+						benefit_premium = Math.ceil(((0.45/100)*i)+i);
+						benefitstotal+=benefit_premium;
+						document.getElementById("benefitstotal").placeholder = benefitstotal;
+						grosspremium+=Number(benefit_premium);
+						document.getElementById("grosspremium").value = "KSH " + grosspremium;
+						console.log(grosspremium);
+					}
+					break;
+				case "PASSENGER_LEGAL_LIABILITY":
+					let benefit_amount = Number(values.benefit_amount);
+					let premium = benefit_amount*inputval;
+					benefit_premium = Math.ceil((0.45/100)*premium+premium);
+					benefitstotal+=benefit_premium;
+					document.getElementById("benefitstotal").placeholder = benefitstotal;
+					grosspremium+=Number(benefit_premium);
+					document.getElementById("grosspremium").value = "KSH " + grosspremium;
+					break;
+				case "COURTESY_CAR":
+					benefit_premium = Math.ceil((0.45/100)*inputval+inputval);
+					benefitstotal+=benefit_premium;
+					document.getElementById("benefitstotal").placeholder = benefitstotal;
+					grosspremium+=Number(benefit_premium);
+					document.getElementById("grosspremium").value = "KSH " + grosspremium;
+					break;
+			}
 			
-		// }
-		
+		}
 	</script>
 <?php include "chat/chat.php"?>
 

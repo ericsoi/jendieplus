@@ -238,7 +238,7 @@
 
                                                     <?php
                                                         }else{
-                                                            if ($row['role'] == 'agency' && $row['status'] == 2){?>
+                                                            if (($row['role'] == 'agency' || $row['role'] == 'admin') && $row['status'] == 2){?>
                                                         <form action="#" method="get">
                                                         <ul class="list-group">
                                                             <li class="list-group-item d-flex justify-content-between align-items-center alert-dark text-size-xs">

@@ -103,7 +103,7 @@
 									<label><b>Payment</b></label>
 									<div class="form-group">
 										<label>Premium Applicable</label>
-										<input type="text" class="form-control styled" id="grosspremium" value="<?php echo $_SESSION['grosspremium']?>" name="grosspremium" placeholder="Gross Premium">
+										<input type="text" class="form-control styled" id="grosspremium" value="<?php echo $_SESSION['grosspremium']?>" name="grosspremium" placeholder="Gross Premium" readonly>
 									</div>
 									<label>Payment Options</label>
 									<div class="input-group input-group-default mb-3">
@@ -136,23 +136,23 @@
 									</div>
 									<div class="form-group">
 										<label>Agency Name</label>
-										<input type="text" class="form-control styled" id="agencyname" value="<?php echo $_SESSION["intermediary_name"]?>" name="agencyname" placeholder="Company Name">
+										<input type="text" class="form-control styled" id="agencyname" value="<?php echo $_SESSION["intermediary_name"]?>" name="agencyname" placeholder="Company Name" readonly>
 									</div>
 									<div class="form-group">
 										<label>Agency IRA</label>
-										<input type="text" class="form-control styled" id="ira" value="<?php echo	$_SESSION["intermediary_ira"]?>" name="ira" placeholder="Company IRA">
+										<input type="text" class="form-control styled" id="ira" value="<?php echo	$_SESSION["intermediary_ira"]?>" name="ira" placeholder="Company IRA" readonly>
 									</div>
 									<div class="form-group">
 										<label>Underwriter</label>
-										<input type="text" class="form-control styled" id="underwriter" value="<?php echo $_SESSION['underwriter']['Name']?>" name="underwriter" placeholder="Underwriter">
+										<input type="text" class="form-control styled" id="underwriter" value="<?php echo $_SESSION['underwriter']['Name']?>" name="underwriter" placeholder="Underwriter" readonly>
 									</div>
 									<div class="form-group">
 										<label>Cover Period</label>
-										<input type="text" class="form-control styled" id="coverperiod" value="<?php echo $_SESSION['client_details']["coverperiod"]?>" name="coverperiod" placeholder="Cover Period">
+										<input type="text" class="form-control styled" id="coverperiod" value="<?php echo $_SESSION['client_details']["coverperiod"]?>" name="coverperiod" placeholder="Cover Period" readonly>
 									</div>
 									<div class="form-group">
 										<label>Cover Start Date</label>
-										<input type="text" class="form-control styled" id="coverstartdate" value="<?php echo $_SESSION['logbook']['date']?>" name="coverstartdate" placeholder="Cover Start Date">
+										<input type="text" class="form-control styled" id="coverstartdate" value="<?php echo $_SESSION['logbook']['date']?>" name="coverstartdate" placeholder="Cover Start Date" readonly>
 									</div>
 									
 								</div>

@@ -8,6 +8,7 @@
 		// $registration=$_SESSION['client_details']['vehicle_reg'];$make=$_SESSION['client_details']['vehicle_make'];$yom=$_SESSION['client_details']['yom'];
 	}
 	include "nav/journeyheader.php";
+	// print_r($_SESSION);
   ?>
 
 	<!-- End Header 1-->
@@ -46,7 +47,7 @@
 										</div>
 										<div class="form-group">
 											<label>Make</label>
-											<input type="text" class="form-control" name="make" <?php if(isset($_SESSION['logbook']['make'])) echo 'value='.'"'.$_SESSION['logbook']['make'].'"'?> required placeholder="Make">
+											<input type="text" class="form-control" name="make" <?php if(isset($_SESSION['client_details']['vehicle_make'])) echo 'value='.'"'.$_SESSION['client_details']['vehicle_make'].'"'; echo 'readonly'; if(isset($_SESSION['logbook']['make'])) echo 'value='.'"'.$_SESSION['logbook']['make'].'"'?> required placeholder="Make">
 										</div>
 										<div class="form-group">
 											<label>Model</label>
@@ -66,9 +67,16 @@
 										</div>
 										<div class="form-group">
 											<label>Man Year</label>
-											<?php if(isset($_SESSION['logbook']['man_year']))$man_year=trim($_SESSION['logbook']['man_year']);else $man_year='';?>
+											<?php if(isset($_SESSION['client_details']['man_year'])){
+														$man_year=trim($_SESSION['client_details']['man_year']);
+													}elseif(isset($_SESSION['logbook']['man_year'])){
+														$man_year=trim($_SESSION['logbook']['man_year']);
+													}else{
+														$man_year='';
+													}
+											?>
 											
-											<select name="man_year" class="form-control py-1"> 
+											<select name="man_year" class="form-control py-1" <?php if(isset($_SESSION['client_details']['man_year'])) echo 'disabled'?>> 
 												<?php for ($i = date('Y'); $i >= 1900; $i--){?>
 													<option <?php if($i==$man_year) echo 'selected';?>><?php echo $i;?></option>
 												<?php
@@ -132,7 +140,7 @@
 									</div>
 									<div class="form-group">
 										<label>Passengers</label>
-										<input type="number" class="form-control" name="passengers" <?php if(isset($_SESSION['client_details']['passangers'])) {echo 'value='.'"'.$_SESSION['client_details']['passangers'].'"'; echo "readonly";} if(isset($_SESSION['logbook']['passengers'])) echo 'value='.'"'.$_SESSION['logbook']['passengers'].'"'?> required placeholder="Passengers">
+										<input type="number" class="form-control" name="passengers" <?php if(isset($_SESSION['client_details']['passangers'])) {echo 'value='.'"'.$_SESSION['client_details']['passangers'].'"'; echo "readonly";} elseif(isset($_SESSION['logbook']['passengers'])) {echo 'value='.'"'.$_SESSION['logbook']['passengers'].'"';}?> required placeholder="Passengers">
 									</div>
 									<div class="form-group">
 										<label>Tare Weight</label>
@@ -148,7 +156,7 @@
 									</div>
 									<div class="form-group">
 										<label>Load Capaticity(KG)</label>
-										<input type="number" class="form-control" name="load_capacity" <?php if (isset($_SESSION["client_details"]["tonnage"])) {echo 'value='.'"'.$_SESSION['client_details']['tonnage'].'"'; echo "readonly";} if(isset($_SESSION['logbook']['load_capacity'])) echo 'value='.'"'.$_SESSION['logbook']['load_capacity'].'"'?> required placeholder="Load Capaticity(KG)">
+										<input type="number" class="form-control" name="load_capacity" <?php if (isset($_SESSION["client_details"]["tonnage"])) {echo 'value='.'"'.$_SESSION['client_details']['tonnage'].'"'; echo "readonly";} elseif(isset($_SESSION['logbook']['load_capacity'])){echo 'value='.'"'.$_SESSION['logbook']['load_capacity'].'"';}?> required placeholder="Load Capaticity(KG)">
 									</div>
 									<div class="form-group">
 										<label>Previous Registration Country</label>

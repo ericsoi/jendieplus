@@ -54,7 +54,7 @@ if (isset($_SESSION["username"])){
                     </div>
                     <div class="flex-none w-1/2 max-w-full px-3 text-right">
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"></button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"></button>
 
                         <button type="button" class="px-6
                             py-2.5
@@ -211,16 +211,24 @@ if (isset($_SESSION["username"])){
                                     <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_freelimit"];?></p>
                                 </td>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_amount"];?></p>
+                                    <div class="grid grid-cols-4 gap-1">
+                                        <?php $amount = explode (",",$row["benefit_amount"]);
+                                            foreach ($amount as $value) {?>
+                                            <div><p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $value;?></p></div>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
                                 </td>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <div class="grid grid-cols-4 gap-1">
-                                        <div>10</div>
-                                        <div>15</div>
-                                        <div>20</div>
-                                        <div>30</div>
+                                        <?php $days = explode (",",$row["benefit_days"]);
+                                            foreach ($days as $value) {?>
+                                            <div><p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $value;?></p></div>
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
-                                    <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_days"];?></p>
                                 </td>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $row["benefit_minimum_premium"];?></p>
@@ -366,9 +374,15 @@ if (isset($_SESSION["username"])){
             case "courtesycar":
                 document.getElementById("rates").innerHTML ='<div id="rates">\
                     <div class="mb-4">\
-                        <label id="freelimitlabel" name="freelimitlabel" class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Days</label>\
-                        <input type="number" name="days" id="days" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
-                            placeholder="Enter Number of Days" aria-label="Email" aria-describedby="email-addon" required/>\
+                        <div class="mb-4">\
+                            <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Select from Dropdown </label>\
+                            <select name="days" id="days" class="form-select form-select-lg mb-3 appearance-none block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label=".form-select-lg example">\
+                                <option value=10 selected>10 Days</option>\
+                                <option value="15">15 Days</option>\
+                                <option value="20">20 Days</option>\
+                                <option value="30">30 Days</option>\
+                            </select>\
+                        </div>\
                     </div>\
                     <div class="mb-4">\
                         <label  id="ratelabel" name="ratelabel"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Amount</label>\
@@ -395,7 +409,7 @@ if (isset($_SESSION["username"])){
                 document.getElementById("rates").innerHTML ='<div id="rates">\
                     <div class="mb-4">\
                         <label id="freelimitlabel" name="freelimitlabel" class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Enter Minimum Premium</label>\
-                        <input type="number" name="minimum_premium" id="minimum_premium" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="amount" id="amount" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter ammount" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
@@ -418,7 +432,7 @@ if (isset($_SESSION["username"])){
                     </div>\
                     <div class="mb-4">\
                         <label  id="minpremiumlebal" name="minpremiumlebal"  class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Minimum Premium</label>\
-                        <input type="number" name="amount" id="amount" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
+                        <input type="number" name="minimum_premium" id="minimum_premium" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"\
                             placeholder="Enter Amount" aria-label="Email" aria-describedby="email-addon" required/>\
                     </div>\
                 </div>'
