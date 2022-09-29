@@ -1,3 +1,13 @@
+<?php
+    if(isset($_GET["status"])){
+        if ($_GET["status"] == "error"){
+            echo "<script>alert('Wrong password')</script>";
+        }if($_GET["status"] == "success"){
+            echo "<script>alert('Password reset success')</script>";
+        }
+    } 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,6 +98,12 @@
                                             <input type="password" id="password" name="password" class="focus:shadow-soft-primary-outline text-size-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
                                                 placeholder="Password" aria-label="Password" aria-describedby="password-addon"required/>
                                         </div>
+                                        
+                                        <div class="min-h-6 mb-0.5 block pl-12">
+                                            <input id="show" class="mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5-em relative float-left -ml-12 w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
+                                                type="checkbox" onchange="handlePasswords(this)"/>
+                                            <label class="mb-2 ml-1 font-normal cursor-pointer select-none text-size-sm text-slate-700" for="show">Show Password</label>
+                                        </div>
                                         <div class="min-h-6 mb-0.5 block pl-12">
                                             <input id="rememberMe" class="mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5-em relative float-left -ml-12 w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
                                                 type="checkbox" checked="" />
@@ -99,6 +115,11 @@
                                     </form>
                                 </div>
                                 <div class="p-6 px-1 pt-0 text-center bg-transparent border-t-0 border-t-solid rounded-b-2xl lg:px-2">
+                                    <p class="mx-auto mb-6 leading-normal text-size-sm">
+                                        Forgot password? 
+                                        <a href="../pages/reset.php" class="relative z-10 font-semibold text-transparent bg-gradient-cyan bg-clip-text">Reset</a>
+                                    </p>
+                                
                                     <p class="mx-auto mb-6 leading-normal text-size-sm">
                                         Don't have an account?
                                         <a href="../pages/sign-up.php" class="relative z-10 font-semibold text-transparent bg-gradient-cyan bg-clip-text">Sign up</a>
@@ -142,6 +163,16 @@
         </div>
     </footer>
 </body>
+<script>
+    function handlePasswords(el){
+        console.log(el.checked);
+        if(el.checked){
+            document.getElementById('password').type = 'text';
+        }else{
+            document.getElementById('password').type = 'password';
+        }
+    }
+</script>
 <!-- plugin for scrollbar  -->
 <script src="../assets/js/plugins/perfect-scrollbar.min.js" async></script>
 <!-- main script file  -->

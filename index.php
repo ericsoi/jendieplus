@@ -332,7 +332,6 @@
 		});
     </script>
 	<script>
-		<script>history.replaceState({},'','$url');</script>
 		function handleClear(id){
 			document.getElementById("txtHint").innerHTML = "";
 			document.getElementById('underwriterlistseen').style.display = 'block';

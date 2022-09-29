@@ -106,10 +106,16 @@
                                             placeholder="Mobile 07XXXXXXX" aria-label="Name" aria-describedby="email-addon" onchange="checkUsername(this.id, this.value)" required />
                                     </div>
                                     <div class="mb-4">
-                                        <input type="password" name="password" class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                                        <input type="password" name="password" id="password" class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
                                             placeholder="Password" aria-label="Password" aria-describedby="password-addon" required />
                                     </div>
                                    
+                                    <div class="min-h-6 mb-0.5 block pl-12">
+                                        <input id="show" class="mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5-em relative float-left -ml-12 w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right"
+                                            type="checkbox" onchange="handlePasswords(this)"/>
+                                        <label class="mb-2 ml-1 font-normal cursor-pointer select-none text-size-sm text-slate-700" for="show">Show Password</label>
+                                    </div>
+
                                     <div class="min-h-6 pl-6.92-em mb-0.5 block">
                                         <input id="terms" class="w-4.92-em h-4.92-em ease-soft -ml-6.92-em rounded-1.4 checked:bg-gradient-dark-gray after:text-size-fa-check after:font-awesome after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all after:content-['\f00c'] checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
                                             type="checkbox" value="" checked required/>
@@ -184,6 +190,15 @@
         if (!(value.match(phoneregex))) {
             document.getElementById(id).value = '';
             document.getElementById(id).placeholder="Enter a valid phone Number";
+        }
+    }
+
+    function handlePasswords(el){
+        console.log(el.checked);
+        if(el.checked){
+            document.getElementById('password').type = 'text';
+        }else{
+            document.getElementById('password').type = 'password';
         }
     }
 </script>
