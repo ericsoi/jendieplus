@@ -20,7 +20,7 @@
                                             $select->execute();
                                             while($row = $select->fetch(PDO::FETCH_ASSOC)){
                                                 extract($row);
-                                                print_r($row);
+                                                // print_r($row);
                                                 $row = array_map('trim', $row);?>
                                                 <option value="<?php echo $row["benefit_name"];?>"><?php echo  $row["benefit_name"];?></option>
                                                 <?php

@@ -76,9 +76,9 @@
 													}
 											?>
 											
-											<select name="man_year" class="form-control py-1" <?php if(isset($_SESSION['client_details']['man_year'])) echo 'disabled'?>> 
+											<select name="man_year" class="form-control py-1" <?php if(isset($_SESSION['client_details']['man_year'])) echo 'readonly'?>> 
 												<?php for ($i = date('Y'); $i >= 1900; $i--){?>
-													<option <?php if($i==$man_year) echo 'selected';?>><?php echo $i;?></option>
+													<option <?php echo "value='$man_year'"; if($i==$man_year) echo 'selected';?>><?php echo $i;?></option>
 												<?php
 													}
 												?>

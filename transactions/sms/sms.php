@@ -51,5 +51,3 @@
         return str_replace($entities, $replacements, urlencode($string));
     }
 ?>
-
-transactions\sms\sms.php

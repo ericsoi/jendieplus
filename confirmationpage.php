@@ -2,9 +2,13 @@
 	@session_start();
 	include "dashboard/db/connect_db.php";
 	include "nav/journeyheader.php";
+	if(isset($_GET["status"])){
+		$status=$_GET["status"];
+		echo "<script>alert('$status')</script>";	
+	}
 ?>
 
-		<!-- End Header -->
+	<!-- End Header -->
 	</div>
 	<!-- End Header 1-->
 
@@ -107,13 +111,13 @@
 									</div>
 									<label>Payment Options</label>
 									<div class="input-group input-group-default mb-3">
-										<div class="form-check form-check-inline">
+										<div class="form-check form-check-inline form-switch">
 											<input class="form-check-input" type="radio" name="payments" id="inlineRadio1" value="mpesa" required onchange="credit(this)">
 											<label class="form-check-label" for="inlineRadio1">Mpesa</label>
 										</div>
-										<div class="form-check form-check-inline">
+										<div class="form-check form-check-inline form-switch">
 											<input class="form-check-input" type="radio" name="payments" id="inlineRadio2" value="credit" required onchange="credit(this)">
-											<label class="form-check-label" for="inlineRadio1">Credit </label>
+											<label class="form-check-label" for="inlineRadio2">Credit </label>
 										</div>
 										
 									</div>

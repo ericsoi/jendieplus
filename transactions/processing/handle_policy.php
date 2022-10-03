@@ -106,9 +106,6 @@ if($total_records <= 0){
         if($insert->execute()){
             $responce="Kindly wait as your agent processes your request";
             $_SESSION["message"]= $responce;
-            echo "success";
-            echo $responce;
-            header("location:../../gateway.php");
         }else{
             $responce = "Error Processingyour request, Kindly contact your Agent";
             $_SESSION["message"]= $responce;
@@ -270,6 +267,5 @@ if($total_records <= 0){
 else{
     $responce="Policy Exist Kindly contact your Agent";
     $_SESSION["message"]= $responce;
-    header("location:../../gateway.php");
 }
 ?>

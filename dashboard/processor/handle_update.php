@@ -35,7 +35,7 @@ function nextuser($str, $position){
     // $location = $_POST["location"];
     $phone = $_SESSION['phonenumber'];
     $email=$_POST["username"];
-    print_r($_POST);
+    // print_r($_POST);
     // $email=$_POST[""];
     //"SELECT * FROM tbl_user where role ='sub-agent' and agency = '$agency' ORDER BY time_created DESC"
 

@@ -3,8 +3,7 @@
 		session_start();
 	}
 	if(isset($_POST["btn_login"])){
-		print_r($_POST);
-		session_start();
+		$_SESSION["register"]["fullnames"]= $_POST["fullnames"]; $_SESSION["register"]["phonenumber"] = $_POST["phone"]; $_SESSION["register"]["password"]=$_POST["password"];
 		include "../db/connect_db.php";
 		$names=explode(" ", trim($_POST["fullnames"]));
 		if(sizeof($names)==1){
@@ -34,7 +33,7 @@
 			if($insert->execute()){
 				header ("Location: ../build/pages/update.php");
 			}else{
-				print_r($insert->errorInfo());
+				// print_r($insert->errorInfo());
 				header ("Location: ../build/pages/sign-up.php?status=error");
 			}
 			

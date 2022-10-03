@@ -3,5 +3,5 @@
 		session_start();
     }
     $_SESSION["gateway"]=$_GET;
-    header("location: ../transactions/processing/handle_policy.php");
+    header("location: ../transactions/processing/handle_policy_mpesa.php");
 ?>

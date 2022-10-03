@@ -24,7 +24,7 @@
             $product_unique.='-'.$link;
         }
     }
-    print_r($_POST);
+    // print_r($_POST);
     //-32121-africamerchantassurancecompanylimited-1.private-comprehensive-20-16-10000000-500000
     //-32121-africamerchantassurancecompanylimited-1.private-comprehensive-15-0-10000000-500000
     $product_code=strtolower(preg_replace('/\s+/', '',$product_unique));
@@ -33,7 +33,7 @@
     $select = $pdo->prepare("SELECT uniqueidentifier FROM tbl_product WHERE uniqueidentifier='$uniqueidentifier'");
     $select->execute();
     if($select->rowCount() > 0 ){
-        print_r("ERROR");
+        // print_r("ERROR");
         header("Location: ../build/pages/productsetup.php?q=duplicate");
     }else{
         $insert = $pdo->prepare("INSERT INTO tbl_product(product_code,vehicleclass, underwriter, coverage, description, policylimits, mintonnage, maxtonnage, weeklyrates, fortnightrates, passangers, monthlyrates, annualrates, excludedvehicles, minimumpremium, maxage, minage, maxsum, minsum, owner, uniqueidentifier)
@@ -85,7 +85,7 @@
                         }
                         header("Location: ../build/pages/productsetup.php?q=success");
                     }else{
-                        print_r($insert->errorInfo()[2]);
+                        // print_r($insert->errorInfo()[2]);
                         header("Location: ../build/pages/productsetup.php?q=error");
                     }
             // }

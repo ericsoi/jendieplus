@@ -1,4 +1,7 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
     if(isset($_GET["status"])){
         if ($_GET["status"] == "duplicate"){
             echo "<script>alert('User Registered. Login')</script>";
@@ -98,15 +101,15 @@
                             <div class="flex-auto p-6">
                                 <form action="../../processor/handle_register.php" method="POST" role="form text-left">
                                     <div class="mb-4">
-                                        <input type="text" name="fullnames" id="fullnames" class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                                        <input type="text" name="fullnames" id="fullnames" <?php if(isset($_SESSION["register"]["fullnames"])) echo 'value='.'"'.$_SESSION["register"]["fullnames"].'"'?> class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
                                             placeholder="Full Names" aria-label="Name" aria-describedby="email-addon" required />
                                     </div>
                                     <div class="mb-4">
-                                        <input type="text" name="phone" id="phone" class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                                        <input type="text" name="phone" id="phone" <?php if(isset($_SESSION["register"]["phonenumber"])) echo 'value='.'"'.$_SESSION["register"]["phonenumber"].'"'?> class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
                                             placeholder="Mobile 07XXXXXXX" aria-label="Name" aria-describedby="email-addon" onchange="checkUsername(this.id, this.value)" required />
                                     </div>
                                     <div class="mb-4">
-                                        <input type="password" name="password" id="password" class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                                        <input type="password" name="password" id="password" <?php if(isset($_SESSION["register"]["password"])) echo 'value='.'"'.$_SESSION["register"]["password"].'"'?> class="text-size-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
                                             placeholder="Password" aria-label="Password" aria-describedby="password-addon" required />
                                     </div>
                                    

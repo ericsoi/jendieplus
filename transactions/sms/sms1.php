@@ -11,7 +11,7 @@
     'username' => 'IPLUS',
     'password' => 'Bulksms2611',
     'senderid' => 'IPLUS',
-    'recipient' => '254733566464',//should be a valid contact number
+    'recipient' => '254712962787',//should be a valid contact number
     'message' => myUrlEncode($my_message)
     );
     // $subuserUrl = "subusers/" . str_replace("&","/",http_build_query($data)); //use this to get subusers

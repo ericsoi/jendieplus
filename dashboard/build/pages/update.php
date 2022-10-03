@@ -100,25 +100,25 @@ if (session_status() == PHP_SESSION_NONE) {
                                 <div class="col-md-3">
                                     <label>Company Name</label>
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Agency Name" id="agency" name="agency" aria-label="First Name..."  type="text" required>
+                                        <input class="form-control" placeholder="Agency Name" id="agency" name="agency" <?php if(isset($_SESSION["register"]["agency"])) echo 'value='.'"'.$_SESSION["register"]["agency"].'"'?> aria-label="First Name..."  type="text" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ps-2">
                                     <label>Postal Address</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="P.O. BOX"  id="postaladdress" name="postaladdress" aria-label="Last Name..." required>
+                                        <input type="text" class="form-control" placeholder="P.O. BOX"  id="postaladdress" name="postaladdress" <?php if(isset($_SESSION["register"]["postaladdress"])) echo 'value='.'"'.$_SESSION["register"]["postaladdress"].'"'?> aria-label="Last Name..." required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ps-2">
                                     <label>Physical Address</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Office Location" id="physicaladdress" name="physicaladdress"  aria-label="Last Name..." required>
+                                        <input type="text" class="form-control" placeholder="Office Location" id="physicaladdress" name="physicaladdress" <?php if(isset($_SESSION["register"]["physicaladdress"])) echo 'value='.'"'.$_SESSION["register"]["physicaladdress"].'"'?>  aria-label="Last Name..." required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ps-2">
                                     <label>IRA Licence Number</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Agency IRA Licence" id="ira" name="ira" onchange="licence(id,value)" aria-label="Last Name..." required>
+                                        <input type="text" class="form-control" placeholder="Agency IRA Licence" id="ira" name="ira" <?php if(isset($_SESSION["register"]["ira"])) echo 'value='.'"'.$_SESSION["register"]["ira"].'"'?> onchange="licence(id,value)" aria-label="Last Name..." required>
                                     </div>
                                 </div>
                             </div>
@@ -127,25 +127,25 @@ if (session_status() == PHP_SESSION_NONE) {
                                 <div class="col-md-3">
                                     <label>Agent Code</label>
                                     <div class="input-group mb-4">
-                                        <input class="form-control" placeholder="Agent Code" id="code" name="code" onchange="licence(id,value)" aria-label="First Name..." type="text" required>
+                                        <input class="form-control" placeholder="Agent Code" id="code" name="code" <?php if(isset($_SESSION["register"]["code"])) echo 'value='.'"'.$_SESSION["register"]["code"].'"'?> onchange="licence(id,value)" aria-label="First Name..." type="text" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ps-2">
                                     <label>KRA PIN Number</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="KRA PIN" id="kra" name="kra" aria-label="Last Name..." required>
+                                        <input type="text" class="form-control" placeholder="KRA PIN" id="kra" name="kra" <?php if(isset($_SESSION["register"]["kra"])) echo 'value='.'"'.$_SESSION["register"]["kra"].'"'?> aria-label="Last Name..." required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ps-2">
                                     <label>Enter ID/Registration Number</label>
                                     <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="ID or Business Registration" id="id" name="id" aria-label="Last Name..." required>
+                                    <input type="text" class="form-control" placeholder="ID or Business Registration" id="id" name="id" <?php if(isset($_SESSION["register"]["id"])) echo 'value='.'"'.$_SESSION["register"]["id"].'"'?> aria-label="Last Name..." required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 ps-2">
                                     <label id="usernamelable" name="usernamelable">Enter Email</label>
                                     <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="email address" id="username" name="username" onchange="checkusername(id, value)" aria-label="Last Name..." required>
+                                    <input type="text" class="form-control" placeholder="email address" id="username" name="username" <?php if(isset($_SESSION["register"]["username"])) echo 'value='.'"'.$_SESSION["register"]["username"].'"'?> onchange="checkusername(id, value)" aria-label="Last Name..." required>
                                     </div>
                                 </div>
                             </div>
@@ -182,40 +182,8 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 
     </section>
-
-    <section class="" id="count-stats">
-        <div class="container">
-            <div class="row">
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-4 position-relative">
-                            <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary"><span id="state1" countTo="70">0</span>+</h1>
-                                <h5 class="mt-3">Coded Elements</h5>
-                                <p class="text-sm">From buttons, to inputs, navbars, alerts or cards, you are covered</p>
-                            </div>
-                            <hr class="vertical dark">
-                        </div>
-                        <div class="col-md-4 position-relative">
-                            <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">0</span>+</h1>
-                                <h5 class="mt-3">Design Blocks</h5>
-                                <p class="text-sm">Mix the sections, change the colors and unleash your creativity</p>
-                            </div>
-                            <hr class="vertical dark">
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary" id="state3" countTo="4">0</h1>
-                                <h5 class="mt-3">Pages</h5>
-                                <p class="text-sm">Save 3-4 weeks of work when you use our pre-made pages for your website</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
+    
 <?php
 if(isset($_GET["status"])){
     if($_GET["status"] == "duplicate"){

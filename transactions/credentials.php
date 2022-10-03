@@ -1,5 +1,5 @@
 <?php
-	$credential 	= 'YzlCYBhihRzcbMtDLgbtQuFIDO/3pTsrx6AA54KQz5kUpr767Lnnhp6tkpmCR0R5WbkGM9UW7VjBaLb4SUhkZuuIIxuWK0XChM51ZnBSZ3lo5SRMUL7MbCDYY1E4yAUSiLyCrwqK1Uau6UCXxi18P1ji1MDcy0Eyn1UJ0s76tOuhT58cYklvGJGcWlf/R9aNHU4lwBD6dBOwD1n1jzCrMrfVQIaNH7vVLt39A+8Mvs6hafJj/R4dkmQSRiE7g0xCX9snwexjrsaAxyJFhmBikPGkeco7PEZGv15wmxmaV9MmhI5rb0yPECrmnS/SIShZnfESamjxGL0ruL/1t9C3jg==';
+	$credential 	= 'FkJZZSkPX3cvcLguR1VAnf9/bduJpaagWSijpav/6KPB2vO4rom2KOYhtl3o9m+dIEaFMIpqi7Ra6HP4MAa42efAI2oYee0Jv9nw4yXsklkjaDawg3KR0HPHzknaG13ZnKMOU//TjuMCHJyDpk4T1NPUHBlbmCc/SBbG/rFch08Eshurj/2SdI2lfP7uVKOz1XoTBkha/9FxjUBxvw60ACY5p01p88ZlxIIuHTl0GdbTEkPW3NOQv53CotG108ct6rk61z+WbpNg9bSDCkodJfIhq56fjWv8evYs1cmqJxvYDGJqu3YxQ4qaqXlAS4YOTAFETySD1eRtrmAHP8aF6g==';
 	$shortcode 	= '7290377';
 	$callbackurl 	= 'https://jendieplus.co.ke/transactions/confirmation_url.php';
 	$tyme 		= date("YmdHis");
