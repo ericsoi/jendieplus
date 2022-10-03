@@ -133,7 +133,7 @@ if($total_records <= 0){
         }
             
         $amount = $_SESSION["grosspremium"];
-        // $amount = 100;    
+        $amount = 1;    
         
         include '../credentials.php';
         include '../auth.php';
@@ -189,6 +189,7 @@ if($total_records <= 0){
                         $_SESSION["stk_callback"]=$row;
                         $responce = $row->ResultDesc . ' '. $phone;
                         include "../../mail/mail.php";
+                        include "../b2b.php";
                         $_SESSION["message"]= $responce;
                         $proof_of_payment = $_SESSION["stk_callback"]["MpesaReceiptNumber"];
                         $amount=$_SESSION["stk_callback"]["Amount"];
@@ -218,7 +219,7 @@ if($total_records <= 0){
                         $insert->bindParam(':sum_insured',$sum_insured);
                         $insert->bindParam(':gross_premium',$gross_premium);
                         $insert->bindParam(':proof_of_payment',$proof_of_payment);
-                        $insert->bindParam(':method_of_payment',$method_of_payment);
+                        $insert->bindParam(':method_of_payment',$method_of_payment); 
                         $insert->bindParam(':installments',$installments);
                         $insert->bindParam(':amount',$amount);
                         $insert->bindParam(':certificate_number',$certificate_number);

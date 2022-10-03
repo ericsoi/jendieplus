@@ -6,6 +6,7 @@
 	$passkey 	= '9b6b37ab48221b4ac73fe723635ad430093fb4456ce2ddb62d729632caae1169';
 	$pass		= base64_encode($shortcode.$passkey.$tyme);
 	$number 	= "254723775289";
+	$b2b_confirmation_url = 'https://jendieplus.co.ke/transactions/b2b_confirmation_url.php';
 	$calbackurl 	= "https://jendieplus.co.ke/transactions/confirmation_url.php";
 	$validationurl	= "https://jendieplus.co.ke/transactions/validation_url.php";
 	$CustomerKey	= "MzSE1AyGqrX9yVIQdcc4MdrI8AolAL9t";
