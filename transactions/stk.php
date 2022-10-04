@@ -3,8 +3,8 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-    include "../../config/db.php";
-    include "../../dashboard/db/connect_db.php";
+    include $_SERVER['DOCUMENT_ROOT']."/config/db.php";
+    include $_SERVER['DOCUMENT_ROOT']."/dashboard/db/connect_db.php";
     $user = "Kennedy";
     $AccountReference =  $_SESSION["logbook"]["registration"];
     if(strlen($_SESSION["gateway"]["phone"]) < 10){
@@ -22,12 +22,12 @@ if (session_status() == PHP_SESSION_NONE) {
     }
 
     $amount = $_SESSION["grosspremium"];
-    $amount = 1;
-    // echo $amount;
-    // print_r($_SESSION)
+    // $amount = 1;
+    // echo $amount; 0112770613
+    // print_r($_SESSION) 0722301062
 
-    include '../credentials.php';
-    include '../auth.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/credentials.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/auth.php';
     $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -67,6 +67,8 @@ if (session_status() == PHP_SESSION_NONE) {
             sleep(30);
             // include "../mail/mail.php";
             $sql = "SELECT * from tbl_mpesa where CheckoutRequestID = '$CheckoutRequestID'";
+            // $sql = "SELECT * from tbl_mpesa where MpesaReceiptNumber = 'QJ4688A1UO'";
+
             $sql_res = mysqli_query($connection, $sql);
             $rowcount=mysqli_num_rows($sql_res);
             if ($rowcount>=1){
@@ -78,11 +80,10 @@ if (session_status() == PHP_SESSION_NONE) {
                     // echo "<br>";
                     // print_r($_SESSION);
                     $_SESSION["stk_callback"]=$row;
-                    print_r($row);
-                    $responce = $row->ResultDesc . ' '. $phone;
                     // include "processing/handle_policy.php";
-                    include "../mail/mail.php";
-                    $_SESSION["message"] = $responce;
+                    include $_SERVER['DOCUMENT_ROOT']."/transactions/b2b.php";
+                    include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
+                    $_SESSION["message"]=0;
                     // header("refresh:0;url=../../gateway.php");
                 }else{
                     $update="UPDATE tbl_mpesa set PhoneNumber = '$phone' where CheckoutRequestID = '$CheckoutRequestID'";
@@ -91,14 +92,14 @@ if (session_status() == PHP_SESSION_NONE) {
                       } else {
                         $responce = "Error updating record: " . mysqli_error($connection);
                       }
-                    $responce = $row->ResultDesc . ' '. $phone;
-                    $_SESSION["message"] = $responce;
-                    header("refresh:0;url=../../gateway.php");
+                    $responce = $row;
+                    $_SESSION["message"]=$row->ResultDesc;
+                    // header("refresh:0;url=../../gateway.php");
                 }
             }else{
                 $responce="Kindly check your transaction and try again";
                 $_SESSION["message"] = $responce;
-                header("refresh:0;url=../../gateway.php");
+                // header("refresh:0;url=../../gateway.php");
             }
 
         }
@@ -108,9 +109,10 @@ if (session_status() == PHP_SESSION_NONE) {
         $errorCode=$obj->errorCode;
         $errorMessage=$obj->errorMessage;
         $responce = $errorMessage . ' '. $phone;
+        $_SESSION["message"] = $errorMessage;
         // print_r($obj);
-        include "alert.php";
-        header("refresh:2;url=../../gateway.php");
+        // include "alert.php";
+        // header("refresh:2;url=../../gateway.php");
     }
 
         // if($row =  mysqli_fetch_assoc($res)){

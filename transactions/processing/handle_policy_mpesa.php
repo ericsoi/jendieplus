@@ -3,8 +3,11 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-include "../../dashboard/db/connect_db.php";
+if(!isset($_SESSION["underwriter"])) { 
 
+    header("refresh:0;url=../../index.php");
+}
+include $_SERVER['DOCUMENT_ROOT']."/dashboard/db/connect_db.php";
 
 $owner_referal= explode("/", $_SESSION["client_details"]["referal_code"])[0];
 $select = $pdo->prepare("select * from tbl_user where code = '$owner_referal'");
@@ -13,8 +16,6 @@ $row = $select->fetch(PDO::FETCH_ASSOC);
 $_SESSION["agency_owner"]=$row;
 $status=0;
 $method_of_payment=$_SESSION["confirmed_items"]["payments"];
-
-// print_r($_SESSION);
 $agency=$_SESSION['agency_owner']["agency"];
 $subagent=$_SESSION['agency_owner']["subagent"];
 $code=$_SESSION['agency_owner']["code"];
@@ -52,9 +53,8 @@ $underwriter=$_SESSION["underwriter"]["Name"];
 $seating_capacity=$_SESSION["logbook"]["passengers"];
 $tonnage=$_SESSION["logbook"]["load_capacity"];
 $optional_benefits="no";
-$unique_string='dsxcdsdsddsdssdsdsvcdffg'.$agency.$subagent.$code.$username.$role.$cover_period.$first_name.$middle_name.$last_name.$id_number.$pin_number.$phone_number.$client_email.$gender.$poastall_address.$cover_from.$cover_to.$vehicle_reg.$chassis_number.$insurance_class.$cover_type.$cover_type.$sum_insured.$gross_premium.$installments.$underwriter.$seating_capacity.$tonnage;
+$unique_string='dsdrtyddd'.$agency.$subagent.$code.$username.$role.$cover_period.$first_name.$middle_name.$last_name.$id_number.$pin_number.$phone_number.$client_email.$gender.$poastall_address.$cover_from.$cover_to.$vehicle_reg.$chassis_number.$insurance_class.$cover_type.$cover_type.$sum_insured.$gross_premium.$installments.$underwriter.$seating_capacity.$tonnage;
 //0112770613
-echo $unique_string;
 $select=$pdo->prepare("SELECT * from tbl_policy where unique_string='$unique_string'");
 $select->execute();
 $total_records = $select->rowCount();
@@ -98,15 +98,20 @@ if($total_records <= 0){
     $insert->bindParam(':code', $code);
     $insert->bindParam(':username', $username);
     
-    include "../../transactions/stk.php";
-    if($insert->execute()){
-        $responce="Request Processed successfully";
-        $_SESSION["message"]= $responce;
-    }         
+    include $_SERVER['DOCUMENT_ROOT']."/transactions/stk.php";
+    if ($_SESSION["message"] == 0){
+        if($insert->execute()){
+            $responce=$_SESSION["stk_callback"]->ResultDesc;
+            $_SESSION["message"]= $responce;
+            header("location: ../../gateway.php");
+        }      
+    }else{
+        header("location: ../../gateway.php");
+    }
+    
 }else{
     $responce="Policy Exist Kindly contact your Agent";
-    $_SESSION["message"]= $responce;
-    header("location: ../../gateway.php?status=$responce");
-
+    $_SESSION["message"] =$responce;
+    header("location: ../../gateway.php");
 }
 ?>

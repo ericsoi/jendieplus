@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../config/db.php";
+include $_SERVER['DOCUMENT_ROOT']."/config/db.php";
 try{
     //Set the response content type to application/json
     header("Content-Type:application/json");
@@ -28,12 +28,12 @@ try{
     }
     $sql = "INSERT INTO tbl_mpesa (MerchantRequestID, CheckoutRequestID, ResultCode, ResultDesc, Amount, MpesaReceiptNumber, TransactionDate, PhoneNumber) VALUES ('$MerchantRequestID','$CheckoutRequestID','$ResultCode','$ResultDesc','$Amount','$MpesaReceiptNumber','$TransactionDate','$PhoneNumber')";
     if (mysqli_query($connection, $sql)) {
-        $myfile = fopen("success.log", "a") or die("Unable to open file!");
+        $myfile = fopen($_SERVER['DOCUMENT_ROOT']."/transactions/success.log", "a") or die("Unable to open file!");
         fwrite($myfile, $postData);
         fwrite($myfile, "\r\n");
         fclose($myfile);
     } else {
-        $myfile = fopen("sqlerror.txt",'a');
+        $myfile = fopen($_SERVER['DOCUMENT_ROOT']."/transactions/sqlerror.txt",'a') or die("Unable to open file!");
         fwrite($myfile,$postData);
         fwrite($myfile,"\r\n");
         fwrite($myfile, mysqli_error($connection));
@@ -43,7 +43,7 @@ try{
     
 } catch (Exception $ex){
     //append exception to errorLog
-    $logErr = fopen('error.log','a');
+    $logErr = fopen($_SERVER['DOCUMENT_ROOT'].'/transactions/error.log','a');
     fwrite($logErr, $ex->getMessage());
     fwrite($logErr,"\r\n");
     fclose($logErr);

@@ -6,14 +6,15 @@
 		// 	header("refresh:0;url=../index.php");
 		// }
 		//file_put_contents('filename.txt', print_r($_SESSION, true));
-		include "auth.php";
-		include "credentials.php";
-		include "../config/db.php";
+		include $_SERVER['DOCUMENT_ROOT']."/transactions/auth.php";
+		include $_SERVER['DOCUMENT_ROOT']."/transactions/credentials.php";
+		include $_SERVER['DOCUMENT_ROOT']."/config/db.php";
+		include $_SERVER['DOCUMENT_ROOT']."/dashboard/db/connect_db.php";
 		//file_put_contents('file',$myarray);
 		$underwriter_name = $_SESSION["underwriter"]["Name"];
 		$vehicle_registration = $_SESSION["logbook"]["registration"];
 		$amt = $_SESSION["grosspremium"];
-		$amt = 1;
+		// $amt = 1;
 		//$tocken = 'HSkAGABLK5AATx5uWRRfkjAGbrIW';	
 		$url = 'https://api.safaricom.co.ke/mpesa/b2b/v1/paymentrequest';
 		$curl = curl_init();
@@ -25,7 +26,7 @@
 		$underwriter_paybill = $row['paybill'];
 
 		$curl_post_data = array(
-			//Fill in the request parameters with valid values
+			//Fill in the request parameters with valid values QJ418L80U9 QJ488L9GBI
 			'Initiator' => 'ERICKSOI',
 			'SecurityCredential' => $credential,
 			'CommandID' => 'DisburseFundsToBusiness',

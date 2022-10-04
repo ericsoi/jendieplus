@@ -52,5 +52,6 @@
 			}
 		}
 	}
+	// print_r($_SESSION["client_files"]);
     header("location: ../confirmationpage.php");
 ?>

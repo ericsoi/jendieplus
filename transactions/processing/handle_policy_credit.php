@@ -3,7 +3,9 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-
+if(!isset($_SESSION["underwriter"])) { 
+    header("refresh:0;url=../../index.php");
+}
 include "../dashboard/db/connect_db.php";
     
 $responce="";  

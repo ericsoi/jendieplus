@@ -71,6 +71,7 @@
 		$productcode= preg_replace('[ ]', '', $productcode);
 
 	}
+	echo $productcode;
 function t2($val, $min, $max) {
 	return ($val >= $min && $val <= $max);
 }
@@ -87,10 +88,9 @@ if($select->rowCount()>0){
 	while($row = $select->fetch(PDO::FETCH_ASSOC)){
 		$product_code = preg_replace('[ ]', '', $row["product_code"]); 
 		$uniqueidentifier = preg_replace('[ ]', '', $row["uniqueidentifier"]); 
-
+		// weeklyrates fortnightrates monthlyrates annualrates
 		if ($product_code==$uniqueidentifier){
-			
-			if(strlen($row[$copy["coverperiod"]])>1){
+			if(strlen($row[$copy["coverperiod"]])>=1){
 				$product=True;$tonnage=0;$passangers=0;$saminsured=0;
 				// $product=True;$tonnage["name"]='Tonnage';$tonnage["value"]= 0; $suinsured["name"]='Sum Insured';$suinsured["value"]= 0;$passengers["name"]='Passengers';$passengers["value"]= 0;
 				$_SESSION['product'] = $row;

@@ -38,9 +38,9 @@ if(!isset($_SESSION)){
 }
 // print_r($_SESSION);
 date_default_timezone_set('Africa/Nairobi');
-$id_file = $_SESSION["client_files"]["id"];
-$logbook_file = $_SESSION["client_files"]["kra"];
-$kra_file = $_SESSION["client_files"]["logbook"];
+$id_file = $_SESSION["client_files"]["u_id"];
+$kra_file = $_SESSION["client_files"]["u_kra"];
+$logbook_file = $_SESSION["client_files"]["u_logbook"];
 #$optional_benefits = $_SESSION["additionalbenefts"];
 // $benstring =  preg_replace("/[^a-zA-Z|'<br>']/", "", $optional_benefits);
 // $benvalues1 = preg_replace("/[^0-9.|'<>']/", "", $optional_benefits);
@@ -72,9 +72,8 @@ foreach ($optional_benefit as $key => $val){
 }
 $server = "https://jendieplus.co.ke";
 // print_r($_SESSION);
-$TransactionID = $_SESSION["stk_callback"]["TransactionID"];
-$stk_underwriter = $_SESSION["stk_callback"]["underwriter"];
-$stk_from_party = $_SESSION["stk_callback"]["from_party"];
+$TransactionID = $_SESSION["stk_callback"]->MpesaReceiptNumber;
+$stk_from_party = $_SESSION["stk_callback"]->PhoneNumber;
 $skt_date = date("m/d/Y");
 // = $_SESSION["stk_callback"]["date"];
 $coverage = trim($_SESSION["product"]["coverage"]);
@@ -134,11 +133,11 @@ $to_date =  date('d-m-Y', $new_date);
 //$totalpremium = $total_optional + $gross_premium;
 $totalpremium = $gross_premium;
 
-$stk_string = "$TransactionID confirmed sent Kshs.$gross_premium to  $stk_underwriter  from $stk_from_party at $skt_date";
+$stk_string = "$TransactionID confirmed sent Kshs.$gross_premium to  $underwriter  from $stk_from_party at $skt_date";
 
-$id = "../" . $id_file;
-$kra = "../". $kra_file;
-$log = "../" .$logbook_file;
+$id =  $id_file;
+$kra = $kra_file;
+$log = $logbook_file;
 
 if (isset($_SESSION["user_role"])){
     //echo getcwd()."<br>";
