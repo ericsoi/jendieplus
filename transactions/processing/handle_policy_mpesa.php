@@ -103,6 +103,7 @@ if($total_records <= 0){
         if($insert->execute()){
             $responce=$_SESSION["stk_callback"]->ResultDesc;
             $_SESSION["message"]= $responce;
+            include $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/policy.php";
             header("location: ../../gateway.php");
         }      
     }else{

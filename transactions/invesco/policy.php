@@ -12,7 +12,7 @@
 
     $url = "http://41.84.131.13:8007/api/portal/policies/create";
    
-
+try{
 $logbook = $_SESSION['logbook'];
 $client_details=$_SESSION['client_details'];
 // print_r($_SESSION);
@@ -83,7 +83,7 @@ $todate=date_format($mydate,"d-M-Y");
 $covertype= $STD->proddesc; // 'THIRD PARTY ONLY' / COMPREHENSIVE;
 // $covertype='COMPREHENSIVE';
 $idnumber=$logbook['id_number']; $pinnumber=$logbook['kra_number']; $phoneno=$client_details['phone_number']; $firstname=$confirmed_items['firstname']; 
-$middlename=$confirmed_items['firstname']; $lastname=$confirmed_items['lastname']; $gender=$client_details['inlineRadioOptions']; $postaladdress=$confirmed_items['postaladdress']; 
+$middlename=$confirmed_items['firstname']; $lastname=$confirmed_items['lastname']; $gender=$client_details['gender']; $postaladdress=$confirmed_items['postaladdress']; 
 $physicaladdress=$logbook['physical_address']; $postalcode=$confirmed_items['postal_code']; $clienttype=$clienttype; $email=$client_details['email'];
 $coverFrom= $fromdate; $coverTo=$todate; $paymentmode=$paymentmode; $yourreference=$client_details['referal_code'];
 $productid=$productid; $agentid=$client_details['referal_code']; $commissionrate=$commissionrate; 
@@ -305,7 +305,36 @@ $data=[
     $resp = curl_exec($curl);
     echo $resp;
     $resp= json_decode($resp);
-    print_r($resp);
+    
+    
+
+    //Set the response content type to application/json
+    //read incoming request
+    $postData = file_get_contents('php://input');
+    //log file
+    $filePath = "/var/www/jendieplus.co.ke/transactions/invesco/success.log";
+    //error log
+    $errorLog = "/var/www/jendieplus.co.ke/transactions/invesco/errors.log";
+    //Parse payload to json
+    $jdata = json_decode($postData,true);
+    //perform business operations on $jdata here
+    //open text file for logging messages by appending
+    $file = fopen($filePath,'a');
+    //log incoming request
+    fwrite($file, $postData);
+    fwrite($file,"\r\n");
+    //log response and close file
+    fwrite($file,$resp);
+    fclose($file);
+    curl_close($curl);
+} catch (Exception $ex){
+    //append exception to errorLog
+    $logErr = fopen($errorLog,'a');
+    fwrite($logErr, $ex->getMessage());
+    fwrite($logErr,"\r\n");
+    fclose($logErr);
+}
+    //echo response
     // $token=$resp->token;
     // $arr = (array) $resp;
     // $message = (array) $arr["object"];
@@ -332,7 +361,7 @@ $data=[
     // $error=$resp->object;
     // print_r($error);
     // echo $token;
-    curl_close($curl);
+    
     // var_dump($resp);
 
 ?>
