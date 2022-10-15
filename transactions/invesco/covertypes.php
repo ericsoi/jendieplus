@@ -1,5 +1,5 @@
 <?php
-    include '/var/www/jendieplus.co.ke/transactions/invesco/auth.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/auth.php';
     $url = "http://41.84.131.13:8007/api/portal/policies/covertypes";
 
     $curl = curl_init($url);

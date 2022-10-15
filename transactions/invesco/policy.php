@@ -1,18 +1,19 @@
 <?php
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
-        include "/var/www/jendieplus.co.ke/dashboard/db/connect_db.php";
+        include $_SERVER['DOCUMENT_ROOT']."/dashboard/db/connect_db.php";
     }
-    include '/var/www/jendieplus.co.ke/transactions/invesco/auth.php';
-    include '/var/www/jendieplus.co.ke/transactions/invesco/covertypes.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/auth.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/covertypes.php';
     // echo $TPO->proddesc;
     // echo $TPF->proddesc;
     // echo $COMP->proddesc;
     // echo $STD->proddesc;
 
     $url = "http://41.84.131.13:8007/api/portal/policies/create";
-   
+   $apiresponce=false;
 try{
+
 $logbook = $_SESSION['logbook'];
 $client_details=$_SESSION['client_details'];
 // print_r($_SESSION);
@@ -80,8 +81,11 @@ $fromdate=date_format($mydate,"d-M-Y");
 date_add($mydate,date_interval_create_from_date_string($interval));
 $todate=date_format($mydate,"d-M-Y");
 // print_r($_SESSION['cover']);
-$covertype= $STD->proddesc; // 'THIRD PARTY ONLY' / COMPREHENSIVE;
-// $covertype='COMPREHENSIVE';
+// echo "\n\n\n";
+// print_r($STD);
+// print_r($_SESSION['cover']);
+// $covertype= $STD->proddesc; // 'THIRD PARTY ONLY' / COMPREHENSIVE;
+$covertype=strtoupper($_SESSION['cover']);
 $idnumber=$logbook['id_number']; $pinnumber=$logbook['kra_number']; $phoneno=$client_details['phone_number']; $firstname=$confirmed_items['firstname']; 
 $middlename=$confirmed_items['firstname']; $lastname=$confirmed_items['lastname']; $gender=$client_details['gender']; $postaladdress=$confirmed_items['postaladdress']; 
 $physicaladdress=$logbook['physical_address']; $postalcode=$confirmed_items['postal_code']; $clienttype=$clienttype; $email=$client_details['email'];
@@ -285,7 +289,7 @@ $data=[
       }';
    
     echo $data;
-    */
+   */
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_POST, true);
@@ -303,66 +307,53 @@ $data=[
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($curl, CURLOPT_HEADER, false);
     $resp = curl_exec($curl);
-    echo $resp;
-    $resp= json_decode($resp);
-    
+    // $resp= json_decode($resp);
     
 
     //Set the response content type to application/json
     //read incoming request
-    $postData = file_get_contents('php://input');
+    // $postData = file_get_contents('php://input');
     //log file
-    $filePath = "/var/www/jendieplus.co.ke/transactions/invesco/success.log";
+    $filePath = $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/success.log";
     //error log
-    $errorLog = "/var/www/jendieplus.co.ke/transactions/invesco/errors.log";
+    $errorLog = $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/errors.log";
     //Parse payload to json
-    $jdata = json_decode($postData,true);
+    $jdata = json_decode($resp,true);
+    $check_error = $jdata["object"];
+    reset($check_error);//setting internal pointer to first element one
+    if(key($check_error) == 'error'){
+      $error = $check_error['error'];
+      $apiresponce =false;
+      // echo $_SESSION["Message"];
+    }else{
+      $apiresponce = true;
+      $policy_number = $jdata["object"]['policyno'];
+    }
+    
     //perform business operations on $jdata here
     //open text file for logging messages by appending
+    
     $file = fopen($filePath,'a');
     //log incoming request
-    fwrite($file, $postData);
+    fwrite($file, $resp);
+    
+    
     fwrite($file,"\r\n");
     //log response and close file
-    fwrite($file,$resp);
+    // fwrite($file,$resp);
     fclose($file);
     curl_close($curl);
+     
 } catch (Exception $ex){
+    print_r($ex);
+    $error = "Error Processing your API. Contact your Agent";
+    $apiresponce = false;
     //append exception to errorLog
     $logErr = fopen($errorLog,'a');
     fwrite($logErr, $ex->getMessage());
     fwrite($logErr,"\r\n");
     fclose($logErr);
 }
-    //echo response
-    // $token=$resp->token;
-    // $arr = (array) $resp;
-    // $message = (array) $arr["object"];
-    // $status=false;
-    // if (array_keys($message)[0] == "error"){
-    //     $out = array_values($message)[0];
-    //     $status=false;
-    //     echo $out;
-    // }else{
-    //     $out = array_values($message)[0];
-    //     $status=true;
-    //     $batchno=$message["batchno"];
-    //     $premium=$message["premium"];
-    //     $policyno=$message["policyno"];
-    //     echo "batchno: ". $batchno . "<br>";
-    //     echo "premium: ". $premium . "<br>";
-    //     echo "policyno: ". $policyno . "<br>";
-    // }
-    // $message=$resp->messages;
-    // $object=$resp->object;
-    // print_r(array_key_first($object));
-    // print_r($object);
-
-    // $error=$resp->object;
-    // print_r($error);
-    // echo $token;
-    
-    // var_dump($resp);
 
 ?>
 

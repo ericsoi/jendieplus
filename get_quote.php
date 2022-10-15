@@ -149,15 +149,15 @@
 									<div class="form-group">
 										<label>Gender</label>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="male" name="gender" value="Male" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Male') echo 'checked'?> required>
+											<input type="radio" class="custom-control-input" id="male" name="gender" value="M" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Male') echo 'checked'?> required>
 											<label class="custom-control-label" for="male">Male</label>
 										</div>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="female" name="gender" value="Female" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Female') echo 'checked'?>  required>
+											<input type="radio" class="custom-control-input" id="female" name="gender" value="F" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Female') echo 'checked'?>  required>
 											<label class="custom-control-label" for="female">Female</label>
 										</div>
 										<div class="custom-control custom-radio mb-3">
-											<input type="radio" class="custom-control-input" id="other" name="gender" value="Other" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Other') echo 'checked'?>required>
+											<input type="radio" class="custom-control-input" id="other" name="gender" value="O" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Other') echo 'checked'?>required>
 											<label class="custom-control-label" for="other">Other</label>
 											<div class="invalid-feedback">Select Gender</div>
 										</div>

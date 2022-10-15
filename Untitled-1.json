@@ -1,0 +1,64 @@
+{
+    "client": {
+      "idnumber": "30018214",
+      "pinnumber": "A123123123A",
+      "phoneno": "0712962787",
+      "firstname": "erick",
+      "middlename": "erick",
+      "lastname": "soi",
+      "gender": "M",
+      "postaladdress": "2018-00100",
+      "physicaladdress": "Kasarani",
+      "postalcode": "00100",
+      "clienttype": "I",
+      "email": "ericksoi3709@gmail.com"
+    },
+    "coverFrom": "15-Oct-2022",
+    "coverTo": "15-Nov-2022",
+    "paymentmode": "M-P",
+    "yourreference": "008/009/91",
+    "productid": "0700",
+    "agentid": "070/00018",
+    "commissionrate": 10,
+    "risks": [
+      {
+        "riskid": "kaa 123",
+        "riskdesc": "ISUZU",
+        "covtdesc": "COMPREHENSIVE",
+        "limit": 2000000,
+        "riskidentifier": 0,
+        "wefdate": "15-Oct-2022",
+        "commrate": 10,
+        "premium": 45800,
+        "certno": "",
+        "windscreen": 5000,
+        "entertainment": 3000,
+        "excessprotector": 0,
+        "politicalviolence": 0,
+        "aamembership": 0,
+        "courtesycar": 0,
+        "valueOfCar": 1000000,
+        "risknote": ""
+      }
+    ],
+    "vehicles": [
+      {
+        "vehiclemake": "ISUZU",
+        "vehiclecc": "899",
+        "vehicleyear": "2010",
+        "capacity": "5",
+        "bodytype": "IMPRESER",
+        "chasisno": "4343",
+        "engineno": "GN0098887096",
+        "color": "Yellow",
+        "logbookno": "NF00988900D",
+        "riskId": 0,
+        "covertype": "COMPREHENSIVE",
+        "suminsured": 0,
+        "tonnage": "7"
+      }
+    ],
+    "insureds": [
+  
+    ]
+  }

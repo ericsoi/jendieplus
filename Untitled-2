@@ -1,0 +1,64 @@
+{
+    "client": {
+          "idnumber": "30018214",
+          "pinnumber": "A009334654H",
+          "phoneno": "0723342234",
+          "firstname": "Kennedy",
+          "middlename": "Nyaga",
+          "lastname": "Oieno",
+          "gender": "M",
+          "postaladdress": "2018-00100",
+          "physicaladdress": "Kasarani",
+          "postalcode": "00100",
+          "clienttype": "I",
+          "email": "kennedy@gmail.com"
+        },
+        "coverFrom": "22-jan-2022",
+        "coverTo": "21-dec-2022",
+        "paymentmode": "M-P",
+        "yourreference": "008/009/91",
+        "productid":"0700",
+        "agentid": "070/00018",
+        "commissionrate": 10,
+        "risks": [
+          {
+            "riskid": "KCR 149E",
+            "riskdesc": "SUBARU",
+            "covtdesc": "COMPREHENSIVE",
+            "limit": 2000000,
+            "riskidentifier": 0,
+            "wefdate": "22-dec-2022",
+            "commrate": 10,
+            "premium": 40000,
+            "certno": "",
+            "windscreen": 30000,
+            "entertainment": 50000,
+            "excessprotector": 0,
+            "politicalviolence": 0,
+            "aamembership": 0,
+            "courtesycar": 0,
+            "valueOfCar": 1000000,
+            "risknote":""
+          }
+        ],
+        "vehicles": [
+          {
+            "vehiclemake": "SUBARU",
+            "vehiclecc": "1300",
+            "vehicleyear": "2010",
+            "capacity": "5",
+            "bodytype": "IMPRESER",
+            "chasisno": "NF00988900D",
+            "engineno": "GN0098887092",
+            "color": "GOLD",
+            "logbookno": "LOG009882",
+            "riskId": 0,
+            "covertype": "COMPREHENSIVE",
+            "suminsured": 0,
+            "tonnage": "5"
+          }
+        ],
+        "insureds": [
+       
+        ]
+}

@@ -72,7 +72,6 @@ if($total_records <= 0){
     $insert->bindParam(':client_email',$client_email);
     $insert->bindParam(':gender',$gender);
     $insert->bindParam(':poastall_address',$poastall_address);
-    $insert->bindParam(':policy_number',$policy_number);
     $insert->bindParam(':cover_from',$cover_from);
     $insert->bindParam(':cover_to',$cover_to);
     $insert->bindParam(':cert_from',$cert_from);
@@ -100,17 +99,35 @@ if($total_records <= 0){
     
     include $_SERVER['DOCUMENT_ROOT']."/transactions/stk.php";
     if ($_SESSION["message"] == 0){
-        if($insert->execute()){
-            $responce=$_SESSION["stk_callback"]->ResultDesc;
-            $_SESSION["message"]= $responce;
-            include $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/policy.php";
+        include $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/policy.php";
+        if ($apiresponce){
+            $insert->bindParam(':policy_number',$policy_number);
+            if($insert->execute()){
+                $responce=$_SESSION["stk_callback"]->ResultDesc;
+                $_SESSION["message"]= $responce;
+                include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
+                header("location: ../../gateway.php");
+            }
+        }else{
+            echo $apiresponce;
+            $_SESSION["message"] = $error;
             header("location: ../../gateway.php");
-        }      
+        }
+        //
+        
+        // if($insert->execute()){
+        //     $responce=$_SESSION["stk_callback"]->ResultDesc;
+        //     $_SESSION["message"]= $responce;
+        //     include $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/policy.php";
+        //     include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
+        //     header("location: ../../gateway.php");
+        // }      
     }else{
         header("location: ../../gateway.php");
     }
     
 }else{
+    echo "duplicate";
     $responce="Policy Exist Kindly contact your Agent";
     $_SESSION["message"] =$responce;
     header("location: ../../gateway.php");

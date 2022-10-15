@@ -82,7 +82,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     $_SESSION["stk_callback"]=$row;
                     // include "processing/handle_policy.php";
                     // include $_SERVER['DOCUMENT_ROOT']."/transactions/b2b.php";
-                    include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
+                    
                     $_SESSION["message"]=0;
                     // header("refresh:0;url=../../gateway.php");
                 }else{
