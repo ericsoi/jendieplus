@@ -105,6 +105,7 @@ if($total_records <= 0){
             if($insert->execute()){
                 $responce=$_SESSION["stk_callback"]->ResultDesc;
                 $_SESSION["message"]= $responce;
+                include $_SERVER['DOCUMENT_ROOT'].'/transactions/b2b.php';
                 include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
                 header("location: ../../gateway.php");
             }
