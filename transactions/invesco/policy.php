@@ -21,7 +21,7 @@ $confirmed_items = $_SESSION['confirmed_items'];
 $clienttype="I";
 $productid = "0700";
 $commissionrate = 10;
-$agentid='070/00018';
+$agentid='00018';
 $limit=0;$riskidentifier=0;
 $period= $client_details["coverperiod"];
 $interval = "1 years";
@@ -86,19 +86,26 @@ $todate=date_format($mydate,"d-M-Y");
 // print_r($_SESSION['cover']);
 // $covertype= $STD->proddesc; // 'THIRD PARTY ONLY' / COMPREHENSIVE;
 $covertype=strtoupper($_SESSION['cover']);
+if ($covertype  == "COMPREHENSIVE"){
+	$suminsured = $_SESSION['client_details']['sum_insured'];
+	$limit = $suminsured;
+} else{
+	$suminsured=0;
+	$limit=0;
+}
 $idnumber=$logbook['id_number']; $pinnumber=$logbook['kra_number']; $phoneno=$client_details['phone_number']; $firstname=$confirmed_items['firstname']; 
 $middlename=$confirmed_items['firstname']; $lastname=$confirmed_items['lastname']; $gender=$client_details['gender']; $postaladdress=$confirmed_items['postaladdress']; 
 $physicaladdress=$logbook['physical_address']; $postalcode=$confirmed_items['postal_code']; $clienttype=$clienttype; $email=$client_details['email'];
 $coverFrom= $fromdate; $coverTo=$todate; $paymentmode=$paymentmode; $yourreference=$client_details['referal_code'];
 $productid=$productid; $agentid=$client_details['referal_code']; $commissionrate=$commissionrate; 
-$riskid=$logbook['registration']; $riskdesc=$logbook['make']; $covtdesc=$covertype; $limit=0; $riskidentifier=$riskidentifier; 
+$riskid=$logbook['registration']; $riskdesc=$logbook['make']; $covtdesc=$covertype; $riskidentifier=$riskidentifier; 
 $commrate=$commissionrate; $premium=$_SESSION['grosspremium']; $certno=''; $windscreen=0; 
 $entertainment=0; $excessprotector=0; $politicalviolence=0; $aamembership=0; 
 $courtesycar=0; $valueOfCar=0; $risknote=''; $wefdate=$coverFrom;
 $vehiclemake=$logbook['make']; $vehiclecc=$logbook['rating']; $vehicleyear=$logbook['man_year']; $capacity=$logbook['passengers']; $bodytype=$logbook['body']; 
 $chasisno=$logbook['chasis']; $engineno=$logbook['engine_number']; $color=$logbook['color']; $logbookno=$logbook['logbook_number']; $riskId=$riskidentifier; 
-$covertype=$covertype; $suminsured=0; $tonnage=$logbook['load_capacity']; 
-$agentid = '070/00018';
+$covertype=$covertype; $tonnage=$logbook['load_capacity']; 
+$agentid = '00018';
 $data=[
       'client' => [
         'idnumber'=> $idnumber,
@@ -336,7 +343,10 @@ $data=[
     $file = fopen($filePath,'a');
     //log incoming request
     fwrite($file, $resp);
-    
+    $f=fopen($errorLog,'a');
+    fwrite($f, $data);
+    fwrite($f,'/n');
+    fclose($f);
     
     fwrite($file,"\r\n");
     //log response and close file

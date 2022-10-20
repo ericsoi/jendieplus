@@ -1,6 +1,7 @@
 <?php
     include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/auth.php';
-    $url = "http://41.84.131.13:8007/api/portal/policies/covertypes";
+	//include './auth.php';
+	$url = "http://41.84.131.13:8007/api/portal/policies/covertypes";
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -19,6 +20,7 @@
     $resp= json_decode($resp);
     $message=$resp->messages;
     $obj=$resp->object;
+    print_r($obj);
     $STD = $obj[0]; //[id] => 41 [prodshtdesc] => STD [proddesc] => STANDARD COVER
     $TPO = $obj[1]; //[id] => 86 [prodshtdesc] => TPO [proddesc] => THIRD PARTY ONLY
     $TPF = $obj[2]; //[id] => 87 [prodshtdesc] => TPF&T [proddesc] => THIRD PARTY FIRE AND THEFT 

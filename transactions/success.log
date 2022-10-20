@@ -220,3 +220,26 @@
 {"Body":{"stkCallback":{"MerchantRequestID":"98366-27096821-1","CheckoutRequestID":"ws_CO_11102022194450733743996757","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction."}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"41343-77538618-1","CheckoutRequestID":"ws_CO_11102022194950248743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"18542-688502-1","CheckoutRequestID":"ws_CO_14102022103802738722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"45435-990873-1","CheckoutRequestID":"ws_CO_19102022114411800722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"521-6804500-1","CheckoutRequestID":"ws_CO_19102022114652636743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"109147-1008971-1","CheckoutRequestID":"ws_CO_19102022114947235722301062","ResultCode":2001,"ResultDesc":"The initiator information is invalid."}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"45427-1009455-1","CheckoutRequestID":"ws_CO_19102022115102374743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"11225-2494272-1","CheckoutRequestID":"ws_CO_19102022115309440743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"12905-103077441-1","CheckoutRequestID":"ws_CO_19102022115526641743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"18551-17204961-1","CheckoutRequestID":"ws_CO_19102022120154923743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"105458-17439634-1","CheckoutRequestID":"ws_CO_19102022120654340712962787","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"45425-1582863-1","CheckoutRequestID":"ws_CO_19102022150812069743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"45436-1591875-1","CheckoutRequestID":"ws_CO_19102022151117467743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"106232-1599564-1","CheckoutRequestID":"ws_CO_19102022151715303743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"106219-1605744-1","CheckoutRequestID":"ws_CO_19102022151920648743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"68440-38149365-1","CheckoutRequestID":"ws_CO_19102022152352278743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"18561-17808667-1","CheckoutRequestID":"ws_CO_19102022152911191743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"11218-3167283-1","CheckoutRequestID":"ws_CO_19102022153336452743996757","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"45433-1663784-1","CheckoutRequestID":"ws_CO_19102022153544335743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"12895-103731380-1","CheckoutRequestID":"ws_CO_19102022154021756743996757","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction."}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"68439-38230741-1","CheckoutRequestID":"ws_CO_19102022155106990743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"4917-3038644-1","CheckoutRequestID":"ws_CO_19102022155332816743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"18546-17902483-1","CheckoutRequestID":"ws_CO_19102022160113378743996757","ResultCode":1,"ResultDesc":"The balance is insufficient for the transaction."}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"105444-18187672-1","CheckoutRequestID":"ws_CO_19102022162047027722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"18543-17985037-1","CheckoutRequestID":"ws_CO_19102022162817923722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"11217-3411758-1","CheckoutRequestID":"ws_CO_19102022165051649723775289","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}

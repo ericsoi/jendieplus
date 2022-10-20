@@ -71,7 +71,7 @@
 		$productcode= preg_replace('[ ]', '', $productcode);
 
 	}
-	echo $productcode;
+	//echo $productcode;
 function t2($val, $min, $max) {
 	return ($val >= $min && $val <= $max);
 }
