@@ -3,7 +3,7 @@
 			<div class="row">
 				<div class="col-md-3 col-sm-3">
 					<h3>Need help?</h3>
-					<a href="tel:+254722301062+254723775289" id="phone">+254723775289,  +254722301062</a>
+					<a href="tel:254723775289" id="phone">+254723775289</a>
 					<a href="mailto:info@jendieplus.co.ke" id="email_footer">info@jendieplus.co.ke</a>
 				</div>
 				<div class="col-md-2 col-sm-3">

@@ -13,6 +13,13 @@ $searchValue = $_POST['search']['value']; // Search value
 ## Custom Field value
 $searchByName = $_POST['searchByName'];
 $searchByGender = $_POST['searchByGender'];
+$searchRole = $_GET['role'];
+$searchOwner = $_GET['owner'];
+if($searchRole == "admin"){
+    $clause = "Where 1 ";
+}else{
+    $clause = "WHERE  owner='$searchOwner' ";
+}
 
 ## Search 
 $searchQuery = " ";
@@ -29,17 +36,17 @@ if($searchValue != ''){
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($con,"select count(*) as allcount from tbl_product");
+$sel = mysqli_query($con,"select count(*) as allcount from tbl_product ".$clause);
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-$sel = mysqli_query($con,"select count(*) as allcount from tbl_product WHERE 1 ".$searchQuery);
+$sel = mysqli_query($con,"select count(*) as allcount from tbl_product ". $clause  .$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-$empQuery = "select * from tbl_product WHERE 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+$empQuery = "select * from tbl_product ".$clause.$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 $empRecords = mysqli_query($con, $empQuery);
 $data = array();
 

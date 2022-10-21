@@ -12,6 +12,7 @@
             $user_agency=$user_info->agency;
             $company=$user_info->companyname;
             $clause = "WHERE  owner='$user_agency' ORDER BY time ASC";
+            $user_role = $user_info->role;
             $edit = false;
             if($user_info->role == "admin" && $user_info->is_active==1){
                 include "nav/headeradmin.php";
@@ -102,18 +103,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
+var role = "<?php echo $user_role;?>";
+var owner = "<?php echo $user_agency;?>";
 var dataTable = $('#empTable').DataTable({
     'processing': true,
     'serverSide': true,
     'serverMethod': 'post',
     //'searching': false, // Remove default Search Control
     'ajax': {
-        'url':"ajaxfile.php",
+        'url':"ajaxfile.php?role="+role+"&&owner="+owner,
         'data': function(data){
             // Read values
             var gender = $('#searchByGender').val();
             var name = $('#searchByName').val();
-
             // Append to data
             data.searchByGender = gender;
             data.searchByName = name;

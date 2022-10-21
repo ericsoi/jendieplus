@@ -53,7 +53,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-6 col-sm-6 col-xs-12">
-							<a href="tel:+254723775289" id="phone_top">+254 723 775 289, +254 722 301 062</a>
+							<a href="tel:+254723775289" id="phone_top">+254 723 775 289</a>
 						</div>
 						<div class="col-md-6 col-sm-6 hidden-xs">
 									<ul id="top_links">

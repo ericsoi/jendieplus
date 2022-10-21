@@ -222,7 +222,7 @@ if (isset($_SESSION["username"])){
                               placeholder="Excluded Vehicles" aria-label="Password" aria-describedby="password-addon" />
                       </div>
                       <div class="text-center">
-                            <button type="submit" name="btn_submit" class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-size-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-dark-gray hover:border-slate-700 hover:bg-slate-700 hover:text-white">Create</button>
+                            <button type="submit" name="btn_submit" class="inline-block w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Create</button>
                       </div>
                     </div>
                   </div>

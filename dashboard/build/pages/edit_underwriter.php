@@ -109,9 +109,9 @@
                                                 ?>
                                                     
                                                 <div class="flex-none max-w-full px-3 text-right">
-                                                <input type="button"  onclick="window.location='underwriters.php';"  class="inline-block px-2 py-1 font-bold text-right text-white align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-size-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-dark-gray hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25" value="Back"/></i>
+                                                <input type="button"  onclick="window.location='underwriters.php';"  class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" value="Back"/></i>
                                             
-                                                <button type="submit" name="submit" id="submit" class="inline-block px-2 py-1 font-bold text-right text-white align-middle transition-all bg-transparent rounded-lg cursor-pointer leading-pro text-size-xs ease-soft-in shadow-soft-md bg-150 bg-gradient-dark-gray hover:shadow-soft-xs active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25"></i>Submit </button>
+                                                <button type="submit" name="submit" id="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"></i>Submit </button>
                                                 </div> 
                                             </form>
                                         </div>
