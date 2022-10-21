@@ -1,5 +1,6 @@
 <?php
-    include './auth.php';
+    // include './auth.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/auth.php';
     $url = "http://41.84.131.13:8007/api/portal/policies/products";
 
     $curl = curl_init($url);
@@ -19,17 +20,7 @@
     $resp= json_decode($resp);
     // print_r($resp);
     $message=$resp->messages;
-    $obj=$resp->object;
-    // print_r($obj);
-    $i=0;
-    while ($i < count($obj))
-    {
-        print_r($obj[$i]);
-        echo "<br />";
-        $i++;
-    }
-    // $STD = $obj[0]; //[id] => 41 [prodshtdesc] => STD [proddesc] => STANDARD COVER
-    // $TPO = $obj[1]; //[id] => 86 [prodshtdesc] => TPO [proddesc] => THIRD PARTY ONLY
-    // $TPF = $obj[2]; //[id] => 87 [prodshtdesc] => TPF&T [proddesc] => THIRD PARTY FIRE AND THEFT 
-    // $COMP = $obj[3]; //[id] => 88 [prodshtdesc] => COMP [proddesc] => COMPREHENSIVE )
+    $product_listing=$resp->object;
+    // print_r($product_listing);
+    
 ?>

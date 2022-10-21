@@ -5,6 +5,7 @@
     }
     include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/auth.php';
     include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/covertypes.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/transactions/invesco/productlisting.php'; 
     // echo $TPO->proddesc;
     // echo $TPF->proddesc;
     // echo $COMP->proddesc;
@@ -25,32 +26,71 @@ $agentid='00018';
 $limit=0;$riskidentifier=0;
 $period= $client_details["coverperiod"];
 $interval = "1 years";
-
-switch ($client_details['vehicleclass']) {
-  case "1. Private":
-    $productid = "0701";
+$vehicleclass = explode('. ', $client_details['vehicleclass'])[0];
+switch ($vehicleclass) {
+  case "1":
+    $productid = $product_listing[15]->prodshtdesc;
     break;
-  case "1. Private":
-    $productid = "0701";
+  case "2":
+    $productid = $product_listing[15]->prodshtdesc;
   break;
-  case "1. Private":
-    $productid = "0701";
+  case "3":
+    $productid = $product_listing[15]->prodshtdesc;
     break;
-  case "1. Private":
-    $productid = "0701";
+  case "4":
+    $productid = $product_listing[15]->prodshtdesc;
   break;
-  case "1. Private":
-    $productid = "0701";
+  case "5":
+    $productid = $product_listing[15]->prodshtdesc;
     break;
-  case "1. Private":
-    $productid = "0701";
+  case "6":
+    $productid = $product_listing[15]->prodshtdesc;
     break;
-  case "1. Private":
-    $productid = "0701";
+  case "7":
+    $productid = $product_listing[15]->prodshtdesc;
     break;
-  case "1. Private":
-    $productid = "0701";
+  case "8":
+    $productid = $product_listing[15]->prodshtdesc;
     break;
+  case "9":
+    $productid = $product_listing[15]->prodshtdesc;
+      break;
+  case "10":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;
+  case "11":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;
+  case "12":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;
+  case "13":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;
+  case "14":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;
+  case "15":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;    
+  case "16":
+    $productid = $product_listing[15]->prodshtdesc;
+    break; 
+  case "17":
+    $productid = $product_listing[15]->prodshtdesc;
+    break; 
+  case "18":
+    $productid = $product_listing[15]->prodshtdesc;
+    break; 
+  case "19":
+    $productid = $product_listing[15]->prodshtdesc;
+    break; 
+  case "20":
+    $productid = $product_listing[15]->prodshtdesc;
+    break; 
+  case "21":
+    $productid = $product_listing[15]->prodshtdesc;
+    break;   
 }
 switch ($period) {
   case "1 year":
@@ -76,6 +116,8 @@ switch ($confirmed_items['payments']){
   default:
     $paymentmode="M-P";
 }
+$covertype=strtoupper($_SESSION['cover']);
+
 $mydate= date_create($confirmed_items['coverstartdate']);
 $fromdate=date_format($mydate,"d-M-Y");
 date_add($mydate,date_interval_create_from_date_string($interval));
