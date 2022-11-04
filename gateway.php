@@ -18,7 +18,7 @@
 	// $query = "SELECT Username, Password FROM geek";
       
     // // Execute the query and store the result set
-    $result = mysqli_query($connection, "SELECT * from tbl_email where underwriter like '%AIG Kenya Insurance Company Limited' and owner = '$owner'");
+    $result = mysqli_query($connection, "SELECT * from tbl_email where underwriter like '%$underwriter' and owner = '$owner'");
 	if(mysqli_num_rows($result) > 0){
 		$row = mysqli_fetch_array($result);
 		if(!filter_var($row["emailcc"], FILTER_VALIDATE_EMAIL) && filter_var($row["email"], FILTER_VALIDATE_EMAIL)){
@@ -61,7 +61,7 @@
 	// 		echo "<script> alert('Kindly wait for your agency to process your request'); <script/>";
 	// 	}
 	// }
-	print_r($_SESSION);
+	// print_r($_SESSION);
 ?>
 
 
