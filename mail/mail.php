@@ -541,7 +541,8 @@ $pdf->writeHTML($html, true, false, true, false, '');
     // Outgoing Server: mail.jendieplus.co.ke
     // SMTP Port: 465
 
-$fromemail="underwriting@iplus.co.ke";
+// $fromemail="underwriting@iplus.co.ke";
+$fromemail="underwriting@jendieplus.co.ke";
 $frompassword="8^znOPgtC&41";
 $toemail=$_SESSION["underweiter_email"];
 $CC=$_SESSION["email_cc"];
@@ -574,7 +575,8 @@ try {
     //Server settings
     //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = "host67.registrar-servers.com";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
+    // $mail->Host = "host67.registrar-servers.com";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
+    $mail->Host = "mail.jendieplus.co.ke";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
     $mail->Username = $fromemail;              // SMTP username
     $mail->Password = $frompassword;                           // SMTP password

@@ -10,8 +10,8 @@ require 'PHPMailer/src/SMTP.php';
 
 
 
-$fromemail="underwriting@iplus.co.ke";
-$frompassword="iplus@2020";
+$fromemail="underwriting@jendieplus.co.ke";
+$frompassword="8^znOPgtC&41";
 $toemail="ericksoi3709@gmail.com";
 $email = "ericksoi3709@gmail.com";
 $names = "ericksoi3709@gmail.com";
@@ -45,16 +45,17 @@ try {
     //Server settings
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
-    $mail->Host = "host67.registrar-servers.com";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
+    $mail->Host = "mail.jendieplus.co.ke";//"smtp.gmail.com";                   // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                               // Enable SMTP authentication
-    $mail->Username = "underwriting@iplus.co.ke";              // SMTP username
+    $mail->Username = "underwriting@jendieplus.co.ke";              // SMTP username
     $mail->Password = "8^znOPgtC&41";                           // SMTP password
     $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = 465;//587;                                    // TCP port to connect to
+    $mail->Port = 465;//587;  
+                                      // TCP port to connect to
 
     //Recipients
-    $mail->setFrom("underwriting@iplus.co.ke", 'IPLUS');          //This is the email your form sends From
-    $mail->addAddress("erick.soi@hotmail.com", 'IPLUS'); // Add a recipient address
+    $mail->setFrom("underwriting@jendieplus.co.ke", 'jendieplus');          //This is the email your form sends From
+    $mail->addAddress("underwriting@jendieplus.co.ke", 'jendieplus'); // Add a recipient address
     //$attachment= $pdf->Output('attachment.pdf', 'S');
 
 
