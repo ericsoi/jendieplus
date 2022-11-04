@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
     $user = "Kennedy";
     $AccountReference =  $_SESSION["logbook"]["registration"];
     if(strlen($_SESSION["gateway"]["phone"]) < 10){
-        $phone = $_SESSION["confirmed_items"]["phone"];
+        $phone = $_SESSION["confirmed_items"]["phonenumber"];
     }else{
         $phone = $_SESSION["gateway"]["phone"];
     }
@@ -66,22 +66,22 @@ if (session_status() == PHP_SESSION_NONE) {
             // echo $CheckoutRequestID;
             sleep(30);
             // include "../mail/mail.php";
-           // $sql = "SELECT * from tbl_mpesa where CheckoutRequestID = '$CheckoutRequestID'";
-           $sql = "SELECT * from tbl_mpesa where MpesaReceiptNumber = 'QJ4688A1UO'";
+           $sql = "SELECT * from tbl_mpesa where CheckoutRequestID = '$CheckoutRequestID'";
+        //    $sql = "SELECT * from tbl_mpesa where MpesaReceiptNumber = 'QJ4688A1UO'";
 
             $sql_res = mysqli_query($connection, $sql);
             $rowcount=mysqli_num_rows($sql_res);
             if ($rowcount>=1){
                 $row = mysqli_fetch_object($sql_res);
                 if($row->ResultCode == 0){
-                    
+                    include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
                     // include "../mail/mail.php";
                     // print_r($row);
                     // echo "<br>";
                     // print_r($_SESSION);
                     $_SESSION["stk_callback"]=$row;
                     // include "processing/handle_policy.php";
-                    // include $_SERVER['DOCUMENT_ROOT']."/transactions/b2b.php";
+                    include $_SERVER['DOCUMENT_ROOT']."/transactions/b2b.php";
                     
                     $_SESSION["message"]=0;
                     // header("refresh:0;url=../../gateway.php");

@@ -31,7 +31,7 @@ $phone_number=$_SESSION["confirmed_items"]["phonenumber"];
 $client_email=$_SESSION["confirmed_items"]["emailaddress"];
 $gender=$_SESSION["client_details"]["gender"];
 $poastall_address=$_SESSION["confirmed_items"]["postaladdress"];
-$policy_number=0;
+$policy_number="0";
 $cover_from=$_SESSION["logbook"]["date"];
 $date=date_create($cover_from);
 date_add($date,date_interval_create_from_date_string($cover_period));
@@ -99,21 +99,22 @@ if($total_records <= 0){
     
     include $_SERVER['DOCUMENT_ROOT']."/transactions/stk.php";
     if ($_SESSION["message"] == 0){
-        include $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/policy.php";
-        if ($apiresponce){
+        // include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
+        // include $_SERVER['DOCUMENT_ROOT']."/transactions/invesco/policy.php";
+        // if ($apiresponce){
             $insert->bindParam(':policy_number',$policy_number);
             if($insert->execute()){
                 $responce=$_SESSION["stk_callback"]->ResultDesc;
                 $_SESSION["message"]= $responce;
-                include $_SERVER['DOCUMENT_ROOT'].'/transactions/b2b.php';
-                include $_SERVER['DOCUMENT_ROOT']."/mail/mail.php";
+                // include $_SERVER['DOCUMENT_ROOT'].'/transactions/b2b.php';
+                
                 header("location: ../../gateway.php");
             }
-        }else{
-            echo $apiresponce;
-            $_SESSION["message"] = $error;
-            header("location: ../../gateway.php");
-        }
+        // }else{
+        //     echo $apiresponce;
+        //     $_SESSION["message"] = $error;
+        //     header("location: ../../gateway.php");
+        // }
         //
         
         // if($insert->execute()){

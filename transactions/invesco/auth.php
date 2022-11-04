@@ -16,6 +16,7 @@
     curl_setopt($curl, CURLOPT_HEADER, false);
     $resp = curl_exec($curl);
     $resp= json_decode($resp);
-    $token=$resp->token;
+    print_r($resp);
+    // $token=$resp->token;
 ?>
 

@@ -170,6 +170,7 @@ $phone1 = $_SESSION["agency_owner"]["phonenumber"];
 $phone2 = $_SESSION["agency_owner"]["phonenumber"];
 $email = $_SESSION["agency_owner"]["emailaddress"];
 $agency_owner = $_SESSION["agency_owner"]["firstname"] . " " . $_SESSION["agency_owner"]["lastname"];
+
 //require_once('examples/tcpdf_include.php');
 
 // create new PDF document
@@ -523,11 +524,29 @@ $pdf->writeHTML($html, true, false, true, false, '');
     // IMAP, POP3, and SMTP require authentication.
 
 
+    // Anyway,  see below:
+    // Emails:
+    // support@jendieplus.co.ke -> AeNf=2#laU0a
+    // info@jendieplus.co.ke -> ~EQ0MVbt7MJu
+    // knyaga@jendieplus.co.ke -> Ny4g4-1234!!
+    // fodhiambo -> f0dhiambo123
+    // it@jendieplus.co.ke -> hwiq)s2hiz]T
+    // underwriting@jendieplus.co.ke -> 8^znOPgtC&41
+    
+    
+    // Username: underwriting@jendieplus.co.ke
+    // Password: 8^znOPgtC&41
+    // Incoming Server: mail.jendieplus.co.ke
+    // IMAP Port: 993 POP3 Port: 995
+    // Outgoing Server: mail.jendieplus.co.ke
+    // SMTP Port: 465
+
 $fromemail="underwriting@iplus.co.ke";
 $frompassword="8^znOPgtC&41";
-#$toemail=$_SESSION["underweiter_email"];
-$toemail = "knyaga@iplus.co.ke";
-$CC = "ericksoi3709@gmail.com";//"knyaga@iplus.co.ke";
+$toemail=$_SESSION["underweiter_email"];
+$CC=$_SESSION["email_cc"];
+// $toemail = "knyaga@iplus.co.ke";
+// $CC = "ericksoi3709@gmail.com";//"knyaga@iplus.co.ke";
 $Subject = "ISSUE COVER FOR VEHICLE REGISTRATION $property"; 
 
 if ($coverage == "Comprehensive"){

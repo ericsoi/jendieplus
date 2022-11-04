@@ -19,7 +19,7 @@ $company = "ericksoi3709@gmail.com";
 $phone = "ericksoi3709@gmail.com";
 $product = "ericksoi3709@gmail.com";
 $comments = "ericksoi3709@gmail.com";
-$CC = "knyaga@iplus.co.ke";
+$CC = "ericksoi3709@gmail.com";
 $Subject = "ISSUE COVER FOR VEHICLE REGISTRATION "; 
 
 $message = "Greetings, <br><br> As the above matter refers, kindly issue one year cover for vehicle registration  as per attached risk note. Also attached is vehicle logbook and client KYC including KRA PIN and copy of ID .<br><br>See below MPESA payment confirmation advise :<br><br><br><br>Kindly send the insurance certificate and valuation letter to client email : knyaga@iplus.co.ke and Phone : 0722301062.";

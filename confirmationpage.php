@@ -6,6 +6,7 @@
 		$status=$_GET["status"];
 		echo "<script>alert('$status')</script>";	
 	}
+	
 ?>
 
 	<!-- End Header -->

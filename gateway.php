@@ -5,19 +5,63 @@
       header("refresh:0;url=./index.php");
 	}
 	$underwriter = trim($_SESSION["underwriter"]["Name"]);
-	$emailsql= "SELECT EMAIL_ADDRESS FROM tbl_underwriter where Name  like '%$underwriter'";
-	if($res = mysqli_query($connection, $emailsql)){
+	$owner=$_SESSION['client_details']["referal_code"];
+	// $emailsql= "SELECT EMAIL_ADDRESS FROM tbl_underwriter where Name  like '%$underwriter'";
+	
+	// if($res = mysqli_query($connection, $emailsql)){
 									
-		while($row = mysqli_fetch_array($res)){
-			$_SESSION["underweiter_email"] = $row["EMAIL_ADDRESS"];
+	// 	while($row = mysqli_fetch_array($res)){
+	// 		$_SESSION["underweiter_email"] = $row["EMAIL_ADDRESS"];
+	// 	}
+	// }
+
+	// $query = "SELECT Username, Password FROM geek";
+      
+    // // Execute the query and store the result set
+    $result = mysqli_query($connection, "SELECT * from tbl_email where underwriter like '%AIG Kenya Insurance Company Limited' and owner = '$owner'");
+	if(mysqli_num_rows($result) > 0){
+		$row = mysqli_fetch_array($result);
+		if(!filter_var($row["emailcc"], FILTER_VALIDATE_EMAIL) && filter_var($row["email"], FILTER_VALIDATE_EMAIL)){
+			$_SESSION["underweiter_email"] =  $row["email"];  
+			$_SESSION["email_cc"]= $row["email"];
+		}elseif(filter_var($row["emailcc"], FILTER_VALIDATE_EMAIL) && filter_var($row["email"], FILTER_VALIDATE_EMAIL)){
+			$_SESSION["underweiter_email"] =  $row["email"];  
+			$_SESSION["email_cc"]= $row["emailcc"];
+		}else{
+			$result = mysqli_query($connection,"SELECT EMAIL_ADDRESS FROM tbl_underwriter where Name  like '%$underwriter'");
+			if(mysqli_num_rows($result) > 0){
+				$row = mysqli_fetch_array($result);
+				$_SESSION["underweiter_email"] =  $row["EMAIL_ADDRESS"];  
+				$_SESSION["email_cc"]= $row["EMAIL_ADDRESS"];
+			}
+		}
+		
+	}else{
+		$result = mysqli_query($connection,"SELECT EMAIL_ADDRESS FROM tbl_underwriter where Name  like '%$underwriter'");
+		if(mysqli_num_rows($result) > 0){
+			$row = mysqli_fetch_array($result);
+			$_SESSION["underweiter_email"] =  $row["EMAIL_ADDRESS"];  
+			$_SESSION["email_cc"]= $row["EMAIL_ADDRESS"];
 		}
 	}
+        // it return number of rows in the table.
+        
+          
+    //        if ($row)
+    //           {
+    //              printf("Number of row in the table : " . $row);
+    //           }
+    //     // close the result.
+    //     mysqli_free_result($result);
+    // }
+
 	include "nav/journeyheader.php";
 	// if(isset($_POST["payments"])){
 	// 	if ($_POST["payments"] == "credit"){
 	// 		echo "<script> alert('Kindly wait for your agency to process your request'); <script/>";
 	// 	}
 	// }
+	print_r($_SESSION);
 ?>
 
 
@@ -27,6 +71,11 @@
 			<div id="animate_intro">
 				<h1>Pay Using Your Phone</h1>
 				<p>Pay using Mpesa</p>
+				<?php
+				// print_r($_SESSION);
+				echo $underwriter;
+				echo $owner;
+				?>
 			</div>
 		</div>
 	</section>
