@@ -81,7 +81,9 @@ if (session_status() == PHP_SESSION_NONE) {
                     // print_r($_SESSION);
                     $_SESSION["stk_callback"]=$row;
                     // include "processing/handle_policy.php";
-                    include $_SERVER['DOCUMENT_ROOT']."/transactions/b2b.php";
+                    if(!($_SESSION["underwriter"]["ID"] == 8 || $_SESSION["underwriter"]["ID"] == 1)){
+                        include $_SERVER['DOCUMENT_ROOT']."/transactions/b2b.php";
+                    }
                     
                     $_SESSION["message"]=0;
                     // header("refresh:0;url=../../gateway.php");

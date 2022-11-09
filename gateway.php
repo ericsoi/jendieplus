@@ -71,10 +71,13 @@
 			<div id="animate_intro">
 				<h1>Pay Using Your Phone</h1>
 				<p>Pay using Mpesa</p>
+				<p>
+					
+				</p>
 				<?php
 				// print_r($_SESSION);
 				echo $underwriter;
-				echo $owner;
+				// echo $owner;
 				?>
 			</div>
 		</div>
