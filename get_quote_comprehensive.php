@@ -142,7 +142,7 @@
 										<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 											<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 											<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-										<input type="search" class="form-control styled" id="term" name="term" <?php if(isset($_SESSION['client_details']['vehicle_make'])) echo 'value='.'"'.$_SESSION['client_details']['vehicle_make'].'"'?> placeholder="Vehicle Registrattion Number" onchange="validate_registration()" required>
+										<input type="search" class="form-control styled" id="term" name="term" <?php if(isset($_SESSION['client_details']['vehicle_make'])) echo 'value='.'"'.$_SESSION['client_details']['vehicle_make'].'"'?> placeholder="Enter Vehicle Make" onchange="validate_registration()" required>
 										<script type="text/javascript">
 										$(function() {
 											$( "#term" ).autocomplete({
@@ -291,10 +291,10 @@
 	function validate_referal(name){
 		var codes = <?php echo json_encode($code); ?>;
 		const referal_code = document.getElementById("referal_code");
-		var ira_patt = /[0-9]{5,6}[-][0-9]+[-][0-9]+|[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}|[0-9]{5,6}[-][0-9]+|[0-9]{5,6}/im;
+		var ira_patt = /[0-9]{5,6}[/][0-9]+[/][0-9]+|[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}|[0-9]{5,6}[-][0-9]+|[0-9]{5,6}/im;
 		var result = referal_code.value.match(ira_patt);
 		if(result){
-			referal_code.value = result;
+			referal_code.value = result.input;
 			if (!codes.includes(referal_code.value)){
 				referal_code.value = "";
 				referal_code.placeholder='Agent code doesnt exist, recheck or use 31212';
@@ -302,7 +302,7 @@
 			}
 		}else{
 			referal_code.value = "";
-			referal_code.placeholder='Invalid agent code: Use this format: 00000 or 00000-00';
+			referal_code.placeholder='Invalid agent code: Use this format: 00000 or 00000/00';
 		}
 		if(name.id == "yes"){
 			document.getElementById("referal_code").className ="form-control styled text-center";

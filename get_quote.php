@@ -283,11 +283,12 @@
 	}
 	function validate_referal(name){
 		var codes = <?php echo json_encode($code); ?>;
+		console.log(codes);
 		const referal_code = document.getElementById("referal_code");
-		var ira_patt = /[0-9]{5,6}[-][0-9]+[-][0-9]+|[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}|[0-9]{5,6}[-][0-9]+|[0-9]{5,6}/im;
+		var ira_patt = /[0-9]{5,6}[/][0-9]+[/][0-9]+|[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}|[0-9]{5,6}[-][0-9]+|[0-9]{5,6}/im;
 		var result = referal_code.value.match(ira_patt);
 		if(result){
-			referal_code.value = result;
+			referal_code.value = result.input;
 			if (!codes.includes(referal_code.value)){
 				referal_code.value = "";
 				referal_code.placeholder='Agent code doesnt exist, recheck or use 31212';
@@ -295,7 +296,7 @@
 			}
 		}else{
 			referal_code.value = "";
-			referal_code.placeholder='Invalid agent code: Use this format: 00000 or 00000-00';
+			referal_code.placeholder='Invalid agent code: Use this format: 00000 or 00000/00';
 		}
 		if(name.id == "yes"){
 			document.getElementById("referal_code").className ="form-control styled text-center";

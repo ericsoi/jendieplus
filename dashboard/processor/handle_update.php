@@ -1,7 +1,7 @@
 <?php
 include '../db/connect_db.php';
 session_start();
-print_r($_SESSION);
+// print_r($_SESSION);
 function nextuser($str, $position){
     $code=explode("/", $str)[0];
     $no=explode("/", $str)[$position] + 1;
@@ -65,7 +65,7 @@ function nextuser($str, $position){
             }
         }
     }elseif($_POST["code"]){
-        $agency=trim($_POST["code"]);
+        $agency=trim($_POST["code"]);$id=trim($_POST["id"]);
         // $ira_pattern = "([A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}$)";
         $agency_regex = "(^[0-9]{5}$)";
         $subagent_regex = "(^[0-9]{5}[/][0-9]+$)";
@@ -140,7 +140,7 @@ function nextuser($str, $position){
                 }
            }
         }elseif(preg_match($subagent_regex, $agency)){
-            $subagent=trim($_POST["code"]);
+            $subagent=trim($_POST["code"]);$id=trim($_POST["id"]);
             $results=query("SELECT * FROM tbl_user where role ='operator' and subagent = '$subagent' ORDER BY time_created DESC LIMIT 1");
             if ($results){
                 $code = nextuser($results->code, 2);

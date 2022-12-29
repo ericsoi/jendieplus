@@ -22,7 +22,27 @@
 		$select->execute();
 		$total_records = $select->rowCount();
 		if($total_records > 0){
-			header ("Location: ../build/pages/sign-up.php?status=duplicate");
+			$row=$select->fetch(PDO::FETCH_OBJ);
+			
+			if ($row->idnumber==Null){
+				$delete = $pdo->prepare("DELETE from tbl_user where phonenumber = '$phonenumber'");
+				$delete->execute();
+				$insert = $pdo->prepare("INSERT INTO tbl_user(firstname,lastname,phonenumber,password,is_active)values(:firstname,:lastname,:phonenumber,:password,:is_active)");
+				$insert->bindParam(':firstname',$firstname);
+				$insert->bindParam(':lastname',$lastname);
+				$insert->bindParam(':phonenumber',$phonenumber);
+				$insert->bindParam(':password',$password);
+				$insert->bindParam(':is_active',$is_active);
+				if($insert->execute()){
+					header ("Location: ../build/pages/update.php");
+				}else{
+					// print_r($insert->errorInfo());
+					header ("Location: ../build/pages/sign-up.php?status=error");
+				}
+			}else{
+				header ("Location: ../build/pages/sign-up.php?status=duplicate");
+			}
+			
 		}else{
 			$insert = $pdo->prepare("INSERT INTO tbl_user(firstname,lastname,phonenumber,password,is_active)values(:firstname,:lastname,:phonenumber,:password,:is_active)");
 			$insert->bindParam(':firstname',$firstname);
