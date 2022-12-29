@@ -29,6 +29,7 @@
     
     //execute post
     $result = curl_exec($ch);
+    print_r($result);
     echo $result;
     //$jresult = json_decode($result,true);
     //$token = $jresult['token'];
