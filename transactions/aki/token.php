@@ -1,16 +1,16 @@
 <?php
     //The url you wish to send the POST request to
-    $url = "https://uat-dmvic.azure-api.net/api/V12/Account/Login";
-    // $url = "https://api.dmvic.com/api/V1/Account/Login";        
+   // $url = "https://uat-dmvic.azure-api.net/api/V12/Account/Login";
+     $url = "https://api.dmvic.com/api/V1/Account/Login";        
     //The data you want to send via POST
-    $fields = [
-        'Username' => "iplusagency@dmvic.info",
-        'Password' => "Iplus2@20!"
-    ];
-    // $fields=[
-    //     'Username' => "iplusagencyapiuser@dmvic.com",
-    //     'Password' => "!P202!@GY"
-    // ];
+    //$fields = [
+    //    'Username' => "iplusagency@dmvic.info",
+     //   'Password' => "Iplus2@20!"
+    //];
+     $fields=[
+         'Username' => "iplusagencyapiuser@dmvic.com",
+         'Password' => "!P202!@GY"
+     ];
     //url-ify the data for the POST
     $fields_string = http_build_query($fields);
     
@@ -31,6 +31,6 @@
     // echo $result;
     $jresult = json_decode($result,true);
     $token = $jresult['token'];
-    // echo $token;
+   //echo $token;
     // echo "ddd";
 ?>

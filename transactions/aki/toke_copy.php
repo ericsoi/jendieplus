@@ -17,6 +17,6 @@ $response = curl_exec($ch);
 // $info =curl_errno($ch)>0 ? array("curl_error_".curl_errno($ch)=>curl_error($ch)) : curl_getinfo($ch);
 // print_r($info);
 curl_close($ch);
-// echo $response;
+ echo $response->token;
 
 ?>

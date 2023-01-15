@@ -14,13 +14,13 @@
     }
     switch($origin){
         // case "https://jendieplus.co.ke/":
-        case "http://iplus.co.ke/":
+        case "https://iplus.co.ke/":
             $_SESSION["client_details"]["referal_code"] = "31212";
             break;
         case "http://gatwickinsuranceconsultants.co.ke/":
             $_SESSION["client_details"]["referal_code"] = "27308";
             break;
-        case "http://gatwickinsuranceconsultants.co.ke/":
+        case "https://gatwickinsuranceconsultants.co.ke/":
             $_SESSION["client_details"]["referal_code"] = "27308";
             break;
         case "http://www.leqxer.agency/":
@@ -35,7 +35,7 @@
         default:
             $_SESSION["client_details"]["referal_code"] = "";
     }
-    // header("location: ../underwriter.php");
+    header("location: ../underwriter.php");
     //Leqxer ref code 41279
 //Gatwick ref code 27308
     

@@ -18,8 +18,8 @@
         "Authorization: Bearer".$token,
         "ClientID: ".$ClientID
     );
-    $cert = '/home/devadmin/keys/live.key';
-    $password = 'devadmin';
+    $cert = '/home/devadmin/keys/Iplusagencyprod.pfx';
+    $password = 'cVTVkrHB2B3sr9xN';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_PORT , 443);
@@ -29,8 +29,8 @@
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
     //curl_setopt($ch, CURLOPT_SSLCERT, "/etc/letsencrypt/live/jendieplus.co.ke/cert.pem");
-    curl_setopt($ch, CURLOPT_SSLCERT, $cert);
-    curl_setopt($ch, CURLOPT_SSLCERTPASSWD, $password);
+    //curl_setopt($ch, CURLOPT_SSLCERT, $cert);
+    //curl_setopt($ch, CURLOPT_SSLCERTPASSWD, $password);
     //curl_setopt($ch, CURLOPT_SSLKEYPASSWD , $password);
     //curl_setopt($ch, CURLOPT_SSLKEY, "/etc/letsencrypt/live/jendieplus.co.ke/privkey.pem");
     //curl_setopt($ch, CURLOPT_CAINFO, "/etc/letsencrypt/live/jendieplus.co.ke/chain.pem");

@@ -243,3 +243,4 @@
 {"Body":{"stkCallback":{"MerchantRequestID":"105444-18187672-1","CheckoutRequestID":"ws_CO_19102022162047027722301062","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"18543-17985037-1","CheckoutRequestID":"ws_CO_19102022162817923722301062","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}
 {"Body":{"stkCallback":{"MerchantRequestID":"11217-3411758-1","CheckoutRequestID":"ws_CO_19102022165051649723775289","ResultCode":1032,"ResultDesc":"Request cancelled by user"}}}
+{"Body":{"stkCallback":{"MerchantRequestID":"118511-174245578-1","CheckoutRequestID":"ws_CO_13012023140916942743996757","ResultCode":1037,"ResultDesc":"DS timeout user cannot be reached"}}}

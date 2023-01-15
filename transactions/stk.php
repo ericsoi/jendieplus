@@ -67,7 +67,7 @@ if (session_status() == PHP_SESSION_NONE) {
             sleep(30);
             // include "../mail/mail.php";
            $sql = "SELECT * from tbl_mpesa where CheckoutRequestID = '$CheckoutRequestID'";
-        //    $sql = "SELECT * from tbl_mpesa where MpesaReceiptNumber = 'QJ4688A1UO'";
+           //$sql = "SELECT * from tbl_mpesa where MpesaReceiptNumber = 'QJ4688A1UO'";
 
             $sql_res = mysqli_query($connection, $sql);
             $rowcount=mysqli_num_rows($sql_res);
