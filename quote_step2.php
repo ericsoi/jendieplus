@@ -174,7 +174,6 @@
 									<?php
 										
 										
-										print_r($_SESSION["future_cover"]);
 									?>
 									<div class="form-group">
 										<label>Date of Policy</label>
