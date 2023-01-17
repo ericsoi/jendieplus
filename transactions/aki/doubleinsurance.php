@@ -46,6 +46,9 @@ $info =curl_errno($curl)>0 ? array("curl_error_".curl_errno($curl)=>curl_error($
 $double_insurance = json_decode($response, true);
 $object = (object) $double_insurance;
 // print_r($object->Error);
+if (isset($_SESSION['DMVIC'])) {
+  unset($_SESSION['DMVIC']);
+}
 $_SESSION["DMVIC"] = $object;
 // if(count($error) < 1){
 //     $CoverEndDate = $object->callbackObj["DoubleInsurance"][0]["CoverEndDate"];
