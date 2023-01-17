@@ -12,7 +12,10 @@
 	<!-- End Header -->
 	</div>
 	<!-- End Header 1-->
-
+	<div id="loader">
+		<div class="loading-animation"></div>
+		<p id="loading-text">Loading...</p>
+	</div>
 	<!-- SubHeader =============================================== -->
 	<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/underwriter_page.jpg" data-natural-width="1400" data-natural-height="470">
 		<div id="sub_content_in">
@@ -177,7 +180,7 @@
 										<input type="text" class="form-control styled" id="ddd"  value="<?php echo ""?>" name="eee" placeholder="Full Name">
 									</div> -->
 									<p>
-										<input type="submit" value="Submit" class="btn_1" id="submit-contact">
+										<input type="submit" value="Submit" class="btn_1" id="submit">
 									</p>
 								</div>
 							</div>
@@ -190,6 +193,17 @@
 		</div>
 		<!-- End container -->
 	</section>
+	</script>
+		<script>
+		// Get the submit button
+		var submitButton = document.getElementById("submit");
+		// Add a click event listener to the submit button
+			submitButton.addEventListener("click", function(event) {
+			// Show the loader
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("loading-text").innerHTML = "Processing....";
+		});
+	</script>
 	<!-- End section -->
 	<?php include "nav/footer.php";?>
 	<!-- End footer -->

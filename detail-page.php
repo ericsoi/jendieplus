@@ -332,6 +332,10 @@ if($product){
 										} else {											
 											$coverextenddate = "+".$_SESSION["client_details"]["coverperiod"];
 											$EndDate->modify($coverextenddate);
+											if(isset($_SESSION["future_cover"])){
+												unset($_SESSION["future_cover"]);
+											}
+											$_SESSION["future_cover"] = $EndDate;
 											echo "<h4 style='color:red;'>Your cover with ". $MemberCompanyName ." expires on ". $enddate->format('d-m-Y')."<br>Extend cover to " . $EndDate->format('d-m-Y')." ($coverextenddate)?</h4>";
 											// echo "The date is greater than or equal to today's date.<br>" . $EndDate->format('d-m-Y') . "<br>" . $now->format('d-m-Y');
 										}

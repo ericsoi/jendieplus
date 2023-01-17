@@ -371,9 +371,9 @@
 
 
 		// Hide the loader after a few seconds
-		setTimeout(function() {
-			document.getElementById("loader").style.display = "none";
-		}, 9000);
+		// setTimeout(function() {
+		// 	document.getElementById("loader").style.display = "none";
+		// }, 9000);
 	});
 </script>
 	<?php include "chat/chat.php"?>

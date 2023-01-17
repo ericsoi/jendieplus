@@ -109,7 +109,7 @@
 						extract($row);		
 					?>
 					<div class="col-md-4 col-sm-6 wow fadeIn animated" id = "<?php echo str_replace(' ', '', $row['Name'])?>" hidden="hidden" data-wow-delay="0.2s">
-						<div class="img_wrapper" id="submit">
+						<div class="img_wrapper" id="allunderwriters">
 							<div class="img_container" style="height:233px; ">
 							 <a href="processer/handle_index.php?q=<?php echo $row['ID']?>" class="fill" id="underwriter">
 								<img src="<?php echo $row['path'] ?>" width="100%" height="100%" class="img-responsive" alt="">
@@ -349,13 +349,15 @@
 	</script>
 	<script>
 		// Get the submit button
-		var submitButton = document.getElementById("submit");
-		// Add a click event listener to the submit button
-		submitButton.addEventListener("click", function(event) {
+		let elements = document.querySelectorAll("#allunderwriters");
+		// var submitButton = document.getElementById("get_quote");
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].addEventListener("click", function(event) {
 			// Show the loader
 			document.getElementById("loader").style.display = "block";
-			document.getElementById("loading-text").innerHTML = "Validating Double insurance....";
-		});
+			document.getElementById("loading-text").innerHTML = "Processing...";
+			
+		})};
 	</script>
 	<?php include "chat/chat.php"?>
 </body>

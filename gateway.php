@@ -63,7 +63,10 @@
 	// }
 	// print_r($_SESSION);
 ?>
-
+	<div id="loader">
+		<div class="loading-animation"></div>
+		<p id="loading-text">Loading...</p>
+	</div>
 
 	<!-- SubHeader =============================================== -->
 	<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/mpesa.jpg" data-natural-width="1400" data-natural-height="470">
@@ -131,7 +134,7 @@
 							<input class="input-field" id="email" type="text" name="email" value='<?php echo $_SESSION["client_details"]["email"]?>'>
 						</div>				
 						<div class="form-group">
-							<input type="submit" value="Make Payment" class="btn_full" onclick="myFunction()">
+							<input type="submit" value="Make Payment" id="submit" class="btn_full" onclick="myFunction()">
 						</div>
 					</form>
 				</div>
@@ -216,6 +219,16 @@
 
 		countdown( "countdown", 1.5, 0 );
 
+	</script>
+	<script>
+		// Get the submit button
+		var submitButton = document.getElementById("submit");
+		// Add a click event listener to the submit button
+			submitButton.addEventListener("click", function(event) {
+			// Show the loader
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("loading-text").innerHTML = "Processing....";
+		});
 	</script>
 
 <?php include "chat/chat.php"?>
