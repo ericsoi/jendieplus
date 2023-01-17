@@ -38,6 +38,7 @@
 						<div class="row">
 							<div class="col-md-10">
 								<form class="was-validated" method="post" action="processer/handle_quote2.php" autocomplete="off" enctype="multipart/form-data">
+										
 										<div class="center">
 											<h3>Particulars</h3>
 										</div>
@@ -170,9 +171,14 @@
 										<label>Previous Registration</label>
 										<input type="text" class="form-control" name="previous_reg" <?php if(isset($_SESSION['logbook']['previous_reg'])) echo 'value='.'"'.$_SESSION['logbook']['previous_reg'].'"'?> required placeholder="Previous Registration">
 									</div>
+									<?php
+										
+										
+										print_r($_SESSION["future_cover"]);
+									?>
 									<div class="form-group">
 										<label>Date of Policy</label>
-										<input type="date" class="form-control" name="date" min="<?php echo date('Y-m-d'); ?>" <?php if(isset($_SESSION['logbook']['date'])) echo 'value='.'"'.$_SESSION['logbook']['date'].'"'; else echo 'value='.'"'.date('Y-m-d').'"'?> autofocus>
+										<input type="date" class="form-control" name="date" min="<?php echo date('Y-m-d'); ?>" <?php if(isset($_SESSION["future_cover"])){$future_date=$_SESSION["future_cover"]->format('Y-m-d'); echo 'value='.'"'.$future_date.'"';  echo "readonly";} elseif(isset($_SESSION['logbook']['date'])){echo 'value='.'"'.$_SESSION['logbook']['date'].'"';} else {echo 'value='.'"'.date('Y-m-d').'"';}?> autofocus>
 
 									</div>
 									<div class="form-group">

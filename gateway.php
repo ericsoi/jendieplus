@@ -227,7 +227,7 @@
 			submitButton.addEventListener("click", function(event) {
 			// Show the loader
 			document.getElementById("loader").style.display = "block";
-			document.getElementById("loading-text").innerHTML = "Processing....";
+			document.getElementById("loading-text").innerHTML = "Processing Mpesa Request....";
 		});
 	</script>
 
