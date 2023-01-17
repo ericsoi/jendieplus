@@ -12,6 +12,10 @@
   ?>
 
 	<!-- End Header 1-->
+	<div id="loader">
+		<div class="loading-animation"></div>
+		<p id="loading-text">Loading...</p>
+	</div>
 
 	<!-- SubHeader =============================================== -->
 	<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/description_banner.jpg" data-natural-width="1400" data-natural-height="470">
@@ -209,7 +213,7 @@
 									</div>
 									</aside>
 									<div class="">
-										<input type="submit" value="Register" class="btn_full">
+										<input type="submit" id="submit" value="Register" class="btn_full">
 									</div>
 								</div>
 							</form>
@@ -283,6 +287,16 @@
 				kra_number.placeholder='Invalid. Acceptable formats: A001234567Z';
 			}
 		}
+	</script>
+	<script>
+		// Get the submit button
+		var submitButton = document.getElementById("submit");
+		// Add a click event listener to the submit button
+		submitButton.addEventListener("click", function(event) {
+			// Show the loader
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("loading-text").innerHTML = "Uploading Doccuments....";
+		});
 	</script>
 <?php include "chat/chat.php"?>	
 </body>

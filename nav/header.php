@@ -112,6 +112,47 @@
 		</header>
 		<!-- End Header -->
 	</div>	
+<style>
+#loader {
+    display: none; /* hide the loader by default */
+    position: fixed;
+    z-index: 2147483647;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* semi-transparent white background */
+}
+
+.loading-animation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* center the animation */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #333; /* a dark grey border */
+    border-top-color: #f00; /* a red top color */
+    animation: spin 1s linear infinite; /* animation properties */
+}
+#loading-text {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* animation keyframes */
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+</style>
 </head>
 
 <body>

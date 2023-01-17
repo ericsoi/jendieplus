@@ -274,6 +274,10 @@ if($product){
 	<!-- End Header 1-->
 
 	<!-- SubHeader =============================================== -->
+	<div id="loader">
+		<div class="loading-animation"></div>
+		<p id="loading-text">Loading...</p>
+	</div>
 	<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/description_banner.jpg" data-natural-width="1400" data-natural-height="470">
 		<div id="sub_content_in">
 			<div id="animate_intro">
@@ -308,6 +312,36 @@ if($product){
 
 					<div class="tab-content container">
 						<div class="tab-pane in active" id="tab_1">
+							<div>
+								<h3>double insurance status</h3>
+								<?php
+								    $now = new DateTime();
+									if(count($_SESSION["DMVIC"]->Error)<1){
+										$CoverEndDate=$_SESSION["DMVIC"]->callbackObj["DoubleInsurance"][0]["CoverEndDate"];
+										$InsuranceCertificateNo=$_SESSION["DMVIC"]->callbackObj["DoubleInsurance"][0]["InsuranceCertificateNo"];
+										$MemberCompanyName=$_SESSION["DMVIC"]->callbackObj["DoubleInsurance"][0]["MemberCompanyName"];
+										$RegistrationNumber=$_SESSION["DMVIC"]->callbackObj["DoubleInsurance"][0]["RegistrationNumber"];
+										$ChassisNumber=$_SESSION["DMVIC"]->callbackObj["DoubleInsurance"][0]["ChassisNumber"];
+
+										$EndDate = DateTime::createFromFormat("d/m/Y H:i", $CoverEndDate);
+										$enddate=unserialize(serialize($EndDate));
+																			
+										if ($now > $EndDate) {
+											echo "<h4 style='color:green;'>Your cover with ". $MemberCompanyName ." expired on ". $enddate->format('d-m-Y')."</h4>";
+											// echo "The date is less than today's date.<br>" . $EndDate->format('d-m-Y') . "<br>" . $now->format('d-m-Y');
+										} else {											
+											$coverextenddate = "+".$_SESSION["client_details"]["coverperiod"];
+											$EndDate->modify($coverextenddate);
+											echo "<h4 style='color:red;'>Your cover with ". $MemberCompanyName ." expires on ". $enddate->format('d-m-Y')."<br>Extend cover to " . $EndDate->format('d-m-Y')." ($coverextenddate)?</h4>";
+											// echo "The date is greater than or equal to today's date.<br>" . $EndDate->format('d-m-Y') . "<br>" . $now->format('d-m-Y');
+										}
+									}else{
+										echo "<h4 style='color:green;'>No cover history</h4>";
+									}
+									// $CoverEndDate = $_SESSION["DMVIC"]["DoubleInsurance"][0]["CoverEndDate"];
+								?>
+							</div>
+							<hr>
 							<h3>Product Overview</h3>
 							<hr>
 							<div class="row">
@@ -434,7 +468,7 @@ if($product){
 								
 							</div>
 							
-							<?php if(isset($_SESSION["product"]['product_id'])){echo '<div class="form-group"><input type="submit" value="Buy now" class="btn_full"></div>';}else{echo'';}?>
+							<?php if(isset($_SESSION["product"]['product_id'])){echo '<div class="form-group"><input type="submit" value="Buy now" id="submit" class="btn_full"></div>';}else{echo'';}?>
 							
 						<hr>
 						<a href="javascript:;" class="btn_outline2"> Share Quotation</a>
@@ -685,6 +719,16 @@ if($product){
 			}
 			
 		}
+	</script>
+		<script>
+		// Get the submit button
+		var submitButton = document.getElementById("submit");
+		// Add a click event listener to the submit button
+		submitButton.addEventListener("click", function(event) {
+			// Show the loader
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("loading-text").innerHTML = "Processing....";
+		});
 	</script>
 <?php include "chat/chat.php"?>
 

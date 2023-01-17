@@ -8,7 +8,10 @@
 	include "./nav/journeyheader.php";
 ?>
 
-
+<div id="loader">
+    <div class="loading-animation"></div>
+    <p id="loading-text">Loading...</p>
+</div>
 	<!-- SubHeader =============================================== -->
 	<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/underwriter_page.jpg" data-natural-width="1400" data-natural-height="470">
 		<div id="sub_content_in">
@@ -69,7 +72,7 @@
 									
 								</ul>
 								<p>Descriptions of the Cover. </p>
-								<a href="processer/handle_underwriter.php?cover=Comprehensive" id ="get_quote" class="btn_1">Get Quote</a>
+									<a href="processer/handle_underwriter.php?cover=Comprehensive" id ="get_quote" class="btn_1">Get Quote</a>
 							</div>
 						</div>
 						
@@ -208,6 +211,19 @@
 	<script src="js/common_scripts_min.js"></script>
 	<script src="assets/validate.js"></script>
 	<script src="js/jquery.tweet.min.js"></script>
+	<script>
+		// Get the submit button
+		let elements = document.querySelectorAll("#get_quote");
+		// var submitButton = document.getElementById("get_quote");
+		for (let i = 0; i < elements.length; i++) {
+			elements[i].addEventListener("click", function(event) {
+			// Show the loader
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("loading-text").innerHTML = "Processing...";
+			
+		})};
+	</script>
+
 	<script>
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );

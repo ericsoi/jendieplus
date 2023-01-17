@@ -18,7 +18,10 @@
 	include "nav/journeyheader.php";
 	if(isset($_SESSION['client_details']['vehicleclass']))$vehicleclass=trim($_SESSION['client_details']['vehicleclass']);else$vehicleclass='';
 ?>
-
+<div id="loader">
+    <div class="loading-animation"></div>
+    <p id="loading-text">Loading...</p>
+</div>
 	<!-- SubHeader =============================================== -->
 	<section class="parallax_window_in" data-parallax="scroll" data-image-src="img/get_quote_page.jpg" data-natural-width="1400" data-natural-height="470">
 		<div id="sub_content_in">
@@ -158,7 +161,7 @@
 									<div class="col-md-4">
 										<label>Gender</label>
 										<div class="custom-control custom-radio">
-											<input type="radio" class="custom-control-input" id="male" name="gender" value="M" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Male') echo 'checked'?> required>
+											<input type="radio" class="custom-control-input" id="male" name="gender" value="M" <?php if(isset($_SESSION['client_details']['gender']) && trim($_SESSION['client_details']['gender']) == 'Male') echo 'checked'?> required checked>
 											<label class="custom-control-label" for="male">Male</label>
 										</div>
 										<div class="custom-control custom-radio">
@@ -198,7 +201,7 @@
 							</div>
 							<div class="col-md-12 col-sm-12">
 								<div class="form-group">
-									<input type="Submit" class="form-control styled btn-danger"/>
+									<input type="Submit" id="submit" class="form-control styled btn-danger"/>
 								</div>
 							</div>			
 						</form>
@@ -358,6 +361,29 @@
 		validate_referal(name);
 	}
 	</script>  
+		<script type = "text/javascript"> 
+	window.onload = function(){   
+		myFunction();
+		var name = document.getElementById("no");
+		
+		if(name.checked ==false){
+			name = document.getElementById("yes");
+		}else{
+			name = document.getElementById("no");
+		}
+		validate_referal(name);
+	}
+	</script>  
+	<script>
+		// Get the submit button
+		var submitButton = document.getElementById("submit");
+		// Add a click event listener to the submit button
+		submitButton.addEventListener("click", function(event) {
+			// Show the loader
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("loading-text").innerHTML = "Validating Double insurance. please wait....";
+		});
+	</script>
 	<?php include "chat/chat.php"?>
 
 </body>
