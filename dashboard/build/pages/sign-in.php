@@ -51,7 +51,7 @@
                                 
                                 <li>
                                     <a class="block px-4 py-2 mr-2 font-normal transition-all lg-max:opacity-0 duration-250 ease-soft-in-out text-size-sm text-slate-700 lg:px-2" href="../pages/sign-up.php">
-                                        <i class="mr-1 fas fa-user-circle opacity-60"></i> Sign Up
+                                        <i class="mr-1 fas fa-user-circle opacity-60"></i> Sign In
                                     </a>
                                 </li>
                                 
