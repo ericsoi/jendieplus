@@ -1,18 +1,16 @@
 <?php
-    session_start();
-    $Fname = "erick";#$_SESSION["name_contact"];
-    $vehicle = "KAA 222";#$_SESSION["reg_number"];
-    $email = $_SESSION["email"];
-    $underwriter = "test";$_SESSION["UNDERWRITER"];
+    @session_start();
+    $otp = $_SESSION['otp']; 
+    $recipient = $_SESSION['login_phone']; 
     $curl = curl_init();
     $main_url = "http://api.mspace.co.ke/mspaceservice/wr/sms/";
-    $my_message = "Dear $Fname, Your Motor insurance cover request for $vehicle Insured by $underwriter has been processed and digital certificate sent to $email. Thank you for choosing BimaPlus.";
+    $my_message = "$otp is your one time passcode";
     $data2 = array(
         'username' => 'IPLUS',
         'password' => 'Bulksms2611',
         'senderid' => 'IPLUS',
-        'recipient' => '254743996757',//should be a valid contact number
-        'recipient' => '254723775289',//should be a valid contact number
+        'recipient' => $recipient,//should be a valid contact number
+        // 'recipient' => '254723775289',//should be a valid contact number
         'message' => myUrlEncode($my_message)
     );
     // $subuserUrl = "subusers/" . str_replace("&","/",http_build_query($data)); //use this to get subusers

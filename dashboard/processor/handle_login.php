@@ -2,6 +2,10 @@
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
+if (isset($_SESSION['otp'])) {
+    unset($_SESSION['otp']);
+}
+
 if(isset($_POST['btn_login'])){
 	include "../db/connect_db.php";
 	$password = trim($_POST['password']);
@@ -27,7 +31,11 @@ if(isset($_POST['btn_login'])){
 				header ("Location: ../build/pages/pending/pendingoperator.php?q=".$username);
 			}			
 		}if($row->is_active == 1){
-			header ("Location: ../build/pages/dashboard.php?q=".$username);
+			$_SESSION['otp'] = rand(1000, 9999);
+			$_SESSION['login_phone'] = $username;
+			include $_SERVER['DOCUMENT_ROOT'].'/transactions/sms/sms.php';
+			header ("Location: ../build/pages/otp.php");
+			// header ("Location: ../build/pages/dashboard.php?q=".$_SESSION["username"]);
 		}
 		
 	}else{
