@@ -145,7 +145,7 @@ if (session_status() == PHP_SESSION_NONE) {
                                 <div class="col-md-3 ps-2">
                                     <label id="usernamelable" name="usernamelable">Enter Email</label>
                                     <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="email address" id="username" name="username" <?php if(isset($_SESSION["register"]["username"])) echo 'value='.'"'.$_SESSION["register"]["username"].'"'?> onchange="checkusername(id, value)" aria-label="Last Name..." required>
+                                    <input type="email" class="form-control" placeholder="email address" id="username" name="username" <?php if(isset($_SESSION["register"]["username"])) echo 'value='.'"'.$_SESSION["register"]["username"].'"'?> onchange="checkusername(id, value)" aria-label="Last Name..." required>
                                     </div>
                                 </div>
                             </div>
