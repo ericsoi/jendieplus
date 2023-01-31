@@ -14,7 +14,7 @@
             CURLOPT_SSLCERT => $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/file.pem',
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS =>'{
-                "MemberCompanyId": 18
+                "MemberCompanyId":'. $Membercompanyid .'
             }',
             CURLOPT_HTTPHEADER => array(
                     'ClientId: '.$ClientID,
@@ -27,5 +27,3 @@
     $inventory = json_decode($response, true);
     $object = (object) $inventory;
     curl_close($curl);
-    $inventory = $object->callbackObj["MemberCompanyStock"];
-    print_r($inventory);
