@@ -36,7 +36,7 @@
 			<div class="row">
 				<div class="col-sm-8">
 					
-				<span id="copy">Copyright © 2022. JendiePlus Technologies - All rights reserved</span>
+				<span id="copy">Copyright © <?php  echo date("Y");?>. JendiePlus Technologies - All rights reserved</span>
 				</div>
 				<div class="col-sm-4" id="social_footer">
 					<ul>
