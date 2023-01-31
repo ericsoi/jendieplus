@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/cred.php';
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://api.dmvic.com/api/VC3/Integration/VehicleSearch',
+		CURLOPT_URL => 'https://api.dmvic.com/api/VC3/Integration/CancelCertificate',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -15,18 +15,21 @@ curl_setopt_array($curl, array(
         CURLOPT_SSLCERT => $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/file.pem',
 		CURLOPT_CUSTOMREQUEST => 'POST',
 		CURLOPT_POSTFIELDS =>'{
-            "VehicleRegistrationNumber": "KAC040R"
+            "CertificateNumber": "B9643361",
+            "CancellationReason": "no",
+            "CertificateNumber": "C1864903"
         }',
         CURLOPT_HTTPHEADER => array(
-                'ClientId: '.$ClientID,
-                'Authorization: Bearer '.$token,
-                'Content-Type: application/json'
+            'ClientId: '.$ClientID,
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
         ),
 ));
 
 $response = curl_exec($curl);
 $results = json_decode($response, true);
-$history = (object) $results;
-// $history = $object->callbackObj["Vehicle"];
-print_r($history);
+$validate = (object) $results;
+print_r($validate);
 curl_close($curl);
+// echo $response;
+

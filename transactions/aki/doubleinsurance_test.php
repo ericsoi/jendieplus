@@ -1,15 +1,14 @@
 <?php
 @session_start();
-include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/token.php';
-include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/cred.php';
+include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/toke_test.php';
+include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/cred_test.php';
+// include '/var/www/jendieplus/transactions/aki/toke_test.php';
+// include '/var/www/jendieplus/transactions/aki/cred_test.php';
 $today = date("d/m/Y");
 $datetime = DateTime::createFromFormat("d/m/Y", $today);
 $datetime->modify('+1 year');
 $new_date = $datetime->format("d/m/Y");
-$vehicle_reg = $_SESSION["client_details"]['vehicle_reg'];
-if(isset($vehiclereg)){
-  $vehicle_reg =  $vehiclereg;
-}
+// $vehicle_reg = $_SESSION["client_details"]['vehicle_reg'];
 $curl = curl_init();
 curl_setopt_array($curl, array(
   CURLOPT_URL => 'https://api.dmvic.com/api/VC3/Integration/ValidateDoubleInsurance',
@@ -24,18 +23,18 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'POST',
   CURLOPT_SSL_VERIFYHOST => 2,
-//   CURLOPT_POSTFIELDS =>'{
-//     "policystartdate":"13/01/2023",
-//     "policyenddate":"12/02/2023",
-//     "vehicleregistrationnumber":"KCW543Q",
-//     "chassisnumber":"DE3FS-529014"
-//   }',
   CURLOPT_POSTFIELDS =>'{
-    "policystartdate":"'.$today.'",
-    "policyenddate":"'.$new_date.'",
-    "vehicleregistrationnumber":"'.$vehicle_reg.'",
-    "chassisnumber":"DE3FS-529014yuiuiyy"
+    "policystartdate":"11/06/2020",
+    "policyenddate":"10/07/2020",
+    "vehicleregistrationnumber":"KUL1457",
+    "chassisnumber":"4455425KGSD"
   }',
+  // CURLOPT_POSTFIELDS =>'{
+  //   "policystartdate":"'.$today.'",
+  //   "policyenddate":"'.$new_date.'",
+  //   "vehicleregistrationnumber":"'.$vehicle_reg.'",
+  //   "chassisnumber":"DE3FS-529014yuiuiyy"
+  // }',
   CURLOPT_HTTPHEADER => array(
     "ClientID: $ClientID",
     "Authorization: Bearer $token",
@@ -48,11 +47,11 @@ $info =curl_errno($curl)>0 ? array("curl_error_".curl_errno($curl)=>curl_error($
 // print_r($info);
 $double_insurance = json_decode($response, true);
 $object = (object) $double_insurance;
-// print_r($object->Error);
-if (isset($_SESSION['DMVIC'])) {
-  unset($_SESSION['DMVIC']);
-}
-$_SESSION["DMVIC"] = $object;
+print_r($object);
+// if (isset($_SESSION['DMVIC'])) {
+//   unset($_SESSION['DMVIC']);
+// }
+// $_SESSION["DMVIC"] = $object;
 // if(count($error) < 1){
 //     $CoverEndDate = $object->callbackObj["DoubleInsurance"][0]["CoverEndDate"];
 //     $InsuranceCertificateNo = $object->callbackObj["DoubleInsurance"][0]["InsuranceCertificateNo"];

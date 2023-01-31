@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/cred.php';
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://api.dmvic.com/api/VC3/Integration/VehicleSearch',
+		CURLOPT_URL => 'https://api.dmvic.com/api/VC3/Integration/IntermediaryStock',
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -15,18 +15,19 @@ curl_setopt_array($curl, array(
         CURLOPT_SSLCERT => $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/file.pem',
 		CURLOPT_CUSTOMREQUEST => 'POST',
 		CURLOPT_POSTFIELDS =>'{
-            "VehicleRegistrationNumber": "KAC040R"
+            "IntermediaryIRANumbers": [
+            "IRA/05/31212/2022"
+            ]
         }',
         CURLOPT_HTTPHEADER => array(
-                'ClientId: '.$ClientID,
-                'Authorization: Bearer '.$token,
-                'Content-Type: application/json'
+            'ClientId: '.$ClientID,
+            'Authorization: Bearer '.$token,
+            'Content-Type: application/json'
         ),
 ));
 
 $response = curl_exec($curl);
 $results = json_decode($response, true);
-$history = (object) $results;
-// $history = $object->callbackObj["Vehicle"];
-print_r($history);
+$stock = (object) $results;
 curl_close($curl);
+print_r($stock);

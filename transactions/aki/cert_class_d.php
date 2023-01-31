@@ -1,61 +1,58 @@
 <?php
-    session_start();
-    
-    include "token.php";
-    include "cred.php";
-    //The url you wish to send the POST request to
-    $url = "https://uat-dmvic.azure-api.net/api/V1/IntermediaryIntegration/IssuanceTypeACertificate";
-            
-    //The data you want to send via POST
-    $fields = [
-        "IntermediaryIRANumber"       => $_SESSION["IntermediaryIRANumber"],
-        "TypeOfCertificate"           => $_SESSION["TypeOfCertificate"],
-        "Typeofcover"                 => $_SESSION["Typeofcover"],
-        "Policyholder"                => $_SESSION["Policyholder"],
-        "policynumber"                => $_SESSION["policynumber"],
-        "Commencingdate"              => $_SESSION["Commencingdate"],
-        "Expiringdate"                => $_SESSION["Expiringdate"],
-        "Registrationnumber"          => $_SESSION["Registrationnumber"],
-        "Chassisnumber"               => $_SESSION["Chassisnumber"],
-        "Phonenumber"                 => $_SESSION["Phonenumber"],
-        "Bodytype"                    => $_SESSION["Bodytype"],
-        "Licensedtocarry"             => $_SESSION["Licensedtocarry"],
-        "Tonnage"                     => $_SESSION["Tonnage"],
-        "Vehiclemake"                 => $_SESSION["Vehiclemake"],
-        "Vehiclemodel"                => $_SESSION["Vehiclemodel"],
-        "Enginenumber"                => $_SESSION["Enginenumber"],
-        "Email"                       => $_SESSION["Email"],
-        "SumInsured"                  => $_SESSION["SumInsured"],
-        "InsuredPIN"                  => $_SESSION["InsuredPIN"],
-        "Yearofmanufacture"           => $_SESSION["Yearofmanufacture"],
-        "HudumaNumber"                => $_SESSION["HudumaNumber"]
-    ];
+@session_start();
+include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/token.php';
+include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/cred.php';
+$today = date("d/m/Y");
+$datetime = DateTime::createFromFormat("d/m/Y", $today);
+$datetime->modify('+1 year');
+$new_date = $datetime->format("d/m/Y");
+$vehicle_reg = $_SESSION["client_details"]['vehicle_reg'];
+$curl = curl_init();
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.dmvic.com/api/VC3/IntermediaryIntegration/IssuanceTypeDCertificate ',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_SSLCERTTYPE => "PEM",
+  CURLOPT_SSLCERT => $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/file.pem',
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_SSL_VERIFYHOST => 2,
 
+  CURLOPT_POSTFIELDS =>'{
+    "Membercompanyid":11,
+    "TypeOfCertificate": 4,
+    "Typeofcover": 100,
+    "Policyholder": "SA",
+    "policynumber": "SAPOL123",
+    "Commencingdate": "01/01/2019",
+    "Expiringdate": "08/08/2019",
+    "Registrationnumber": "KPL343Q",
+    "Chassisnumber": "JIT123DFREW12123",
+    "Phonenumber": "789789789",
+    "Bodytype": "BT",
+    "Licensedtocarry": 9,
+    "Tonnage": 10,
+    "Vehiclemake": "AUDI",
+    "Vehiclemodel": "AUDI",
+    "Enginenumber": "ENG123",
+    "Email": "xxxxxxxxx@dmvic.info",
+    "SumInsured": 100000,
+    "InsuredPIN": "A123456789A",
+    "Yearofmanufacture": 2019,
+    "HudumaNumber": "123456789012"
+  }',
+  CURLOPT_HTTPHEADER => array(
+    "ClientID: $ClientID",
+    "Authorization: Bearer $token",
+    'Content-Type: application/json'
+  ),
+));
 
-
-
-    //url-ify the data for the POST
-    $fields_string = http_build_query($fields);
-    
-    //open connection
-    $ch = curl_init();
-
-    //set the url, number of POST vars, POST data
-    $headers = array(
-        "Authorization: Bearer".$token,
-        "ClientID: ".$ClientID,
-    );
-    curl_setopt($ch,CURLOPT_HTTPHEADER, $headers); //setting a custom header
-    curl_setopt($ch,CURLOPT_URL, $url);
-    curl_setopt($ch,CURLOPT_POST, true);
-    curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
-    
-    //So that curl_exec returns the contents of the cURL; rather than echoing it
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
-    
-    //execute post
-    $result = curl_exec($ch);
-    echo $result;
-    //$jresult = json_decode($result,true);
-    //$token = $jresult['token'];
-?>
+$response = curl_exec($curl);
+$info =curl_errno($curl)>0 ? array("curl_error_".curl_errno($curl)=>curl_error($curl)) : curl_getinfo($curl);
+// print_r($info);
+$double_insurance = json_decode($response, true);
+$object = (object) $double_insurance;
