@@ -20,7 +20,7 @@
         $start_from=($page-1)*05;
         if($user){
             $user_info=$user;
-            $clause = "WHERE ResultCode='0' and Amount > 1";
+            $clause = "WHERE ResultCode='0' and Amount > 1 order by TransactionDate desc";
             if($user_info->role == "admin" && $user_info->is_active==1){
                 include "nav/headeradmin.php";
             }elseif($user_info->role == "agency" && $user_info->is_active==1){
