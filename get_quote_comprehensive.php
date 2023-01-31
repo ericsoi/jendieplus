@@ -381,7 +381,7 @@
 		submitButton.addEventListener("click", function(event) {
 			// Show the loader
 			document.getElementById("loader").style.display = "block";
-			document.getElementById("loading-text").innerHTML = "Validating Double insurance. please wait....";
+			document.getElementById("loading-text").innerHTML = "Generating quote....";
 		});
 	</script>
 	<?php include "chat/chat.php"?>

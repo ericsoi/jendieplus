@@ -154,7 +154,7 @@
 					while($row = $select->fetch(PDO::FETCH_ASSOC)){
 						extract($row);		
 					?>
-					<div class="col-md-4 col-sm-6 wow fadeIn animated" data-wow-delay="0.2s">
+					<div class="col-md-4 col-sm-6 wow fadeIn animated" id="allunderwriters" data-wow-delay="0.2s">
 						<div class="img_wrapper">
 							<div class="img_container" style="height:233px;">
 							 <a href="processer/handle_index.php?q=<?php echo $row['ID']?>">

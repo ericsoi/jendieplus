@@ -364,7 +364,7 @@
 	submitButton.addEventListener("click", function(event) {
 		// Show the loader
 		document.getElementById("loader").style.display = "block";
-		document.getElementById("loading-text").innerHTML = "Validating Double insurance. please wait....";
+		document.getElementById("loading-text").innerHTML = "Generating quote....";
 		// Prevent the form from submitting
 
 		// Add code here to process the form input
