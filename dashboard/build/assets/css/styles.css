@@ -1135,9 +1135,9 @@ h6 {
   height: 1px;
 }
 
-/* .h-sidenav {
+.h-sidenav {
   height: calc(100vh - 305px);
-} */
+}
 
 .h-8 {
   height: 2rem;
@@ -4002,9 +4002,9 @@ h6 {
             animation: fade-up 1.5s both;
   }
 
-  .xl\:bg-transparent {
+  /* .xl\:bg-transparent {
     background-color: transparent;
-  }
+  } */
 
   .xl\:bg-white {
     --tw-bg-opacity: 1;
