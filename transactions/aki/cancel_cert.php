@@ -28,8 +28,12 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 $results = json_decode($response, true);
-$validate = (object) $results;
-print_r($validate);
+$object = (object) $results;
 curl_close($curl);
 // echo $response;
 
+// CURLOPT_POSTFIELDS =>'{
+//     "VehicleRegistrationnumber": "KMGH751L",
+//     "Chassisnumber": "MD2B15BXXNWD93861",
+//     "CertificateNumber": "D4681574"
+// }',

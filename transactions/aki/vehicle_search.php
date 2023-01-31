@@ -15,7 +15,7 @@ curl_setopt_array($curl, array(
         CURLOPT_SSLCERT => $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/file.pem',
 		CURLOPT_CUSTOMREQUEST => 'POST',
 		CURLOPT_POSTFIELDS =>'{
-            "VehicleRegistrationNumber": "KAC040R"
+            "VehicleRegistrationNumber": "'.$RegNo.'",
         }',
         CURLOPT_HTTPHEADER => array(
                 'ClientId: '.$ClientID,
@@ -26,7 +26,6 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 $results = json_decode($response, true);
-$history = (object) $results;
+$object = (object) $results;
 // $history = $object->callbackObj["Vehicle"];
-print_r($history);
 curl_close($curl);
