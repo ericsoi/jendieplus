@@ -107,7 +107,7 @@
                                                 }
                                                 $count++;
                                                 ?>
-                                            <tr <?php echo $count%2==0? "class='bg-gray-100 border-b'":"class='bg-blue-100 border-b'"?> data-toggle="collapse" data-target="#<?php echo $row['id']?>" data-bs-toggle="tooltip" data-bs-placement="right" title="click to view more details">
+                                            <tr <?php echo $count%2==0? "class='bg-gray-100 border-b'":"class='bg-blue-100 border-b'"?> data-toggle="collapse" data-target="#<?php echo $row['ID']?>" data-bs-toggle="tooltip" data-bs-placement="right" title="click to view more details">
                                                 
                                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                     <p class="mb-0 font-semibold leading-tight text-size-xs"><?php echo $count . '&nbsp&nbsp&nbsp' . $row['PhoneNumber']; ;?></p>
