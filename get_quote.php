@@ -168,7 +168,9 @@
 									</div>
 								</div>
 								<div class="col-md-6 col-sm-6">
-								<label>Have an agent code?: </label>
+									<?php if(!isset($_SESSION['client_details']['referal_code']) || !$_SESSION['client_details']['referal_code']){
+										?>
+									<label>Have an agent code?: </label>
 									<div class="custom-control custom-radio">
 										<input type="radio" class="custom-control-input" value="yes" id="yes" name="agent_code" checked required onchange="validate_referal(this)">
 										<label class="custom-control-label" for="yes">Yes</label>
@@ -178,8 +180,14 @@
 										<label class="custom-control-label" for="no">No</label>
 										<div class="invalid-feedback"></div>
 									</div>
+									<?php
+									}
+									?>
 									<div class="form-group">
-										<input type="text" class="form-control styled text-center" <?php if(isset($_SESSION['client_details']['referal_code'])) echo 'value='.'"'.$_SESSION['client_details']['referal_code'].'"';?> name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal(this)" required>
+										<input type="text" class="form-control styled text-center" <?php 
+											if(isset($_SESSION['client_details']['referal_code']) && !empty($_SESSION['client_details']['referal_code'])){
+												echo 'value='.'"'.$_SESSION['client_details']['referal_code'].'"'.' readonly';
+										}?> name="referal_code" id="referal_code" placeholder="Enter refaral code" onchange="validate_referal(this)" required>
 										<div class="invalid-feedback"> contact <?php echo $_SESSION["origin"]?>'s owner</div>
 
 									</div>
