@@ -13,8 +13,8 @@
     $email = $_GET["email"];
     $vehicle_reg = $_GET["vehicle_reg"];
     $referal_code = $_GET["referal_code"];
-    print_r($_SESSION);
-    // include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/doubleinsurance.php';
+   
+     include $_SERVER['DOCUMENT_ROOT'].'/transactions/aki/doubleinsurance.php';
     
-    // header("location: ../detail-page.php");
+     header("location: ../detail-page.php");
 ?>
