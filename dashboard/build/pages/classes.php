@@ -56,6 +56,7 @@
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">CertTypeNumber</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">CertTypeClass</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">CoverTypeNumber</th>
+                                            <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">CoverType</th>
                                             <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Action</th>
 
                                         </tr>
@@ -85,6 +86,9 @@
                                             </td>
                                             <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-size-sm whitespace-nowrap shadow-transparent">
                                                 <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $classes[$key]->CoverTypeNumber?></p>
+                                            </td>
+                                            <td class="p-2 leading-normal text-center align-middle bg-transparent border-b text-size-sm whitespace-nowrap shadow-transparent">
+                                                <p class="mb-0 leading-tight text-size-xs text-slate-400"><?php echo $classes[$key]->CoverType?></p>
                                             </td>
                                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                                 <a href="edit_class.php?id=<?php echo $classes[$key]->ID;?>" class="font-semibold leading-tight text-size-xs text-slate-400"> Edit </a>

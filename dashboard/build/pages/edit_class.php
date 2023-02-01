@@ -14,7 +14,8 @@
                 if(isset($_POST["submit"])){
                     $column_name = $_POST["column"];
                     $new_value = $_POST["value"];
-                    $update = $pdo->prepare("UPDATE tbl_vehicleclass SET $column_name = '$new_value' WHERE ID = $id");
+                    $covertype = $_POST["covertype"];
+                    $update = $pdo->prepare("UPDATE tbl_vehicleclass SET $column_name = '$new_value', CoverType='$covertype' WHERE ID = $id");
                     $update->execute();
                     
                 }
@@ -40,7 +41,9 @@
 
         <div class="w-full px-6 py-6 mx-auto">
             <!-- content -->
-
+<!-- COMP
+TPO
+TPTF -->
             
                   
                         <div class="max-w-full px-3 mb-4 lg:mb-0 lg:w-full lg:flex-none">
@@ -81,6 +84,27 @@
                                                             <option value="CoverTypeNumber" selected>CoverTypeNumber</option>
                                                             <option value="CertTypeClass">CertTypeClass</option>
                                                             <option value="CertTypeNumber">CertTypeNumber</option>
+                                                    </select>
+
+                                                    <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">select cover type</label>
+                                                    <select name="covertype" class="form-select appearance-none
+                                                        block
+                                                        w-full
+                                                        px-3
+                                                        py-1.5
+                                                        text-base
+                                                        font-normal
+                                                        text-gray-700
+                                                        bg-white bg-clip-padding bg-no-repeat
+                                                        border border-solid border-gray-300
+                                                        rounded
+                                                        transition
+                                                        ease-in-out
+                                                        m-0
+                                                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example">
+                                                            <option value="COMP" selected>COMP</option>
+                                                            <option value="TPO">TPO</option>
+                                                            <option value="TPTF">TPTF</option>
                                                     </select>
                                                     
                                                     <label class="mb-2 ml-1 font-bold text-size-xs text-slate-700">Enter Value</label>
