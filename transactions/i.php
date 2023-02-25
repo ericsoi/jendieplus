@@ -1,6 +1,0 @@
-<?php
-$result = '{"Result":{"ResultType":0,"ResultCode":0,"ResultDesc":"The service request is processed successfully.","OriginatorConversationID":"16249-43937157-1","ConversationID":"AG_20220930_20104bb577ebe5d247d3","TransactionID":"QIU1Y4VSUT","ResultParameters":{"ResultParameter":[{"Key":"DebitPartyCharges","Value":"Disbursement of Funds Charge|KES|0.00&Disbursement of Funds Charge by Receiver|KES|0.00"},{"Key":"CreditAccountBalance","Value":"Working Account|KES|1498910.80|1498910.80|0.00|0.00&Charges Paid Account|KES|742.00|742.00|0.00|0.00"},{"Key":"CreditPartyPublicName","Value":"509800 - DIRECTLINE ASSURANCE CO. LTD"},{"Key":"DebitAccountCurrentBalance","Value":"{Amount={CurrencyCode=KES, MinimumAmount=21800, BasicAmount=218.00}}"},{"Key":"DebitPartyPublicName","Value":"7290377 - Iplus Insurance Agency Limited"},{"Key":"TransCompletedTime","Value":20220930161302}]},"ReferenceData":{"ReferenceItem":[{"Key":"QueueTimeoutURL","Value":"http:\/\/internalapi.safaricom.co.ke\/mpesa\/b2bresults\/v1\/submit"},{"Key":"Occassion"}]}}}';
-$jdata = json_decode($result,true);
-print_r($jdata);
-echo count($jdata);
-?>
