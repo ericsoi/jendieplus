@@ -1,7 +1,0 @@
-Username:	underwriting@iplus.co.ke
-Password:	8^znOPgtC&41
-Incoming Server:	host67.registrar-servers.com
-IMAP Port: 993 POP3 Port: 995
-Outgoing Server:	host67.registrar-servers.com
-SMTP Port: 465
-IMAP, POP3, and SMTP require authentication.
